@@ -15,7 +15,6 @@ public class enemy : MonoBehaviour
 
     private List<Node> path;
     private int targetIndex;
-    public float hp;
 
     [System.Obsolete]
     private void Start()
@@ -49,14 +48,6 @@ public class enemy : MonoBehaviour
 
         Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
-    }
-     public void TakeDamage(float dmg)
-    {
-        hp -= dmg;
-        if (hp < 1)
-        {
-            Destroy(gameObject);
-        }
     }
 }
 
