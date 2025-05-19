@@ -80,19 +80,19 @@ public class PathGrid : MonoBehaviour
     }
 
 //lets u see the grid
-private void OnDrawGizmos()
-{
-    Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+//private void OnDrawGizmos()
+//{
+//    Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-    if (grid != null)
-    {
-        foreach (Node n in grid)
-        {
-            Gizmos.color = (n.walkable) ? Color.white : Color.red;
-            Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter * 0.9f));
-        }
-    }
-}
+//    if (grid != null)
+//    {
+//        foreach (Node n in grid)
+//        {
+//            Gizmos.color = (n.walkable) ? Color.white : Color.red;
+//            Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter * 0.9f));
+//        }
+//    }
+//}
 }
 
 
