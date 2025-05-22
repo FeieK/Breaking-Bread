@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class ProjectileGun : MonoBehaviour
 
     //bullet Force
     public float shootForce;
-    public float upwardForce;
 
     //Gun Stats
     public float timeBetweenShooting;
@@ -43,6 +43,7 @@ public class ProjectileGun : MonoBehaviour
     private void Update()
     {
         MyInput();
+        Flip();
     }
 
     private void MyInput()
@@ -81,9 +82,7 @@ public class ProjectileGun : MonoBehaviour
     {
         readyToShoot = false;
 
-
-        Vector3 targetPoint;
-        targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.Log(targetPoint);
 
         //Calculate direction from attackpoint to targetpoint
@@ -134,6 +133,25 @@ public class ProjectileGun : MonoBehaviour
     {
         bulletsLeft = magSize;
         reloading = false;
+    }
+
+    private void Flip()
+    {
+
+        Transform parent = this.transform.parent;
+        Transform parentsParent = parent.parent;
+        SpriteRenderer spriteRend = GetComponent<SpriteRenderer>();
+
+        if (parentsParent.rotation.z > 0.7f || parentsParent.rotation.z < -0.7f)
+        {
+            spriteRend.flipX = true;
+            spriteRend.flipY = true;
+        }
+        else
+        {
+            spriteRend.flipX = false;
+            spriteRend.flipY = false;
+        }
     }
 
 }

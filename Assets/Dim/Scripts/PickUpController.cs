@@ -4,7 +4,6 @@ public class PickUpController : MonoBehaviour
 {
     public ProjectileGun gunScript;
     public Rigidbody2D rb;
-    public BoxCollider2D coll;
     public Transform player;
     public Transform gunContainer;
 
@@ -19,13 +18,11 @@ public class PickUpController : MonoBehaviour
         {
             gunScript.enabled = false;
             rb.bodyType = RigidbodyType2D.Dynamic;
-            coll.isTrigger = false;
         }
         else if (equipped)
         {
             gunScript.enabled = true;
             rb.bodyType = RigidbodyType2D.Kinematic;
-            coll.isTrigger = true;
         }
 
     }
@@ -62,7 +59,6 @@ public class PickUpController : MonoBehaviour
 
         //Make RigidBody kinematic and BoxCollider a trigger
         rb.bodyType = RigidbodyType2D.Kinematic;
-        coll.isTrigger = true;
     }
 
     private void Drop()
@@ -78,9 +74,8 @@ public class PickUpController : MonoBehaviour
 
         //Make RigidBody not kinematic and BoxCollider normal
         rb.bodyType = RigidbodyType2D.Dynamic;
-        coll.isTrigger = false;
 
         //gun carries momentum of player
-        rb.linearVelocity = player.GetComponent<Rigidbody>().linearVelocity;
+        rb.linearVelocity = player.GetComponent<Rigidbody2D>().linearVelocity;
     }
 }
