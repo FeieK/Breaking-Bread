@@ -5,7 +5,7 @@ public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
 
-    public List<Node> lastPath;
+    private List<Node> lastPath;
 
 
     public List<Node> FindPath(Vector2 startPos, Vector2 targetPos)
@@ -34,10 +34,7 @@ public class Pathfinding : MonoBehaviour
 
             if (currentNode == targetNode)
             {
-                lastPath = RetracePath(startNode, targetNode);
-                return lastPath;
-                //to see path else 
-                //return RetracePath(startNode, targetNode);
+                return RetracePath(startNode, targetNode);
             }
             // Checks walkable neighbors
             foreach (Node neighbor in grid.GetNeighbors(currentNode))
@@ -86,23 +83,5 @@ public class Pathfinding : MonoBehaviour
         if (distX > distY)
             return 14 * distY + 10 * (distX - distY);
         return 14 * distX + 10 * (distY - distX);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (lastPath != null)
-        {
-            for (int i = 0; i < lastPath.Count; i++)
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawCube(lastPath[i].worldPosition, Vector3.one * (grid.nodeDiameter * 0.9f));
-
-                if (i > 0)
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawLine(lastPath[i - 1].worldPosition, lastPath[i].worldPosition);
-                }
-            }
-        }
     }
 }

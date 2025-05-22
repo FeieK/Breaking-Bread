@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathGrid : MonoBehaviour
 {
     public LayerMask obstacleMask;
-    public Vector2 gridWorldSize;
+    private Vector2 gridWorldSize;
     public float nodeRadius;
     Node[,] grid;
 
@@ -17,22 +17,30 @@ public class PathGrid : MonoBehaviour
     public int EnemySpawns;
     
     public bool showGrid = false;
-    
-    public GameObject wall;
+
+    public List<obj> wall;
     public GameObject door;
-    public List<GameObject> Object;
+    public List<obj> objects;
     public List<GameObject> Enemy;
     public GameObject Player;
 
 
-    private void Awake()
+    private void OnEnable()
     {
+        gridWorldSize = new Vector2(Random.Range(20, 51), Random.Range(20, 51));
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
         PlaceObjects();
         UpdateWalkableNodes();
+    }
+    private void OnDisable()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     // Creates the grid
@@ -54,10 +62,19 @@ public class PathGrid : MonoBehaviour
 
     void PlaceObjects()
     {
-        Vector2Int doorPosition = new Vector2Int(gridSizeX / 2, 0);
+        Vector2Int doorPosition = GetDoorPosition(gridSizeX, gridSizeY);
         List<Node> candidateNodes = new List<Node>();
 
+        PlaceWallsAndDoor(doorPosition, candidateNodes);
+        if (candidateNodes.Count == 0) return;
 
+        SpawnPlayer(candidateNodes);
+        SpawnObjects(candidateNodes);
+        SpawnEnemies(candidateNodes);
+    }
+
+    void PlaceWallsAndDoor(Vector2Int doorPosition, List<Node> candidateNodes)
+    {
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
@@ -68,57 +85,146 @@ public class PathGrid : MonoBehaviour
                 {
                     if (x == doorPosition.x && y == doorPosition.y)
                     {
-                        Instantiate(door, node.worldPosition, Quaternion.identity);
+                        Instantiate(door, node.worldPosition, Quaternion.identity, transform);
                     }
                     else
                     {
-                        Instantiate(wall, node.worldPosition, Quaternion.identity);
+                        obj wallObj = wall[Random.Range(0, wall.Count)];
+                        Quaternion rotation = Quaternion.identity;
+
+                        if (y == 0)
+                            rotation = Quaternion.Euler(0, 0, 0);
+                        else if (x == gridSizeX - 1)
+                            rotation = Quaternion.Euler(0, 0, 90);
+                        else if (y == gridSizeY - 1)
+                            rotation = Quaternion.Euler(0, 0, 180);
+                        else if (x == 0)
+                            rotation = Quaternion.Euler(0, 0, 270);
+
+                        Instantiate(wallObj.prefab, node.worldPosition, rotation, transform);
+                        node.walkable = false;
                     }
+
                 }
-                else
+                else if (node.walkable)
                 {
-                    if (node.walkable)
-                    {
-                        candidateNodes.Add(node); // Stores it for other placements
-                    }
+                    candidateNodes.Add(node);
                 }
             }
-        }
-
-        if (candidateNodes.Count > 0)
-        {
-            //spawns player
-            int playerIndex = Random.Range(0, candidateNodes.Count);
-            Node playerNode = candidateNodes[playerIndex];
-            candidateNodes.RemoveAt(playerIndex);
-            Instantiate(Player, playerNode.worldPosition, Quaternion.identity);
-
-            //spawns objects
-            Node randomNode = candidateNodes[Random.Range(0, candidateNodes.Count)];
-            int placeCount = Mathf.Min(Object.Count, candidateNodes.Count);
-            for (int i = 0; i < placeCount; i++)
-            {
-                int index = Random.Range(0, candidateNodes.Count);
-                Node chosen = candidateNodes[index];
-                candidateNodes.RemoveAt(index);
-
-                GameObject randomPrefab = Object[Random.Range(0, Object.Count)];
-                Instantiate(randomPrefab, chosen.worldPosition, Quaternion.identity);
-            }
-
-            //spawns enemy
-            for (int i = 0; i < EnemySpawns && candidateNodes.Count > 0; i++)
-            {
-                int enemyIndex = Random.Range(0, candidateNodes.Count);
-                Node enemyNode = candidateNodes[enemyIndex];
-                candidateNodes.RemoveAt(enemyIndex);
-
-                GameObject enemyPrefab = Enemy[Random.Range(0, Enemy.Count)];
-                Instantiate(enemyPrefab, enemyNode.worldPosition, Quaternion.identity);
-            }
-
         }
     }
+
+    void SpawnPlayer(List<Node> candidateNodes)
+    {
+        int index = Random.Range(0, candidateNodes.Count);
+        Node node = candidateNodes[index];
+        candidateNodes.RemoveAt(index);
+        Instantiate(Player, node.worldPosition, Quaternion.identity, transform);
+    }
+
+    void SpawnObjects(List<Node> candidateNodes)
+    {
+        int attempts = 100;
+        int spawned = 0;
+
+        while (spawned < objects.Count && candidateNodes.Count > 0 && attempts-- > 0)
+        {
+            obj toSpawn = objects[Random.Range(0, objects.Count)];
+            Node baseNode = candidateNodes[Random.Range(0, candidateNodes.Count)];
+
+            if (TryPlaceObject(toSpawn, baseNode, candidateNodes))
+            {
+                spawned++;
+            }
+        }
+    }
+
+    bool TryPlaceObject(obj toSpawn, Node baseNode, List<Node> candidateNodes)
+    {
+        Quaternion rotation = Quaternion.identity;
+        Vector2Int size = toSpawn.size;
+
+        if (toSpawn.canRotate && Random.value > 0.5f)
+        {
+            rotation = Quaternion.Euler(0, 0, 90);
+            size = new Vector2Int(size.y, size.x);
+        }
+        List<Node> occupiedNodes = new List<Node>();
+        bool canPlace = true;
+
+        for (int dx = 0; dx < size.x && canPlace; dx++)
+        {
+            for (int dy = 0; dy < size.y && canPlace; dy++)
+            {
+                int x = baseNode.gridX + dx;
+                int y = baseNode.gridY + dy;
+
+                if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY)
+                {
+                    canPlace = false;
+                    break;
+                }
+
+                Node n = grid[x, y];
+                if (!n.walkable || !candidateNodes.Contains(n))
+                {
+                    canPlace = false;
+                    break;
+                }
+
+                occupiedNodes.Add(n);
+            }
+        }
+
+
+        foreach (var n in occupiedNodes)
+            candidateNodes.Remove(n);
+
+        Instantiate(toSpawn.prefab, baseNode.worldPosition, rotation, transform);
+        return true;
+    }
+
+    void SpawnEnemies(List<Node> candidateNodes)
+    {
+        for (int i = 0; i < EnemySpawns && candidateNodes.Count > 0; i++)
+        {
+            int index = Random.Range(0, candidateNodes.Count);
+            Node node = candidateNodes[index];
+            candidateNodes.RemoveAt(index);
+
+            GameObject enemyPrefab = Enemy[Random.Range(0, Enemy.Count)];
+            Instantiate(enemyPrefab, node.worldPosition, Quaternion.identity, transform);
+        }
+    }
+
+    Vector2Int GetDoorPosition(int width, int height)
+    {
+        int edge = Random.Range(0, 4);
+        int x = 0, y = 0;
+
+        switch (edge)
+        {
+            case 0:
+                x = Random.Range(1, width - 1);
+                y = height - 1;
+                break;
+            case 1:
+                x = Random.Range(1, width - 1);
+                y = 0;
+                break;
+            case 2:
+                x = 0;
+                y = Random.Range(1, height - 1);
+                break;
+            case 3:
+                x = width - 1;
+                y = Random.Range(1, height - 1);
+                break;
+        }
+
+        return new Vector2Int(x, y);
+    }
+
 
     void UpdateWalkableNodes()
     {
@@ -166,6 +272,8 @@ public class PathGrid : MonoBehaviour
 
         return neighbors;
     }
+
+
 
     // shows the grid
     private void OnDrawGizmos()
