@@ -5,9 +5,8 @@ public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
 
-    private List<Node> lastPath;
 
-
+    //finds fastest path
     public List<Node> FindPath(Vector2 startPos, Vector2 targetPos)
     {
         Node startNode = grid.NodeFromWorldPoint(startPos);
@@ -59,7 +58,7 @@ public class Pathfinding : MonoBehaviour
         return null;
     }
 
-
+    //checks if the path is right 
     List<Node> RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();

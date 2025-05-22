@@ -25,8 +25,10 @@ public class enemy : MonoBehaviour
         pathfinding = script.GetComponent<Pathfinding>();
         grid = script.GetComponent<PathGrid>();
 
+        //updates path every 0.5f
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
     }
+
 
     void UpdatePath()
     {
@@ -38,6 +40,7 @@ public class enemy : MonoBehaviour
 
     private void Update()
     {
+        //checks if theres a path or if its bugged
         if (path == null || path.Count == 0)
         {
             Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
