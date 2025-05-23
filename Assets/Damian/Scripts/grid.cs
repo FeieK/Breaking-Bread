@@ -14,8 +14,7 @@ public class PathGrid : MonoBehaviour
     private float nodeDiameter;
     int gridSizeX, gridSizeY;
     
-    //spawns and if showgrid
-    public int EnemySpawns;
+    //if showgrid
     public bool showGrid = false;
 
     //the enemys and all other prefabs
@@ -23,6 +22,7 @@ public class PathGrid : MonoBehaviour
     public List<obj> wall;
     public List<obj> door;
     public List<obj> objects;
+    public List<obj> hubobjects;
     public List<obj> Enemy;
     public List<obj> Player;
 
@@ -36,7 +36,7 @@ public class PathGrid : MonoBehaviour
     //when it enebles it makes a random map
     private void OnEnable()
     {
-        gridWorldSize = new Vector2(Random.Range(30, 61), Random.Range(30, 61));
+        gridWorldSize = new Vector2(Random.Range(room.minsize, room.maxsize), Random.Range(room.minsize, room.maxsize));
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
@@ -53,6 +53,23 @@ public class PathGrid : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    private void Update()
+    {
+        bool allEnemiesDead = true;
+
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                allEnemiesDead = false;
+                break;
+            }
+        }
+        //unlocks room is all enemys are ded
+        room.unlock = allEnemiesDead;
+    }
+
 
     //makes the grid
     void CreateGrid()
@@ -140,19 +157,52 @@ public class PathGrid : MonoBehaviour
 
     void SpawnObjects(List<Node> freespawnloc)
     {
-        //so doesnt try infity times if cant
         int attempts = 100;
         int spawned = 0;
 
-        //spawn eah obj
-        while (spawned < objects.Count && freespawnloc.Count > 0 && attempts-- > 0)
+        if (room.placehubworldobj)
         {
-            obj toSpawn = objects[Random.Range(0, objects.Count)];
-            Node spawnplace = freespawnloc[Random.Range(0, freespawnloc.Count)];
-
-            if (TryPlaceObject(toSpawn, spawnplace, freespawnloc))
+            //hub objects
+            foreach (var toSpawn in hubobjects)
             {
-                spawned++;
+                int retries = 100;
+                bool placed = false;
+
+                while (retries-- > 0 && freespawnloc.Count > 0)
+                {
+                    Node spawnplace = freespawnloc[Random.Range(0, freespawnloc.Count)];
+                    if (TryPlaceObject(toSpawn, spawnplace, freespawnloc))
+                    {
+                        spawned++;
+                        placed = true;
+                        break;
+                    }
+                }
+
+                if (!placed)
+                {
+                    room.failsave = true;
+                    //failsaves makes a new map but if it not fit fast then u stuck here
+                    Debug.LogWarning($"Failed to place: {toSpawn.prefab.name} so increase mapsize or reduce object size map size is in room select");
+                }
+                else
+                {
+                    room.failsave = false;
+                }
+            }
+        }
+        else
+        {
+            //room placement
+            while (spawned < room.placNumObj && freespawnloc.Count > 0 && attempts-- > 0)
+            {
+                obj toSpawn = objects[Random.Range(0, objects.Count)];
+                Node spawnplace = freespawnloc[Random.Range(0, freespawnloc.Count)];
+
+                if (TryPlaceObject(toSpawn, spawnplace, freespawnloc))
+                {
+                    spawned++;
+                }
             }
         }
     }
@@ -170,8 +220,8 @@ public class PathGrid : MonoBehaviour
         }
 
         Vector2Int basePos = new Vector2Int(baseNode.gridX, baseNode.gridY);
-        if (!IsPlacementValid(basePos, size)) return false;
-        //is its valid proceede
+        if (!IsPlacementValid(basePos, size, 3)) return false;
+        //if its valid proceede
         for (int dx = 0; dx < size.x; dx++)
         {
             for (int dy = 0; dy < size.y; dy++)
@@ -188,12 +238,19 @@ public class PathGrid : MonoBehaviour
 
 
 
-    bool IsPlacementValid(Vector2Int basePos, Vector2Int size)
+    bool IsPlacementValid(Vector2Int basePos, Vector2Int size, int buffer = 1)
     {
-        //checks the distence of the object to other spots
-        for (int dx = 0; dx < size.x; dx++)
+        Vector2 center = GridToWorld(basePos, size);
+        Vector2 worldSize = new Vector2(size.x * nodeDiameter - 0.05f, size.y * nodeDiameter - 0.05f);
+
+        // Make sure there's no physical collider
+        Collider2D hit = Physics2D.OverlapBox(center, worldSize, 0f, obstacleMask);
+        if (hit != null) return false;
+
+        // Grid-based buffer check
+        for (int dx = -buffer; dx < size.x + buffer; dx++)
         {
-            for (int dy = 0; dy < size.y; dy++)
+            for (int dy = -buffer; dy < size.y + buffer; dy++)
             {
                 int x = basePos.x + dx;
                 int y = basePos.y + dy;
@@ -201,13 +258,27 @@ public class PathGrid : MonoBehaviour
                 if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY)
                     return false;
 
-                Node n = grid[x, y];
-                if (!n.walkable)
+                if (!grid[x, y].walkable)
                     return false;
             }
         }
+
         return true;
     }
+
+
+
+    Vector2 GridToWorld(Vector2Int basePos, Vector2Int size)
+    {
+        Vector2 baseWorld = grid[basePos.x, basePos.y].worldPosition;
+
+        float offsetX = (size.x - 1) * nodeDiameter / 2f;
+        float offsetY = (size.y - 1) * nodeDiameter / 2f;
+
+        return new Vector2(baseWorld.x + offsetX, baseWorld.y + offsetY);
+    }
+
+
     //spawns enemies
     void SpawnEnemies(List<Node> freespawnloc, Node playerNode)
     {
@@ -218,17 +289,29 @@ public class PathGrid : MonoBehaviour
 
         spawnedEnemies.Clear();
         enemySpawnPositions.Clear();
-        for (int i = 0; i < EnemySpawns && distantNodes.Count > 0; i++)
-        {
-            int index = Random.Range(0, distantNodes.Count);
-            Node node = distantNodes[index];
-            distantNodes.RemoveAt(index);
-            freespawnloc.Remove(node);
 
-            enemySpawnPositions.Add(node.worldPosition);
-            GameObject enemyPrefab = Enemy[Random.Range(0, Enemy.Count)].prefab;
-            GameObject enemy = Instantiate(enemyPrefab, node.worldPosition, Quaternion.identity, transform);
-            spawnedEnemies.Add(enemy);
+        if (Enemy.Count < 3) return;
+
+        int[] enemyCounts = {
+        Mathf.RoundToInt(room.enemy1),
+        Mathf.RoundToInt(room.enemy2),
+        Mathf.RoundToInt(room.enemy3)
+        };
+
+        for (int type = 0; type < 3; type++)
+        {
+            for (int i = 0; i < enemyCounts[type] && distantNodes.Count > 0; i++)
+            {
+                int index = Random.Range(0, distantNodes.Count);
+                Node node = distantNodes[index];
+                distantNodes.RemoveAt(index);
+                freespawnloc.Remove(node);
+
+                enemySpawnPositions.Add(node.worldPosition);
+                GameObject enemyPrefab = Enemy[type].prefab;
+                GameObject enemy = Instantiate(enemyPrefab, node.worldPosition, Quaternion.identity, transform);
+                spawnedEnemies.Add(enemy);
+            }
         }
     }
 
@@ -334,5 +417,4 @@ public class PathGrid : MonoBehaviour
             }
         }
     }
-
 }

@@ -166,7 +166,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nodeRadius: 1
-  EnemySpawns: 3
   showGrid: 0
   wall:
   - prefab: {fileID: 2194040345146848622, guid: e6bc9e2d917157e45b7348687699f270, type: 3}
@@ -178,16 +177,29 @@ MonoBehaviour:
     canRotate: 0
   objects:
   - prefab: {fileID: 2194040345146848622, guid: 874a2b41fab2dd647bad3cb8d94da62e, type: 3}
-    size: {x: 5, y: 5}
+    size: {x: 10, y: 10}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 087949ad9dff1504c8537a6a8528e63e, type: 3}
-    size: {x: 5, y: 5}
+    size: {x: 10, y: 10}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 54a5e47ddd58b8147ab4e028ae3eb1b9, type: 3}
     size: {x: 10, y: 10}
     canRotate: 1
+  hubobjects:
+  - prefab: {fileID: 2194040345146848622, guid: 3632f4ab3089c5e4dbef4aecda175914, type: 3}
+    size: {x: 10, y: 10}
+    canRotate: 1
+  - prefab: {fileID: 2194040345146848622, guid: d653f25799a04f142add708b37dfeeba, type: 3}
+    size: {x: 10, y: 10}
+    canRotate: 1
   Enemy:
   - prefab: {fileID: 291307673017065930, guid: 2b64d0745b6e7e342b29ed9d0c28a20d, type: 3}
+    size: {x: 1, y: 1}
+    canRotate: 0
+  - prefab: {fileID: 291307673017065930, guid: 3f3afc4e48ab5384997a3008346df9f4, type: 3}
+    size: {x: 1, y: 1}
+    canRotate: 0
+  - prefab: {fileID: 291307673017065930, guid: 776f72ee947857a4abfaeca25e5ff722, type: 3}
     size: {x: 1, y: 1}
     canRotate: 0
   Player:
@@ -250,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 759160971}
   - component: {fileID: 759160972}
-  - component: {fileID: 759160973}
+  - component: {fileID: 759160974}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -286,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundIsActive: 1
---- !u!114 &759160973
+--- !u!114 &759160974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,7 +307,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 759160970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad5b836e98c631243b3ce36af75ba815, type: 3}
+  m_Script: {fileID: 11500000, guid: b23e06f43b9354444a5aae187f3fceec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 7559861}
