@@ -16,6 +16,11 @@ public class enemy : MonoBehaviour
     private List<Node> path;
     private int targetIndex;
 
+    private bool hitobj;
+
+    public LayerMask obstacleLayer;
+    private float obstacleCheckRadius = 1.5f;
+
     [System.Obsolete]
     private void OnEnable()
     {
@@ -40,7 +45,10 @@ public class enemy : MonoBehaviour
 
     private void Update()
     {
-        //checks if theres a path or if its bugged
+        hitobj = Physics2D.OverlapCircle(transform.position, obstacleCheckRadius, obstacleLayer);
+
+        //if we wanne use a worse but raycastusing way
+        //if (path == null || path.Count == 0 || !hitobj)
         if (path == null || path.Count == 0)
         {
             Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
@@ -48,22 +56,38 @@ public class enemy : MonoBehaviour
         }
         else
         {
-
-                Vector2 currentWaypoint = path[targetIndex].worldPosition;
-                if (Vector2.Distance(transform.position, currentWaypoint) < 0.1f)
+            Vector2 currentWaypoint = path[targetIndex].worldPosition;
+            if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
+            {
+                targetIndex++;
+                if (targetIndex >= path.Count)
                 {
-                    targetIndex++;
-                    if (targetIndex >= path.Count)
-                    {
-                      path = null;
-                        return;
-                    }
+                    path = null;
+                    return;
                 }
+            }
 
             Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
             transform.position += (Vector3)(direction * speed * Time.deltaTime);
-        }    
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        //someone really wanted a raycast gizmo so here u go :D
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, obstacleCheckRadius);
+
+        //smt to see the player and maybe shoot to it idk we stil havent decided on how we impliment it
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, 5);
+
+        //for idk longer range and looks cool raycasting
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 8);
+        //oke im mean ik sorry but i choose to not use raycasting bcs there better ways or u just never read this hopefully
+    }
+
 }
 
 

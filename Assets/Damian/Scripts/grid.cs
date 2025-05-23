@@ -359,8 +359,14 @@ public class PathGrid : MonoBehaviour
 
         Vector2Int[] directions = new Vector2Int[]
         {
-            new Vector2Int(0, 1), new Vector2Int(1, 0),
-            new Vector2Int(0, -1), new Vector2Int(-1, 0)
+        new Vector2Int(0, 1),
+        new Vector2Int(1, 0),
+        new Vector2Int(0, -1),
+        new Vector2Int(-1, 0),
+        new Vector2Int(1, 1),
+        new Vector2Int(1, -1),
+        new Vector2Int(-1, -1),
+        new Vector2Int(-1, 1)
         };
 
         foreach (var dir in directions)
@@ -397,7 +403,6 @@ public class PathGrid : MonoBehaviour
     //and respawn call this in player script or wherevever
     public void Respawn()
     {
-
         if (spawnedPlayer != null)
         {
             spawnedPlayer.transform.position = playerSpawnPosition;

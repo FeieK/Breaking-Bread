@@ -106,6 +106,9 @@ MonoBehaviour:
   Player: {fileID: 0}
   pathfinding: {fileID: 0}
   grid: {fileID: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,7 +171,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4669450295266286331
 MonoBehaviour:
   m_ObjectHideFlags: 0
