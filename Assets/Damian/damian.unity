@@ -177,20 +177,20 @@ MonoBehaviour:
     canRotate: 0
   objects:
   - prefab: {fileID: 2194040345146848622, guid: 874a2b41fab2dd647bad3cb8d94da62e, type: 3}
-    size: {x: 10, y: 10}
+    size: {x: 2, y: 2}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 087949ad9dff1504c8537a6a8528e63e, type: 3}
-    size: {x: 10, y: 10}
+    size: {x: 2, y: 2}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 54a5e47ddd58b8147ab4e028ae3eb1b9, type: 3}
-    size: {x: 10, y: 10}
+    size: {x: 2, y: 2}
     canRotate: 1
   hubobjects:
   - prefab: {fileID: 2194040345146848622, guid: 3632f4ab3089c5e4dbef4aecda175914, type: 3}
-    size: {x: 10, y: 10}
+    size: {x: 2, y: 2}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: d653f25799a04f142add708b37dfeeba, type: 3}
-    size: {x: 10, y: 10}
+    size: {x: 2, y: 2}
     canRotate: 1
   Enemy:
   - prefab: {fileID: 291307673017065930, guid: 2b64d0745b6e7e342b29ed9d0c28a20d, type: 3}
