@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour
@@ -9,11 +7,13 @@ public class PlayerSystem : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sp;
     private GameController gameController;
+    private bool stopKnockback;
 
     public bool canMove;
     public float speed = 5f;
-    public float knockbackStrentch;
+    public float knockbackStrength;
     public int health;
+    public bool canGetHurt;
     public float damageReduction;
     // Start is called before the first frame update
     void Start()
@@ -41,17 +41,27 @@ public class PlayerSystem : MonoBehaviour
             }
             rb.linearVelocity = new Vector2(speedHorizontal, speedVertical);
         }
-
+        if (stopKnockback)
+        {
+            rb.linearVelocity *= 0.9f;
+        }
+        if (health <= 0)
+        {
+            gameController.Die();
+            health = 100;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Enemy")
         {
+            canGetHurt = false;
             canMove = false;
             StartCoroutine(Stun(5));
             Vector2 knockbackDirection = (transform.position - collision.transform.position);
-            rb.AddForce(knockbackDirection * knockbackStrentch, ForceMode2D.Impulse);
+            rb.AddForce(knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
+
         }
     }
 
@@ -60,16 +70,21 @@ public class PlayerSystem : MonoBehaviour
         int interval = 0;
         while (interval < maxTimes)
         {
+            if (interval == 2)
+            {
+                canMove = true;
+                stopKnockback = false;
+            }
+            stopKnockback = true;
             sp.color = Color.red;
             sp.enabled = false;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             sp.enabled = true;
             yield return new WaitForSeconds(0.1f);
             interval++;
         }
-        rb.linearVelocity = Vector2.zero;
-        canMove = true;
         sp.color = Color.white;
+        canGetHurt = true;
     }
 
     void ChangeHp(int deltaHp)
