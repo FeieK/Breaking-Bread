@@ -1,16 +1,24 @@
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class roomSelect : MonoBehaviour
 {
     public GameObject map;
     public PathGrid grid;
+    public bool random = true;
+
+    int roomNum = 1;
 
     private int minimumE;
     private int EnemyCost1 = 1;
     private int EnemyCost2 = 2;
     private int EnemyCost3 = 3;
+
+    public Dropdown dropdownEnemy1;
+    public Dropdown dropdownEnemy2;
+    public Dropdown dropdownEnemy3;
 
     private void Start()
     {
@@ -51,6 +59,45 @@ public class roomSelect : MonoBehaviour
 
         SetEnemies(enemy1, enemy2, enemy3);
     }
+
+    public void choosenemys()
+    {
+        int enemy1 = dropdownEnemy1.value;
+        int enemy2 = dropdownEnemy2.value;
+        int enemy3 = dropdownEnemy3.value;
+        switch (roomNum)
+        {
+            case 1: minimumE = 3; break;
+            case 2: minimumE = 5; break;
+            case 3: minimumE = 10; break;
+            case 4: minimumE = 15; break;
+            case 5: minimumE = 20; break;
+            default: minimumE = 0; break;
+        }
+
+
+        int totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
+
+        if (totalCost < minimumE)
+        {
+            Debug.Log("Not enough points used! Need at least " + minimumE);
+            return;
+        }
+        else
+        {
+            if (roomNum == 5)
+            {
+                //and close ui
+                roomNum = 1;
+            }
+            else
+            {
+                roomNum++;
+            }
+
+            EnemysEachRoom.AddConfig(enemy1, enemy2, enemy3);
+        }
+    }
     public bool SetEnemies(int enemy1, int enemy2, int enemy3)
     {
         int totalPoints = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
@@ -75,7 +122,24 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = true;
 
         minimumE = 0;
-        randomEnemies();
+        if (random)
+        {
+            randomEnemies();
+        }
+        else 
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
 
 
         room.minsize = 30;
@@ -89,6 +153,7 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         minimumE = 3;
+
         randomEnemies();
 
         room.minsize = 35;
@@ -103,7 +168,25 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         minimumE = 5;
-        randomEnemies();
+
+        if (random)
+        {
+            randomEnemies();
+        }
+        else
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
 
         room.minsize = 40;
         room.maxsize = 45;
@@ -117,7 +200,25 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         minimumE = 10;
-        randomEnemies();
+
+        if (random)
+        {
+            randomEnemies();
+        }
+        else
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
 
         room.minsize = 45;
         room.maxsize = 50;
@@ -131,7 +232,25 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         minimumE = 15;
-        randomEnemies();
+
+        if (random)
+        {
+            randomEnemies();
+        }
+        else
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
 
         room.minsize = 50;
         room.maxsize = 60;
@@ -145,8 +264,25 @@ public class roomSelect : MonoBehaviour
 
         //or 1 bos
         minimumE = 20;
-        randomEnemies();
 
+        if (random)
+        {
+            randomEnemies();
+        }
+        else
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
         room.minsize = 100;
         room.maxsize = 120;
 

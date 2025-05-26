@@ -6371,10 +6371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 7559861}
   grid: {fileID: 7559863}
-  minimumE: 0
-  EnemyCost1: 1
-  EnemyCost2: 2
-  EnemyCost3: 3
 --- !u!1 &760603482
 GameObject:
   m_ObjectHideFlags: 0
