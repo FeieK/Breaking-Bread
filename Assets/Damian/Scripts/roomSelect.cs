@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class roomSelect : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class roomSelect : MonoBehaviour
     private int EnemyCost2 = 2;
     private int EnemyCost3 = 3;
 
+    //the ui
+    public GameObject enemyui;
+    public TextMeshPro minEnScore;
+    public TextMeshPro totaleEnScore;
+    public Button button;
+
+    //the enemies
     public Dropdown dropdownEnemy1;
     public Dropdown dropdownEnemy2;
     public Dropdown dropdownEnemy3;
@@ -80,6 +88,7 @@ public class roomSelect : MonoBehaviour
 
         if (totalCost < minimumE)
         {
+            StartCoroutine(FlashUI());
             Debug.Log("Not enough points used! Need at least " + minimumE);
             return;
         }
@@ -87,7 +96,7 @@ public class roomSelect : MonoBehaviour
         {
             if (roomNum == 5)
             {
-                //and close ui
+                enemyui.SetActive(false);
                 roomNum = 1;
             }
             else
@@ -112,10 +121,31 @@ public class roomSelect : MonoBehaviour
         room.enemy2 = enemy2;
         room.enemy3 = enemy3;
 
-
         return true;
     }
 
+    private IEnumerator FlashUI()
+    {
+        int flashes = 3;
+        float flashDuration = 0.2f;
+
+        for (int i = 0; i < flashes; i++)
+        {
+            SetUIColor(Color.red);
+            yield return new WaitForSeconds(flashDuration);
+
+            SetUIColor(Color.white);
+            yield return new WaitForSeconds(flashDuration);
+        }
+        SetUIColor(Color.white);
+    }
+
+    private void SetUIColor(Color color)
+    {
+        minEnScore.color = color;
+        totaleEnScore.color = color;
+        button.image.color = color;
+    }
 
     public void hubworld()
     {
