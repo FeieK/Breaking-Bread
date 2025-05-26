@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//keeps a list of the enemys to spawn them in each room
 public static class EnemysEachRoom
 {
     public static List<(int enemy1, int enemy2, int enemy3)> roomConfigs = new List<(int, int, int)>();

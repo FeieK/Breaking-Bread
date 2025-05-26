@@ -8,10 +8,12 @@ public class roomSelect : MonoBehaviour
 {
     public GameObject map;
     public PathGrid grid;
-    public bool random = true;
 
+    //see if its random and keep track of roomnum
+    public bool random = true;
     int roomNum = 1;
 
+    //min enemies and the enemy cost
     private int minimumE;
     private int EnemyCost1 = 1;
     private int EnemyCost2 = 2;
@@ -28,17 +30,24 @@ public class roomSelect : MonoBehaviour
     public Dropdown dropdownEnemy2;
     public Dropdown dropdownEnemy3;
 
-    private void Start()
+    private void Awake()
     {
+        //loads the game autosave after 5 min every 5 min
+        SaveGame.Load();
+        InvokeRepeating(nameof(SaveGame.Save), 300f, 300f);
+        
+        //goes to hubworld
         hubworld();
     }
     private void Update()
     {
+        //if not all the objects spawn in the hubworld
         if (room.failsave)
         {
             changemap();
         }
     }
+    //its a suprise
     public void randomEnemies()
     {
         int enemy1 = 0, enemy2 = 0, enemy3 = 0;
@@ -68,6 +77,7 @@ public class roomSelect : MonoBehaviour
         SetEnemies(enemy1, enemy2, enemy3);
     }
 
+    //its not a suprise
     public void choosenemys()
     {
         int enemy1 = dropdownEnemy1.value;
@@ -107,6 +117,8 @@ public class roomSelect : MonoBehaviour
             EnemysEachRoom.AddConfig(enemy1, enemy2, enemy3);
         }
     }
+
+    //sets the enemys to room where it gets ussed to spawn them in grid
     public bool SetEnemies(int enemy1, int enemy2, int enemy3)
     {
         int totalPoints = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
@@ -124,6 +136,7 @@ public class roomSelect : MonoBehaviour
         return true;
     }
 
+    //if u dont have enought enemys
     private IEnumerator FlashUI()
     {
         int flashes = 3;
@@ -147,10 +160,10 @@ public class roomSelect : MonoBehaviour
         button.image.color = color;
     }
 
+    //the hubworld
     public void hubworld()
     {
         room.placehubworldobj = true;
-
         minimumE = 0;
         if (random)
         {
@@ -178,8 +191,13 @@ public class roomSelect : MonoBehaviour
         changemap();
     }
 
+
+    //5 rooms yes i shoulda done it cleaner ut to late
     public void room1()
     {
+        //better to call it where needed but like u dont lose to much
+        SaveGame.Save();
+
         room.placehubworldobj = false;
 
         minimumE = 3;
@@ -195,7 +213,6 @@ public class roomSelect : MonoBehaviour
 
     public void room2()
     {
-        room.placehubworldobj = false;
 
         minimumE = 5;
 

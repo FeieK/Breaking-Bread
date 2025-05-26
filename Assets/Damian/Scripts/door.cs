@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//idk defently not for the door thp
 public class door : MonoBehaviour
 {
     public roomSelect roomSelect;

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class enemychooser : MonoBehaviour
 {
+    //to open the anoying ui
     private GameObject enemyui;
     private bool yh;
 

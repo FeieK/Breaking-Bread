@@ -3,6 +3,7 @@ using TMPro;
 
 public class test : MonoBehaviour
 {
+    //test of save and shows how to use
     public TextMeshProUGUI textMeshProUGUI;
 
     void Update()
