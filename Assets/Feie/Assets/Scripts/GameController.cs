@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,9 +27,9 @@ public class GameController : MonoBehaviour
         spawn = GameObject.FindGameObjectWithTag("Respawn");    // Setting the spawn variable
     }
 
-    public void PauseGame()
+    public void PauseGame(bool pause)
     {
-        roundIsActive = false;
+        roundIsActive = pause;
     }
 
     public void Die()
@@ -77,7 +76,6 @@ public class GameController : MonoBehaviour
                 transition = false;
             }
         }
-        Debug.Log("Darken: Done");
         yield return new WaitForSeconds(2);
         player.transform.position = spawn.transform.position;   // Setting the player position to the spawn position (Remove when merging)
         canvasGroup.alpha = 0;
