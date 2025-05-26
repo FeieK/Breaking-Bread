@@ -27,7 +27,8 @@ public class PlayerSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove && gameController.roundIsActive == true)
+        //if (canMove && gameController.roundIsActive == true)
+        if (canMove)
         {
             float speedHorizontal = Input.GetAxisRaw("Horizontal") * speed;
             float speedVertical = Input.GetAxisRaw("Vertical") * speed;
@@ -87,7 +88,7 @@ public class PlayerSystem : MonoBehaviour
         canGetHurt = true;
     }
 
-    void ChangeHp(int deltaHp)
+    public void ChangeHp(int deltaHp)
     {
         if (deltaHp < 0)
         {
@@ -100,7 +101,8 @@ public class PlayerSystem : MonoBehaviour
         }
         if (health <= 0)
         {
-            gameController.Die();
+            room.die =true;
+            //gameController.Die();
         }
     }
 

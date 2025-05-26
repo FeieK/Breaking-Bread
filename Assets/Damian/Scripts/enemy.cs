@@ -24,7 +24,7 @@ public class enemy : MonoBehaviour
     [System.Obsolete]
     private void OnEnable()
     {
-        Player = GameObject.Find("player(Clone)")?.transform;
+        Player = GameObject.Find("Player(Clone)")?.transform;
 
         GameObject script = GameObject.Find("Map");
         pathfinding = script.GetComponent<Pathfinding>();
@@ -69,6 +69,18 @@ public class enemy : MonoBehaviour
 
             Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
             transform.position += (Vector3)(direction * speed * Time.deltaTime);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.CompareTag("Player"))
+        {
+            PlayerSystem PlayerHP = collision.gameObject.GetComponent<PlayerSystem>();
+            if (PlayerHP != null)
+            {
+                PlayerHP.ChangeHp(-20);
+            }
         }
     }
 

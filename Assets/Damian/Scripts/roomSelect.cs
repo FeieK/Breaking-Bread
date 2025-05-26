@@ -7,6 +7,11 @@ public class roomSelect : MonoBehaviour
     public GameObject map;
     public PathGrid grid;
 
+    private int minimumE;
+    private int EnemyCost1 = 1;
+    private int EnemyCost2 = 2;
+    private int EnemyCost3 = 3;
+
     private void Start()
     {
         hubworld();
@@ -18,12 +23,60 @@ public class roomSelect : MonoBehaviour
             changemap();
         }
     }
+    public void randomEnemies()
+    {
+        int enemy1 = 0, enemy2 = 0, enemy3 = 0;
+        int totalPoints = 0;
+
+        while (totalPoints < minimumE)
+        {
+            int choice = Random.Range(1, 4);
+
+            switch (choice)
+            {
+                case 1:
+                    enemy1++;
+                    totalPoints += EnemyCost1;
+                    break;
+                case 2:
+                    enemy2++;
+                    totalPoints += EnemyCost2;
+                    break;
+                case 3:
+                    enemy3++;
+                    totalPoints += EnemyCost3;
+                    break;
+            }
+        }
+
+        SetEnemies(enemy1, enemy2, enemy3);
+    }
+    public bool SetEnemies(int enemy1, int enemy2, int enemy3)
+    {
+        int totalPoints = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
+
+        if (totalPoints < minimumE)
+        {
+            Debug.LogWarning($"Total points {totalPoints} is less than required minimum {minimumE}");
+            return false;
+        }
+
+        room.enemy1 = enemy1;
+        room.enemy2 = enemy2;
+        room.enemy3 = enemy3;
+
+
+        return true;
+    }
+
+
     public void hubworld()
     {
         room.placehubworldobj = true;
-        room.enemy1 = 0;
-        room.enemy2 = 0;
-        room.enemy3 = 0;
+
+        minimumE = 0;
+        randomEnemies();
+
 
         room.minsize = 30;
         room.maxsize = 35;
@@ -35,9 +88,8 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        room.enemy1 = 3;
-        room.enemy2 = 0;
-        room.enemy3 = 0;
+        minimumE = 3;
+        randomEnemies();
 
         room.minsize = 35;
         room.maxsize = 40;
@@ -50,9 +102,8 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        room.enemy1 = 2;
-        room.enemy2 = 2;
-        room.enemy3 = 0;
+        minimumE = 5;
+        randomEnemies();
 
         room.minsize = 40;
         room.maxsize = 45;
@@ -65,9 +116,8 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        room.enemy1 = 1;
-        room.enemy2 = 2;
-        room.enemy3 = 2;
+        minimumE = 10;
+        randomEnemies();
 
         room.minsize = 45;
         room.maxsize = 50;
@@ -80,9 +130,8 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        room.enemy1 = 0;
-        room.enemy2 = 1;
-        room.enemy3 = 4;
+        minimumE = 15;
+        randomEnemies();
 
         room.minsize = 50;
         room.maxsize = 60;
@@ -95,9 +144,8 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         //or 1 bos
-        room.enemy1 = 5;
-        room.enemy2 = 10;
-        room.enemy3 = 20;
+        minimumE = 20;
+        randomEnemies();
 
         room.minsize = 100;
         room.maxsize = 120;

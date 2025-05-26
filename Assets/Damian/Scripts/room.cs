@@ -21,5 +21,9 @@ public static class room
     //roomnumber
     public static int roomNum;  
     
+    //failsave
     public static bool failsave;
+
+    //bcs dont wanne change other files so much
+    public static bool die;
 }

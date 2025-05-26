@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PathGrid : MonoBehaviour
 {
@@ -13,7 +15,10 @@ public class PathGrid : MonoBehaviour
     //grid and node size
     private float nodeDiameter;
     int gridSizeX, gridSizeY;
-    
+
+    //gues
+    public RawImage minimap;
+
     //if showgrid
     public bool showGrid = false;
 
@@ -40,6 +45,11 @@ public class PathGrid : MonoBehaviour
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+
+
+        StartCoroutine(miniMap());
+
         CreateGrid();
         PlaceObjects();
         UpdateWalkableNodes();
@@ -68,6 +78,12 @@ public class PathGrid : MonoBehaviour
         }
         //unlocks room is all enemys are ded
         room.unlock = allEnemiesDead;
+
+        if (room.die)
+        {
+            room.die = false;
+            Respawn();
+        }
     }
 
 
@@ -381,6 +397,34 @@ public class PathGrid : MonoBehaviour
         }
 
         return neighbors;
+    }
+
+    private IEnumerator miniMap()
+    {
+        //waits a frame to get gridsize
+        yield return null;
+        GameObject cameraObj = new GameObject("MinimapCamera");
+        cameraObj.transform.SetParent(transform);
+
+        Camera minimapCamera = cameraObj.AddComponent<Camera>();
+
+        minimapCamera.orthographic = true;
+        minimapCamera.orthographicSize = gridWorldSize.y / 2f;
+
+       minimapCamera.transform.position = new Vector3(0, 0, -10);
+
+        //maybe later
+        //minimapCamera.cullingMask = LayerMask.GetMask("minimap");
+
+        RenderTexture minimapTexture = new RenderTexture((int)gridWorldSize.x * 10, (int)gridWorldSize.y * 10, 16);
+        minimapTexture.name = "MinimapTexture";
+        minimapTexture.Create();
+        minimapCamera.targetTexture = minimapTexture;
+
+        if (minimap != null)
+        {
+            minimap.texture = minimapTexture;
+        }
     }
 
     //if wanne see the grid
