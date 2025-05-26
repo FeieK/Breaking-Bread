@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private SpriteRenderer sp;
-    private GameController gameController;
-    private bool stopKnockback;
-
     public bool canMove;
     public float speed = 5f;
     public float knockbackStrength;
     public int health;
     public bool canGetHurt;
     public float damageReduction;
+    
+    private Rigidbody2D rb;
+    private SpriteRenderer sp;
+    private GameController gameController;
+    private bool stopKnockback;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +92,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (deltaHp < 0)
         {
-            float damage = deltaHp - deltaHp * damageReduction;
+            float damage = deltaHp - (deltaHp * damageReduction);
             health += (int)Math.Round(damage);
         }
         else
