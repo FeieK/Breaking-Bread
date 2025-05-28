@@ -4,13 +4,20 @@ public class PickUpController : MonoBehaviour
 {
     public ProjectileGun gunScript;
     public Rigidbody2D rb;
-    public Transform player;
-    public Transform gunContainer;
+    private Transform player;
+    private Transform gunContainer;
 
     public float pickUpRange;
 
     public bool equipped;
     public static bool slotFull;
+
+    private void Awake()
+    {
+        player = GameObject.Find("Player").transform;
+        Transform rotatePoint = player.GetChild(0);
+        gunContainer = rotatePoint.GetChild(0);
+    }
 
     private void Start()
     {
