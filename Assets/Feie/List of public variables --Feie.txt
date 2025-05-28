@@ -1,0 +1,43 @@
+Loading scene:
+    Loading.cs
+        Variables:
+            public GameObject loadingScreen = Made to define loadingScreen GameObject;
+            public Image loadingBarFill = Made to define loadingBarFill Image;
+            public TextMeshProUGUI loadingText = Made to define loadingText TextMeshProUGUI;
+            public int sceneId = The scene id (File > Build Profiles > Scene List > Scene List) to where the scene must switch to. Cannot be zero, if zero it will change to 1; // Loading scene must have a scene of 0.
+        Functions:
+            IEnumerator LoadSceneAsync(int sceneId) = Loads ${sceneId} with a progress bar;
+            IEnumerator LoadingTextChange() = Cicles text between "Loading", "Loading.", "Loading.." and "Loading...";
+
+Main scene:
+    GameController.cs
+        Variables:
+            public bool roundIsActive = Indicator if the round is active. Player, enemies, projectiles, etc. cannot move while its false;
+            public int playerLives = The amount of lives the player has, may not be 0 or lower;
+        Functions:
+            public void PauseGame(bool pause) = Makes roundIsActive = false;
+            public void Die() = Checks if (playerLives > 1). If true then it removes 1 and then runs StartCoroutine(YouDied()). Else it runs StartCoroutine(GameOver());
+    PlayerSystem.cs
+        Variables:
+            public bool canMove = A bool to indicate if the player can move;
+            public float speed = The movement speed of the player;
+            public float knockbackStrength = The strenght of knockback when player gets damaged;
+            public int health = The amount of health that the player has. Default value is 100; // when on hard mode the default hp can be lower
+            public bool canGetHurt = A indicator if the player can take damage;
+            public float damageReduction = The amount of % that is taken away from the damage that the player gets; // 1 = 100%, 0.5f = 50%, 0 = 0%
+        Functions:
+            public void ChangeHp(int deltaHp) = Checks if if (deltaHp < 0) if true then it runs this calculation: damage = deltaHp - (deltaHp * damageReduction). Then it rounds damage to a full number and takes that amount of hp from the player's health;
+    MainMenuButtons.cs
+        Variables:
+            None;
+        Functions:
+            Working on it
+    GameOverAnimation.cs
+        Variables:
+            public bool gameOver = A bool for when the gameOver animation plays;
+            public int stage = Indicator to indicate what stage of the animation is;
+            public SpriteRenderer[] srs = An array of SpriteRenderers from the children of the GameObject with the script;
+        Functions:
+            public void PlaySound() = Plays GameOverBounce.wav on a random pitch from 0.9f to 1.2f
+    GameOverCollision
+        None;

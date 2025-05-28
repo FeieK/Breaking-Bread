@@ -1,0 +1,10 @@
+PlayerSystem.cs:
+	bool canMove			// A Boolean that enables/disables the ability to move
+	float speed			// The walking speed of the player
+	float knockbackStrength		// The strenght of knockback
+	int health			// The health of the player
+	float damageReduction		// The amount in % that reduces the amount of damage by x
+
+
+GameController.cs:
+	bool roundIsActive		// A Boolean to make the player and enemies unable to move.
