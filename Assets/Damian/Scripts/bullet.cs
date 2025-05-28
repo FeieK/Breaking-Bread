@@ -3,6 +3,12 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
     public int dmg;
+    public int Time;
+
+    private void Awake()
+    {
+        Destroy(gameObject, Time);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +20,12 @@ public class bullet : MonoBehaviour
                 enemyHP.TakeDamage(dmg);
             }
         
-            Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Walls"))
+        {
+            Destroy(gameObject);
         }
 
     }

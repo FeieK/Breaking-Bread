@@ -19,6 +19,7 @@ public class ProjectileGun : MonoBehaviour
     public int magSize;
     public int bulletsPerInput;
     public bool allowButtonHold;
+    public bool shouldFlip;
 
     int bulletsLeft;
     int bulletsShot;
@@ -84,7 +85,6 @@ public class ProjectileGun : MonoBehaviour
         readyToShoot = false;
 
         Vector3 targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(targetPoint);
 
         //calc spread
         float x = Random.Range(-spread, spread);
@@ -133,19 +133,22 @@ public class ProjectileGun : MonoBehaviour
 
     private void Flip()
     {
-
         Transform parent = this.transform.parent;
         rotatePoint = parent.parent;
-        SpriteRenderer spriteRend = GetComponent<SpriteRenderer>();
 
-        if (rotatePoint.rotation.z > 0.7f || rotatePoint.rotation.z < -0.7f)
+        if (shouldFlip)
         {
-            spriteRend.flipY = true;
-        }
-        else
-        {
-            spriteRend.flipY = false;
+            SpriteRenderer spriteRend = GetComponent<SpriteRenderer>();
+
+            if (rotatePoint.rotation.z > 0.7f || rotatePoint.rotation.z < -0.7f)
+            {
+                spriteRend.flipY = true;
+            }
+            else
+            {
+                spriteRend.flipY = false;
+            }
         }
     }
-    //Bug: spread is different depending on where you aim
+    //
 }
