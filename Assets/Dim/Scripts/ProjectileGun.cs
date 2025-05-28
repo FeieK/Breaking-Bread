@@ -30,6 +30,7 @@ public class ProjectileGun : MonoBehaviour
 
     //Reference
     public Transform attackPoint;
+    private Transform rotatePoint;
 
     //Bug fixing
     public bool allowInvoke;
@@ -85,21 +86,16 @@ public class ProjectileGun : MonoBehaviour
         Vector3 targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.Log(targetPoint);
 
-        //Calculate direction from attackpoint to targetpoint
-        Vector2 directionWithoutSpread = targetPoint - attackPoint.position;
-
         //calc spread
         float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        //calc new direction with spread
-        Vector2 directionWithSpread = directionWithoutSpread + new Vector2(x, y);
 
         //instantiate bullet
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
 
         //add forces to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.transform.rotation = rotatePoint.rotation;
+        currentBullet.transform.Rotate(0, 0, x);
+        currentBullet.GetComponent<Rigidbody2D>().AddForce(currentBullet.transform.right * shootForce * Random.Range(0.9f, 1.1f), ForceMode2D.Impulse);
 
         bulletsLeft--;
         bulletsShot++;
@@ -139,19 +135,17 @@ public class ProjectileGun : MonoBehaviour
     {
 
         Transform parent = this.transform.parent;
-        Transform parentsParent = parent.parent;
+        rotatePoint = parent.parent;
         SpriteRenderer spriteRend = GetComponent<SpriteRenderer>();
 
-        if (parentsParent.rotation.z > 0.7f || parentsParent.rotation.z < -0.7f)
+        if (rotatePoint.rotation.z > 0.7f || rotatePoint.rotation.z < -0.7f)
         {
-            spriteRend.flipX = true;
             spriteRend.flipY = true;
         }
         else
         {
-            spriteRend.flipX = false;
             spriteRend.flipY = false;
         }
     }
-
+    //Bug: spread is different depending on where you aim
 }
