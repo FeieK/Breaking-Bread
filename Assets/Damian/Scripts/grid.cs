@@ -132,7 +132,7 @@ public class PathGrid : MonoBehaviour
                 if (x == 0 || y == 0 || x == gridSizeX - 1 || y == gridSizeY - 1)
                 {
                     if (x == doorPosition.x && y == doorPosition.y)
-                    {
+                    {//why do i do random range here
                         obj doorObj = door[Random.Range(0, door.Count)];
                         Instantiate(doorObj.prefab, node.worldPosition, Quaternion.identity, transform);
                     }

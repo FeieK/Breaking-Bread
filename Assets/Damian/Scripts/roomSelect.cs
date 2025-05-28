@@ -21,7 +21,7 @@ public class roomSelect : MonoBehaviour
 
     //the ui
     public GameObject enemyui;
-    public TextMeshPro minEnScore;
+    public TextMeshProUGUI minEnScore;
     public TextMeshPro totaleEnScore;
     public Button button;
 
