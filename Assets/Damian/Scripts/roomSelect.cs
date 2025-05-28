@@ -22,13 +22,20 @@ public class roomSelect : MonoBehaviour
     //the ui
     public GameObject enemyui;
     public TextMeshProUGUI minEnScore;
-    public TextMeshPro totaleEnScore;
+    public TextMeshProUGUI totaleEnScore;
+    public TextMeshProUGUI roomnum;
     public Button button;
 
+    private int totalCost;
+
     //the enemies
-    public Dropdown dropdownEnemy1;
-    public Dropdown dropdownEnemy2;
-    public Dropdown dropdownEnemy3;
+    public TMP_Dropdown dropdownEnemy1;
+    public TMP_Dropdown dropdownEnemy2;
+    public TMP_Dropdown dropdownEnemy3;
+
+    private int enemy1;
+    private int enemy2;
+    private int enemy3;
 
     private void Awake()
     {
@@ -41,6 +48,10 @@ public class roomSelect : MonoBehaviour
     }
     private void Update()
     {
+
+        showui();
+
+
         //if not all the objects spawn in the hubworld
         if (room.failsave)
         {
@@ -77,12 +88,8 @@ public class roomSelect : MonoBehaviour
         SetEnemies(enemy1, enemy2, enemy3);
     }
 
-    //its not a suprise
-    public void choosenemys()
+    private void showui()
     {
-        int enemy1 = dropdownEnemy1.value;
-        int enemy2 = dropdownEnemy2.value;
-        int enemy3 = dropdownEnemy3.value;
         switch (roomNum)
         {
             case 1: minimumE = 3; break;
@@ -93,8 +100,22 @@ public class roomSelect : MonoBehaviour
             default: minimumE = 0; break;
         }
 
+        enemy1 = dropdownEnemy1.value;
+        enemy2 = dropdownEnemy2.value;
+        enemy3 = dropdownEnemy3.value;
 
-        int totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
+        totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
+
+        roomnum.text = $"Room Number: {roomNum}";
+        totaleEnScore.text = $"Total Score: {totalCost}";
+        minEnScore.text = $"Min Score {minimumE}";
+    }
+
+    //needs to choose a enemy for each room or it will be random
+    public void choosenemys()
+    {
+
+
 
         if (totalCost < minimumE)
         {
@@ -108,6 +129,7 @@ public class roomSelect : MonoBehaviour
             {
                 enemyui.SetActive(false);
                 roomNum = 1;
+                random = true;
             }
             else
             {
@@ -165,24 +187,13 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = true;
         minimumE = 0;
-        if (random)
-        {
-            randomEnemies();
-        }
-        else 
-        {
-            if (EnemysEachRoom.roomConfigs.Count > 0)
-            {
-                var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
-                EnemysEachRoom.roomConfigs.RemoveAt(0);
-            }
-            else
-            {
-                Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
-            }
-        }
+
+        random = true;
+
+        randomEnemies();
+
+        //if u make them random
+        roomNum = 1;
 
 
         room.minsize = 30;
@@ -202,8 +213,25 @@ public class roomSelect : MonoBehaviour
 
         minimumE = 3;
 
-        randomEnemies();
 
+        if (random)
+        {
+            randomEnemies();
+        }
+        else
+        {
+            if (EnemysEachRoom.roomConfigs.Count > 0)
+            {
+                var config = EnemysEachRoom.roomConfigs[0];
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                EnemysEachRoom.roomConfigs.RemoveAt(0);
+            }
+            else
+            {
+                Debug.LogWarning("No enemy configuration left in the list!");
+                randomEnemies(); // just incase i dumb
+            }
+        }
         room.minsize = 35;
         room.maxsize = 40;
 
