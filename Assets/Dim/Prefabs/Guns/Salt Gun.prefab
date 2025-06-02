@@ -146,7 +146,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387966356191105682}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3387966356191105682}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d4b4900d0453434ba4e24f82d382728, type: 3}
   m_Name: 
@@ -186,6 +186,7 @@ MonoBehaviour:
   magSize: 5
   bulletsPerInput: 5
   allowButtonHold: 1
+  shouldFlip: 0
   attackPoint: {fileID: 1718746287632056471}
   allowInvoke: 1
 --- !u!114 &911624084460408856
@@ -202,10 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunScript: {fileID: 7015136354206815817}
   rb: {fileID: 7924455937011071074}
-  player: {fileID: 0}
-  gunContainer: {fileID: 0}
   pickUpRange: 2
-  equipped: 1
+  equipped: 0
 --- !u!1 &7904782836139287226
 GameObject:
   m_ObjectHideFlags: 0

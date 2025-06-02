@@ -19,7 +19,7 @@ public class PickUpController : MonoBehaviour
         gunContainer = rotatePoint.GetChild(0);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if (!equipped)
         {

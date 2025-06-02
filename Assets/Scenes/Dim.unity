@@ -280,6 +280,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 57ac0b09cb9421d468024ff13365711d, type: 3}
+--- !u!1001 &1081447326
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.041783616
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8856525
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326541972151277688, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387966356191105682, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_Name
+      value: Salt Gun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
 --- !u!1001 &1462976544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,6 +431,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 189238462934146116, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
+      propertyPath: equipped
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 455929159222782244, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -418,6 +479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6772550971196892867, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -432,3 +497,4 @@ SceneRoots:
   - {fileID: 453130348}
   - {fileID: 44102002}
   - {fileID: 1462976544}
+  - {fileID: 1081447326}

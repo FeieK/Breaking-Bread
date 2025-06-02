@@ -172,7 +172,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874564226498853548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d4b4900d0453434ba4e24f82d382728, type: 3}
   m_Name: 
@@ -186,6 +186,7 @@ MonoBehaviour:
   magSize: 100
   bulletsPerInput: 1
   allowButtonHold: 1
+  shouldFlip: 0
   attackPoint: {fileID: 1886216009266153714}
   allowInvoke: 1
 --- !u!114 &8207586804466156644
@@ -202,8 +203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunScript: {fileID: 4631373026461440592}
   rb: {fileID: 1020047554980072626}
-  player: {fileID: 0}
-  gunContainer: {fileID: 0}
   pickUpRange: 2
   equipped: 0
 --- !u!1 &7512137854255362833
