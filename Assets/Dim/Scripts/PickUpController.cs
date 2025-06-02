@@ -12,15 +12,14 @@ public class PickUpController : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log(player.position);
+        Debug.Log(transform.position);
         Transform rotatePoint = player.GetChild(0);
         gunContainer = rotatePoint.GetChild(0);
-    }
 
-    private void OnEnable()
-    {
         if (!equipped)
         {
             gunScript.enabled = false;
@@ -32,6 +31,11 @@ public class PickUpController : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Disabled");
     }
 
     // Update is called once per frame
