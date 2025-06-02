@@ -89,15 +89,6 @@ public class enemy : MonoBehaviour
         //someone really wanted a raycast gizmo so here u go :D
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, obstacleCheckRadius);
-
-        //smt to see the player and maybe shoot to it idk we stil havent decided on how we impliment it
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, 5);
-
-        //for idk longer range and looks cool raycasting
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 8);
-        //oke im mean ik sorry but i choose to not use raycasting bcs there better ways or u just never read this hopefully
     }
 
 }

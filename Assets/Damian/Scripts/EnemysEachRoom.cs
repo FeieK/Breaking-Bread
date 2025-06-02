@@ -9,6 +9,7 @@ public static class EnemysEachRoom
     public static void ClearConfigs()
     {
         roomConfigs.Clear();
+        //test
     }
 
     public static void AddConfig(int enemy1, int enemy2, int enemy3)
