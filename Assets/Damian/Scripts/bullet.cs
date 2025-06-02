@@ -3,8 +3,8 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
     public int dmg;
-    public int Time;
-
+    public float Time;
+    public bool Piercing;
     private void Awake()
     {
         Destroy(gameObject, Time);
@@ -19,14 +19,16 @@ public class bullet : MonoBehaviour
             {
                 enemyHP.TakeDamage(dmg);
             }
-        
-            Destroy(gameObject);
+
+            if (!Piercing)
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (collision.gameObject.CompareTag("Walls"))
         {
             Destroy(gameObject);
         }
-
     }
 }

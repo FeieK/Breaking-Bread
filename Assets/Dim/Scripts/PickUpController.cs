@@ -3,7 +3,7 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour
 {
     public ProjectileGun gunScript;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Transform player;
     private Transform gunContainer;
 
@@ -15,8 +15,7 @@ public class PickUpController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        Debug.Log(player.position);
-        Debug.Log(transform.position);
+        rb = GetComponent<Rigidbody2D>();
         Transform rotatePoint = player.GetChild(0);
         gunContainer = rotatePoint.GetChild(0);
 
