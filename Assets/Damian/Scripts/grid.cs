@@ -198,7 +198,7 @@ public class PathGrid : MonoBehaviour
                 if (!placed)
                 {
                     room.failsave = true;
-                    //failsaves makes a new map but if it not fit fast then u stuck here
+                    //failsaves makes a new map but if it not fit fast then u stuck here or aperently it just faills
                     Debug.LogWarning($"Failed to place: {toSpawn.prefab.name} so increase mapsize or reduce object size map size is in room select");
                 }
                 else

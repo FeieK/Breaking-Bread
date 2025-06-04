@@ -28,7 +28,7 @@ public class roomSelect : MonoBehaviour
 
     private int totalCost;
 
-    //the enemies
+    //the amount of enemys enemies
     public TMP_Dropdown dropdownEnemy1;
     public TMP_Dropdown dropdownEnemy2;
     public TMP_Dropdown dropdownEnemy3;
