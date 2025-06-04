@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public bool roundIsActive;
+    public bool paused;
     public int playerLives;
 
     private GameOverAnimation gameOverAnimation;
@@ -25,12 +27,9 @@ public class GameController : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         spawn = GameObject.FindGameObjectWithTag("Respawn");    // Setting the spawn variable
+
     }
 
-    public void PauseGame(bool pause)
-    {
-        roundIsActive = pause;
-    }
 
     public void Die()
     {
@@ -106,8 +105,8 @@ public class GameController : MonoBehaviour
         gameOverAnimation.stage = 1;
         yield return new WaitForSeconds(2.2f);
         gameOverAnimation.stage = 2;
-        // yield return new WaitForSeconds(x); make sure to put in the right value in x
-        // Make it switch to main menu
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
         yield break;
     }
 
