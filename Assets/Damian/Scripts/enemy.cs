@@ -7,19 +7,21 @@ using System.Collections.Generic;
 
 public class enemy : MonoBehaviour
 {
-    public Transform Player;
+    private Transform Player;
     private float speed = 5f;
 
-    public Pathfinding pathfinding;
-    public PathGrid grid;
+    private Pathfinding pathfinding;
+    private PathGrid grid;
 
     private List<Node> path;
     private int targetIndex;
 
-    private bool hitobj;
+    private bool hitplayer;
 
     public LayerMask obstacleLayer;
-    private float obstacleCheckRadius = 1.5f;
+    public LayerMask PlayerleLayer;
+
+    public float playerCheckRadius = 1.5f;
 
     [System.Obsolete]
     private void OnEnable()
@@ -45,30 +47,36 @@ public class enemy : MonoBehaviour
 
     private void Update()
     {
-        hitobj = Physics2D.OverlapCircle(transform.position, obstacleCheckRadius, obstacleLayer);
+        hitplayer = Physics2D.OverlapCircle(transform.position, playerCheckRadius, PlayerleLayer);
 
-        //if we wanne use a worse but raycastusing way
-        //if (path == null || path.Count == 0 || !hitobj)
-        if (path == null || path.Count == 0)
+        if (hitplayer)
         {
-            Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
+           
         }
         else
         {
-            Vector2 currentWaypoint = path[targetIndex].worldPosition;
-            if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
-            {
-                targetIndex++;
-                if (targetIndex >= path.Count)
-                {
-                    path = null;
-                    return;
-                }
+            
+             if (path == null || path.Count == 0)
+             {
+                Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
+                transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
             }
+            else
+            {
+                Vector2 currentWaypoint = path[targetIndex].worldPosition;
+                if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
+                {
+                    targetIndex++;
+                    if (targetIndex >= path.Count)
+                    {
+                        path = null;
+                        return;
+                    }
+                }
 
-            Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(direction * speed * Time.deltaTime);
+                Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
+                transform.position += (Vector3)(direction * speed * Time.deltaTime);
+        }
         }
     }
 
@@ -88,7 +96,7 @@ public class enemy : MonoBehaviour
     {
         //someone really wanted a raycast gizmo so here u go :D
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, obstacleCheckRadius);
+        Gizmos.DrawWireSphere(transform.position, playerCheckRadius);
     }
 
 }

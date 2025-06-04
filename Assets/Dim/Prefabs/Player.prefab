@@ -101,7 +101,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -182,9 +182,9 @@ GameObject:
   - component: {fileID: 2507522920315855355}
   - component: {fileID: 7295341895374019668}
   - component: {fileID: 7698685829427085600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +199,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4935003114655326785}
@@ -410,6 +410,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 455929159222782244}
     - target: {fileID: 911624084460408856, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 911624084460408856, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
       propertyPath: gunContainer
       value: 
       objectReference: {fileID: 4291804690955420558}
@@ -456,6 +460,10 @@ PrefabInstance:
     - target: {fileID: 3387966356191105682, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015136354206815817, guid: 9a43fb7ae66ad334a8e78ca7dbab2922, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

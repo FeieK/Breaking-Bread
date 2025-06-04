@@ -115,9 +115,9 @@ public class PathGrid : MonoBehaviour
 
         if (freespawnloc.Count == 0) return;
 
-        SpawnObjects(freespawnloc);
         Node playerNode = SpawnPlayer(freespawnloc);
         SpawnEnemies(freespawnloc, playerNode);
+        SpawnObjects(freespawnloc);
     }
 
     // gues
