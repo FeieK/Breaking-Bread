@@ -6,5 +6,6 @@ public class Data
     // it will save this
     public int level;
     public int xp;
+    public int neededxp;
     //do anything that needs saving like this
 }

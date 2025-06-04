@@ -9,6 +9,7 @@ public class SaveGame : MonoBehaviour
         Data data = new Data();
         data.level = gameState.level;
         data.xp = gameState.xp;
+        data.neededxp = gameState.neededxp;
 
         SaveManager.Save(data);
     }
@@ -18,6 +19,7 @@ public class SaveGame : MonoBehaviour
     {
         Data data = SaveManager.Load();
 
+        gameState.neededxp = data.neededxp;
         gameState.level = data.level;
         gameState.xp = data.xp;
     }
@@ -28,6 +30,7 @@ public class SaveGame : MonoBehaviour
 
         data.level = 0;
         data.xp = 0;
+        data.neededxp = 100;
     }
 
 }

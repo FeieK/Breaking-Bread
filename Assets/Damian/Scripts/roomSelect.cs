@@ -92,12 +92,12 @@ public class roomSelect : MonoBehaviour
     {
         switch (roomNum)
         {
-            case 1: minimumE = 3; break;
-            case 2: minimumE = 5; break;
-            case 3: minimumE = 10; break;
-            case 4: minimumE = 15; break;
-            case 5: minimumE = 20; break;
-            default: minimumE = 0; break;
+            case 1: minimumE = 3 + (gameState.level * 1); break;
+            case 2: minimumE = 5 + (gameState.level * 1); break;
+            case 3: minimumE = 10 + (gameState.level * 2); break;
+            case 4: minimumE = 15 + (gameState.level * 2); break;
+            case 5: minimumE = 20 + (gameState.level * 3); break;
+            default: minimumE = 0 + (gameState.level * 3); break;
         }
 
         enemy1 = dropdownEnemy1.value;
@@ -143,14 +143,6 @@ public class roomSelect : MonoBehaviour
     //sets the enemys to room where it gets ussed to spawn them in grid
     public bool SetEnemies(int enemy1, int enemy2, int enemy3)
     {
-        int totalPoints = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
-
-        if (totalPoints < minimumE)
-        {
-            Debug.LogWarning($"Total points {totalPoints} is less than required minimum {minimumE}");
-            return false;
-        }
-
         room.enemy1 = enemy1;
         room.enemy2 = enemy2;
         room.enemy3 = enemy3;
@@ -232,10 +224,10 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // just incase i dumb
             }
         }
-        room.minsize = 35;
-        room.maxsize = 40;
+        room.minsize = 35 + (gameState.level * 2);
+        room.maxsize = 40 + (gameState.level * 2);
 
-        room.placNumObj = 3;
+        room.placNumObj = 3 + (gameState.level * 1);
         changemap();
     }
 
@@ -263,10 +255,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 40;
-        room.maxsize = 45;
+        room.minsize = 40 + (gameState.level * 2);
+        room.maxsize = 45 + (gameState.level * 2);
 
-        room.placNumObj = 4;
+        room.placNumObj = 4 + (gameState.level * 1);
         changemap();
     }
 
@@ -295,10 +287,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 45;
-        room.maxsize = 50;
+        room.minsize = 45 + (gameState.level * 4);
+        room.maxsize = 50 + (gameState.level * 4);
 
-        room.placNumObj = 5;
+        room.placNumObj = 5 + (gameState.level * 3);
         changemap();
     }
 
@@ -327,10 +319,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 50;
-        room.maxsize = 60;
+        room.minsize = 50 + (gameState.level * 5);
+        room.maxsize = 60 + (gameState.level * 5);
 
-        room.placNumObj = 6;
+        room.placNumObj = 6 + (gameState.level * 4);
         changemap();
     }
     public void bosroom()
@@ -358,10 +350,10 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // just incase i dumb
             }
         }
-        room.minsize = 100;
-        room.maxsize = 120;
+        room.minsize = 100 + (gameState.level * 7);
+        room.maxsize = 120 + (gameState.level * 7);
 
-        room.placNumObj = 12;
+        room.placNumObj = 12 + (gameState.level * 9);
         changemap();
     }
 

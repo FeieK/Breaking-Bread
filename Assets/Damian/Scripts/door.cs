@@ -17,35 +17,33 @@ public class door : MonoBehaviour
         {
             room.roomNum++;
 
-            if (room.roomNum == 1)
+            switch (room.roomNum)
             {
-                roomSelect.room1();
-            }
-
-            if (room.roomNum == 2)
-            {
-                roomSelect.room2();
-            }
-
-            if (room.roomNum == 3)
-            {
-                roomSelect.room3();
-            }
-
-            if (room.roomNum == 4)
-            {
-                roomSelect.room4();
-            }
-
-            if (room.roomNum == 5)
-            {
-                roomSelect.bosroom();
-            }
-
-            if (room.roomNum == 6)
-            {
-                room.roomNum = 0;
-                roomSelect.hubworld();
+                case 1:
+                    gameState.AddXP(10);
+                    roomSelect.room1();
+                    break;
+                case 2:
+                    gameState.AddXP(20);
+                    roomSelect.room2();
+                    break;
+                case 3:
+                    gameState.AddXP(30);
+                    roomSelect.room3();
+                    break;
+                case 4:
+                    gameState.AddXP(40);
+                    roomSelect.room4();
+                    break;
+                case 5:
+                    gameState.AddXP(45);
+                    roomSelect.bosroom();
+                    break;
+                case 6:
+                    gameState.AddXP(55);
+                    room.roomNum = 0;
+                    roomSelect.hubworld();
+                    break;
             }
         }
     }
@@ -55,35 +53,33 @@ public class door : MonoBehaviour
         {
             room.roomNum++;
 
-            if (room.roomNum == 1)
+            switch (room.roomNum)
             {
-                roomSelect.room1();
-            }
-
-            if (room.roomNum == 2)
-            {
-                roomSelect.room2();
-            }
-
-            if (room.roomNum == 3)
-            {
-                roomSelect.room3();
-            }
-
-            if (room.roomNum == 4)
-            {
-                roomSelect.room4();
-            }
-
-            if (room.roomNum == 5)
-            {
-                roomSelect.bosroom();
-            }
-
-            if (room.roomNum == 6)
-            {
-                room.roomNum = 0;
-                roomSelect.hubworld();
+                case 1:
+                    gameState.AddXP(10);
+                    roomSelect.room1();
+                    break;
+                case 2:
+                    gameState.AddXP(20);
+                    roomSelect.room2();
+                    break;
+                case 3:
+                    gameState.AddXP(30);
+                    roomSelect.room3();
+                    break;
+                case 4:
+                    gameState.AddXP(40);
+                    roomSelect.room4();
+                    break;
+                case 5:
+                    gameState.AddXP(45);
+                    roomSelect.bosroom();
+                    break;
+                case 6:
+                    gameState.AddXP(55);
+                    room.roomNum = 0;
+                    roomSelect.hubworld();
+                    break;
             }
         }
     }
