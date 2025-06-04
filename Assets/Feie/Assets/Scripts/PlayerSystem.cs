@@ -94,6 +94,7 @@ public class PlayerSystem : MonoBehaviour
         {
             float damage = deltaHp - (deltaHp * damageReduction);
             health += (int)Math.Round(damage);
+            room.points = Mathf.Max(0, room.points - 10);
         }
         else
         {

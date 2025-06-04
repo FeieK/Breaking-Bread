@@ -19,8 +19,12 @@ public static class room
     public static bool unlock;
 
     //roomnumber
-    public static int roomNum;  
-    
+    public static int roomNum;
+
+    //points
+    public static float runStartTime = 0f;
+    public static int points = 0;
+
     //failsave
     public static bool failsave;
 

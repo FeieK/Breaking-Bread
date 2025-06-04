@@ -447,6 +447,8 @@ public class PathGrid : MonoBehaviour
     //and respawn call this in player script or wherevever
     public void Respawn()
     {
+        room.points = Mathf.Max(0, room.points - 50);//nub;
+
         if (spawnedPlayer != null)
         {
             spawnedPlayer.transform.position = playerSpawnPosition;

@@ -19,7 +19,7 @@ public class SaveGame : MonoBehaviour
     {
         Data data = SaveManager.Load();
 
-        gameState.neededxp = data.neededxp;
+        gameState.neededxp = 100;
         gameState.level = data.level;
         gameState.xp = data.xp;
     }

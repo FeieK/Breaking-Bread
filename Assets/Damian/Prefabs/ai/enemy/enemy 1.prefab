@@ -598,7 +598,7 @@ MonoBehaviour:
   shooting: 0
   attackPoint: {fileID: 2374375829984013205}
   allowInvoke: 1
-  ai: 0
+  ai: 1
 --- !u!1 &7818556695119787148
 GameObject:
   m_ObjectHideFlags: 0

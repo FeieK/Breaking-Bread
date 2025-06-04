@@ -57,6 +57,7 @@ public class door : MonoBehaviour
             {
                 case 1:
                     gameState.AddXP(10);
+                    room.runStartTime = Time.time;
                     roomSelect.room1();
                     break;
                 case 2:
@@ -78,6 +79,13 @@ public class door : MonoBehaviour
                 case 6:
                     gameState.AddXP(55);
                     room.roomNum = 0;
+
+                    //calc points
+                    float timeTaken = Time.time - room.runStartTime;
+                    int timeBonus = Mathf.Max(0, 1000 + (gameState.level * 100) - Mathf.FloorToInt(timeTaken));//the longer it takes the more points 1000 max with scaling on xp for higher lvl
+
+                    room.points += timeBonus;
+                    Debug.Log($"Run completed in {timeTaken:F1} seconds. Points awarded: {timeBonus}   whoohooo so many points u pro (incase u have low bcs not gonne make a check) hahahah nub");
                     roomSelect.hubworld();
                     break;
             }
