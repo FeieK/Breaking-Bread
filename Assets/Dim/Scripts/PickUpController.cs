@@ -3,7 +3,7 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour
 {
     public ProjectileGun gunScript;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Transform player;
     private Transform gunContainer;
 
@@ -12,15 +12,13 @@ public class PickUpController : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
-    private void Awake()
-    {
-        player = GameObject.Find("Player").transform;
-        Transform rotatePoint = player.GetChild(0);
-        gunContainer = rotatePoint.GetChild(0);
-    }
-
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
+        Transform rotatePoint = player.GetChild(0);
+        gunContainer = rotatePoint.GetChild(0);
+
         if (!equipped)
         {
             gunScript.enabled = false;
@@ -32,6 +30,11 @@ public class PickUpController : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Disabled");
     }
 
     // Update is called once per frame
