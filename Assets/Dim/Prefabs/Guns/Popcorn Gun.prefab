@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874564226498853548}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.36, y: 0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -80,8 +80,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2d44a5959b7fb54590bc1bbefd0d525, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 9f9fa079f3aebd241a79af83cfae3093, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   bullet: {fileID: 230953377080402937, guid: 6c94c37cc90109a458a76fd924b2bdd1, type: 3}
   shootForce: 20
   timeBetweenShooting: 0.05
-  spread: 0.1
+  spread: 5
   reloadTime: 1.5
   timeBetweenShots: 0
   magSize: 100
@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunScript: {fileID: 4631373026461440592}
-  rb: {fileID: 1020047554980072626}
   pickUpRange: 2
   equipped: 0
 --- !u!1 &7512137854255362833

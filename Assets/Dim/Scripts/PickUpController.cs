@@ -32,11 +32,6 @@ public class PickUpController : MonoBehaviour
 
     }
 
-    private void OnDisable()
-    {
-        Debug.Log("Disabled");
-    }
-
     // Update is called once per frame
     void Update()
     {

@@ -5,9 +5,15 @@ public class bullet : MonoBehaviour
     public int dmg;
     public float Time;
     public bool Piercing;
+    public bool RandomRotation;
     private void Awake()
     {
         Destroy(gameObject, Time);
+    }
+
+    private void Start()
+    {
+        RandomRot();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,6 +35,15 @@ public class bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Walls"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void RandomRot()
+    {
+        if (RandomRotation)
+        {
+            Transform trans = GetComponent<Transform>();
+            trans.eulerAngles = new Vector3(0, 0, Random.Range(0, 360) );
         }
     }
 }
