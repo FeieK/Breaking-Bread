@@ -6,6 +6,7 @@ public static class gameState
     public static int level = 0;
     public static int xp = 0;
     public static int neededxp = 100;
+    public static int gold = 0;
 
 
     //dont need this for saving just to lazy to make a new scripteble script so ignore this

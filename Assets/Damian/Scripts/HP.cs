@@ -5,6 +5,8 @@ public class HP : MonoBehaviour
 {
     public float hp;
 
+    public int goldgain;
+
     public Scrollbar hpSlider;
 
     public void TakeDamage(float dmg)
@@ -15,6 +17,7 @@ public class HP : MonoBehaviour
         if (hp < 1)
         {
             Destroy(gameObject);
+            gameState.gold += goldgain;
         }
     }
 }

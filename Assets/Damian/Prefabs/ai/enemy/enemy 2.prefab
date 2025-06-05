@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 2
   hpSlider: {fileID: 8867457701737006926}
 --- !u!1 &1021550195830781095
 GameObject:
@@ -306,7 +307,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2d44a5959b7fb54590bc1bbefd0d525, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f9fa079f3aebd241a79af83cfae3093, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

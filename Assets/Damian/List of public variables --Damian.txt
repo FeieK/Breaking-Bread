@@ -1,0 +1,3 @@
+    public static bool die;kills the player
+        public static float runStartTime = 0f;    use this to make the timer if u want it as ui
+     

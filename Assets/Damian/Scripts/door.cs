@@ -56,28 +56,32 @@ public class door : MonoBehaviour
             switch (room.roomNum)
             {
                 case 1:
-                    gameState.AddXP(10);
                     room.runStartTime = Time.time;
                     roomSelect.room1();
                     break;
                 case 2:
                     gameState.AddXP(20);
+                    gameState.gold += 10;
                     roomSelect.room2();
                     break;
                 case 3:
                     gameState.AddXP(30);
+                    gameState.gold += 10;
                     roomSelect.room3();
                     break;
                 case 4:
                     gameState.AddXP(40);
+                    gameState.gold += 25;
                     roomSelect.room4();
                     break;
                 case 5:
-                    gameState.AddXP(45);
+                    gameState.AddXP(50);
+                    gameState.gold += 25;
                     roomSelect.bosroom();
                     break;
                 case 6:
-                    gameState.AddXP(55);
+                    gameState.AddXP(60);
+                    gameState.gold += 30;
                     room.roomNum = 0;
 
                     //calc points
