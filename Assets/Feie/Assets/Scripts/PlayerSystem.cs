@@ -92,7 +92,12 @@ public class PlayerSystem : MonoBehaviour
     {
         if (deltaHp < 0)
         {
-            float damage = deltaHp - (deltaHp * damageReduction);
+            //so it gets harder bassed on lvl and difficulty
+            float diff = gameState.GetDifficultyMultiplier();
+            float reducedDmg = deltaHp * Mathf.Pow(1.1f, gameState.level); //a curved dmg increase so lvl 1 10% lvl 2 19%  lvl 3 27% might change values but not this maath bcs just no
+            reducedDmg *= diff;
+
+            float damage = reducedDmg - (deltaHp * damageReduction);
             health += (int)Math.Round(damage);
             room.points = Mathf.Max(0, room.points - 10);
         }

@@ -20,7 +20,15 @@ public class SaveGame : MonoBehaviour
     {
         Data data = SaveManager.Load();
 
+        if (data.neededxp < 100)
+        {
         gameState.neededxp = 100;
+        }
+        else
+        {
+            gameState.neededxp = data.neededxp;
+        }
+
         gameState.xp = data.xp;
         gameState.level = data.level;
         gameState.gold = data.gold;

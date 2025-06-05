@@ -590,7 +590,7 @@ MonoBehaviour:
   shootForce: 0
   timeBetweenShooting: 100
   spread: 0
-  reloadTime: 0
+  reloadTime: 100
   timeBetweenShots: 0
   magSize: 1
   bulletsPerInput: 1
