@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &2194040345146848622
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +233,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.014233547, g: 0.3962264, b: 0.0112138875, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -447,6 +449,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &6757743315434895549
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +599,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &7170623412086783935
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,3 +749,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
