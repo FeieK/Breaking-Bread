@@ -42,6 +42,11 @@ public class SaveGame : MonoBehaviour
         data.xp = 0;
         data.neededxp = 100;
         data.gold = 0;
+
+        gameState.level = 0;
+        gameState.gold = 0;
+        gameState.xp = 0;
+        gameState.neededxp = 100;
     }
 
 }

@@ -110,7 +110,6 @@ public class enemy : MonoBehaviour
         Vector2 direction = Player.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // bad fix ik but it works
         transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 

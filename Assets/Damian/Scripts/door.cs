@@ -88,9 +88,11 @@ public class door : MonoBehaviour
                     gameState.gold += (Mathf.RoundToInt(30 * diff));
                     room.roomNum = 0;
 
+                    SaveGame.Load();
+
                     //calc points
                     float timeTaken = Time.time - room.runStartTime;
-                    int timeBonus = Mathf.Max(0, 1000 + (gameState.level * 100) - Mathf.FloorToInt(timeTaken));//the longer it takes the more points 1000 max with scaling on xp for higher lvl
+                    int timeBonus = Mathf.Max(0, 1000 + (gameState.level * 100) - Mathf.FloorToInt(timeTaken));//the longer it takes the les points 1000 max with scaling on xp for higher lvl
 
                     room.points += timeBonus;
                     Debug.Log($"Run completed in {timeTaken:F1} seconds. Points awarded: {timeBonus}   whoohooo so many points u pro (incase u have low ponts) hahahah nub");
