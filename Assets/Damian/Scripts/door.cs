@@ -5,10 +5,14 @@ public class door : MonoBehaviour
 {
     public roomSelect roomSelect;
 
+    private float diff;
+
     private void OnEnable()
     {
         GameObject script = GameObject.Find("GameController");
         roomSelect = script.GetComponent<roomSelect>();
+        diff = gameState.GetDifficultyMultiplier();
+
     }
     void Update()
     {
@@ -17,35 +21,33 @@ public class door : MonoBehaviour
         {
             room.roomNum++;
 
-            if (room.roomNum == 1)
+            switch (room.roomNum)
             {
-                roomSelect.room1();
-            }
-
-            if (room.roomNum == 2)
-            {
-                roomSelect.room2();
-            }
-
-            if (room.roomNum == 3)
-            {
-                roomSelect.room3();
-            }
-
-            if (room.roomNum == 4)
-            {
-                roomSelect.room4();
-            }
-
-            if (room.roomNum == 5)
-            {
-                roomSelect.bosroom();
-            }
-
-            if (room.roomNum == 6)
-            {
-                room.roomNum = 0;
-                roomSelect.hubworld();
+                case 1:
+                    gameState.AddXP(Mathf.RoundToInt(10 * diff));
+                    roomSelect.room1();
+                    break;
+                case 2:
+                    gameState.AddXP(Mathf.RoundToInt(20 * diff));
+                    roomSelect.room2();
+                    break;
+                case 3:
+                    gameState.AddXP(Mathf.RoundToInt(30 * diff));
+                    roomSelect.room3();
+                    break;
+                case 4:
+                    gameState.AddXP(Mathf.RoundToInt(40 * diff));
+                    roomSelect.room4();
+                    break;
+                case 5:
+                    gameState.AddXP(Mathf.RoundToInt(45 * diff));
+                    roomSelect.bosroom();
+                    break;
+                case 6:
+                    gameState.AddXP(Mathf.RoundToInt(55 * diff));
+                    room.roomNum = 0;
+                    roomSelect.hubworld();
+                    break;
             }
         }
     }
@@ -55,35 +57,45 @@ public class door : MonoBehaviour
         {
             room.roomNum++;
 
-            if (room.roomNum == 1)
+            switch (room.roomNum)
             {
-                roomSelect.room1();
-            }
+                case 1:
+                    room.runStartTime = Time.time;
+                    roomSelect.room1();
+                    break;
+                case 2:
+                    gameState.AddXP(Mathf.RoundToInt(20 * diff));
+                    gameState.gold += (Mathf.RoundToInt(10 * diff));
+                    roomSelect.room2();
+                    break;
+                case 3:
+                    gameState.AddXP(Mathf.RoundToInt(30 * diff));
+                    gameState.gold += (Mathf.RoundToInt(10 * diff));
+                    roomSelect.room3();
+                    break;
+                case 4:
+                    gameState.AddXP(Mathf.RoundToInt(40 * diff));
+                    gameState.gold += (Mathf.RoundToInt(25 * diff));
+                    roomSelect.room4();
+                    break;
+                case 5:
+                    gameState.AddXP(Mathf.RoundToInt(50 * diff));
+                    gameState.gold += (Mathf.RoundToInt(25 * diff));
+                    roomSelect.bosroom();
+                    break;
+                case 6:
+                    gameState.AddXP(Mathf.RoundToInt(60 * diff));
+                    gameState.gold += (Mathf.RoundToInt(30 * diff));
+                    room.roomNum = 0;
 
-            if (room.roomNum == 2)
-            {
-                roomSelect.room2();
-            }
+                    //calc points
+                    float timeTaken = Time.time - room.runStartTime;
+                    int timeBonus = Mathf.Max(0, 1000 + (gameState.level * 100) - Mathf.FloorToInt(timeTaken));//the longer it takes the more points 1000 max with scaling on xp for higher lvl
 
-            if (room.roomNum == 3)
-            {
-                roomSelect.room3();
-            }
-
-            if (room.roomNum == 4)
-            {
-                roomSelect.room4();
-            }
-
-            if (room.roomNum == 5)
-            {
-                roomSelect.bosroom();
-            }
-
-            if (room.roomNum == 6)
-            {
-                room.roomNum = 0;
-                roomSelect.hubworld();
+                    room.points += timeBonus;
+                    Debug.Log($"Run completed in {timeTaken:F1} seconds. Points awarded: {timeBonus}   whoohooo so many points u pro (incase u have low ponts) hahahah nub");
+                    roomSelect.hubworld();
+                    break;
             }
         }
     }

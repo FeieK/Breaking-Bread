@@ -28,7 +28,11 @@ public class roomSelect : MonoBehaviour
 
     private int totalCost;
 
-    //the enemies
+    //dificoulty
+    private float diff;
+
+
+    //the amount of enemys enemies
     public TMP_Dropdown dropdownEnemy1;
     public TMP_Dropdown dropdownEnemy2;
     public TMP_Dropdown dropdownEnemy3;
@@ -40,14 +44,18 @@ public class roomSelect : MonoBehaviour
     private void Awake()
     {
         //loads the game autosave after 5 min every 5 min
-        SaveGame.Load();
-        InvokeRepeating(nameof(SaveGame.Save), 300f, 300f);
+        //SaveGame.Load();
+        //InvokeRepeating(nameof(SaveGame.Save), 300f, 300f);
         
         //goes to hubworld
         hubworld();
     }
     private void Update()
     {
+
+        //find smt better for this to place add
+        diff = gameState.GetDifficultyMultiplier();
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!11
 
         showui();
 
@@ -92,13 +100,14 @@ public class roomSelect : MonoBehaviour
     {
         switch (roomNum)
         {
-            case 1: minimumE = 3; break;
-            case 2: minimumE = 5; break;
-            case 3: minimumE = 10; break;
-            case 4: minimumE = 15; break;
-            case 5: minimumE = 20; break;
-            default: minimumE = 0; break;
+            case 1: minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff); break;
+            case 2: minimumE = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff); break;
+            case 3: minimumE = Mathf.RoundToInt(10 * Mathf.Pow(1.1f, gameState.level) * diff); break;
+            case 4: minimumE = Mathf.RoundToInt(15 * Mathf.Pow(1.1f, gameState.level) * diff); break;
+            case 5: minimumE = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff    ); break;
+            default: minimumE = Mathf.RoundToInt(0 * Mathf.Pow(1.1f, gameState.level) * diff); break;
         }
+
 
         enemy1 = dropdownEnemy1.value;
         enemy2 = dropdownEnemy2.value;
@@ -143,14 +152,6 @@ public class roomSelect : MonoBehaviour
     //sets the enemys to room where it gets ussed to spawn them in grid
     public bool SetEnemies(int enemy1, int enemy2, int enemy3)
     {
-        int totalPoints = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
-
-        if (totalPoints < minimumE)
-        {
-            Debug.LogWarning($"Total points {totalPoints} is less than required minimum {minimumE}");
-            return false;
-        }
-
         room.enemy1 = enemy1;
         room.enemy2 = enemy2;
         room.enemy3 = enemy3;
@@ -192,7 +193,6 @@ public class roomSelect : MonoBehaviour
 
         randomEnemies();
 
-        //if u make them random
         roomNum = 1;
 
 
@@ -211,9 +211,8 @@ public class roomSelect : MonoBehaviour
 
         room.placehubworldobj = false;
 
-        minimumE = 3;
-
-
+        minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff);
+        //if u make them random
         if (random)
         {
             randomEnemies();
@@ -232,18 +231,17 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // just incase i dumb
             }
         }
-        room.minsize = 35;
-        room.maxsize = 40;
+        room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = 3;
+        room.placNumObj = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff );
         changemap();
     }
 
     public void room2()
     {
 
-        minimumE = 5;
-
+        minimumE = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
         if (random)
         {
             randomEnemies();
@@ -263,10 +261,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 40;
-        room.maxsize = 45;
+        room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(45 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = 4;
+        room.placNumObj = Mathf.RoundToInt(4 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 
@@ -274,7 +272,7 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        minimumE = 10;
+        minimumE = Mathf.RoundToInt(10 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         if (random)
         {
@@ -295,10 +293,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 45;
-        room.maxsize = 50;
+        room.minsize = Mathf.RoundToInt(45 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(50 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = 5;
+        room.placNumObj = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 
@@ -306,7 +304,7 @@ public class roomSelect : MonoBehaviour
     {
         room.placehubworldobj = false;
 
-        minimumE = 15;
+        minimumE = Mathf.RoundToInt(15 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         if (random)
         {
@@ -327,10 +325,10 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = 50;
-        room.maxsize = 60;
+        room.minsize = Mathf.RoundToInt(50 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(60 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = 6;
+        room.placNumObj = Mathf.RoundToInt(6 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
     public void bosroom()
@@ -338,7 +336,7 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         //or 1 bos
-        minimumE = 20;
+        minimumE = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         if (random)
         {
@@ -358,10 +356,10 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // just incase i dumb
             }
         }
-        room.minsize = 100;
-        room.maxsize = 120;
+        room.minsize =  Mathf.RoundToInt(100 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.maxsize = Mathf.RoundToInt(120 * Mathf.Pow(1.1f, gameState.level) * diff  );
 
-        room.placNumObj = 12;
+        room.placNumObj = Mathf.RoundToInt(12 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 

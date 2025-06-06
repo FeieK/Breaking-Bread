@@ -115,9 +115,9 @@ public class PathGrid : MonoBehaviour
 
         if (freespawnloc.Count == 0) return;
 
-        SpawnObjects(freespawnloc);
         Node playerNode = SpawnPlayer(freespawnloc);
         SpawnEnemies(freespawnloc, playerNode);
+        SpawnObjects(freespawnloc);
     }
 
     // gues
@@ -198,7 +198,7 @@ public class PathGrid : MonoBehaviour
                 if (!placed)
                 {
                     room.failsave = true;
-                    //failsaves makes a new map but if it not fit fast then u stuck here
+                    //failsaves makes a new map but if it not fit fast then u stuck here or aperently it just faills
                     Debug.LogWarning($"Failed to place: {toSpawn.prefab.name} so increase mapsize or reduce object size map size is in room select");
                 }
                 else
@@ -447,6 +447,8 @@ public class PathGrid : MonoBehaviour
     //and respawn call this in player script or wherevever
     public void Respawn()
     {
+        room.points = Mathf.Max(0, room.points - 50);//nub;
+
         if (spawnedPlayer != null)
         {
             spawnedPlayer.transform.position = playerSpawnPosition;

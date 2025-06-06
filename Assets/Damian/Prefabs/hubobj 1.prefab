@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &2194040345146848622
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &6757743315434895549
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +586,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}
 --- !u!1 &7170623412086783935
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,3 +736,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  goldgain: 0
+  hpSlider: {fileID: 0}

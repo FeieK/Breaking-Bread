@@ -36,7 +36,7 @@ public class enemychooser : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         yh = false;
     }

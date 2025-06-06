@@ -25,7 +25,7 @@ public class ProjectileGun : MonoBehaviour
     int bulletsShot;
 
     //Bools
-    bool shooting;
+    public bool shooting;
     bool readyToShoot;
     bool reloading;
 
@@ -36,6 +36,12 @@ public class ProjectileGun : MonoBehaviour
     //Bug fixing
     public bool allowInvoke;
 
+    //targetpoint
+    Vector3 targetPoint;
+
+    //ai
+    public bool ai = false;
+
     private void Awake()
     {
         bulletsLeft = magSize;
@@ -44,8 +50,33 @@ public class ProjectileGun : MonoBehaviour
 
     private void Update()
     {
-        MyInput();
+        if (ai)
+        {
+            EnemyAIInput();
+        }
+        else
+        { 
+            MyInput();
+        }
         Flip();
+    }
+    private void EnemyAIInput()
+    {
+
+        //set shooting to true
+
+        // Auto-reload logic
+        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+        {
+            Reload();
+        }
+
+        // Shooting logic
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        {
+            bulletsShot = 0;
+            Shoot();
+        }
     }
 
     private void MyInput()
@@ -84,7 +115,14 @@ public class ProjectileGun : MonoBehaviour
     {
         readyToShoot = false;
 
-        Vector3 targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!ai)
+        {
+            targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else
+        {
+            targetPoint = transform.position + transform.right * 10f;
+        }
 
         //calc spread
         float x = Random.Range(-spread, spread);

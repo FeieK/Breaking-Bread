@@ -9,6 +9,8 @@ public class SaveGame : MonoBehaviour
         Data data = new Data();
         data.level = gameState.level;
         data.xp = gameState.xp;
+        data.neededxp = gameState.neededxp;
+        data.gold = gameState.gold;
 
         SaveManager.Save(data);
     }
@@ -18,8 +20,18 @@ public class SaveGame : MonoBehaviour
     {
         Data data = SaveManager.Load();
 
-        gameState.level = data.level;
+        if (data.neededxp < 100)
+        {
+        gameState.neededxp = 100;
+        }
+        else
+        {
+            gameState.neededxp = data.neededxp;
+        }
+
         gameState.xp = data.xp;
+        gameState.level = data.level;
+        gameState.gold = data.gold;
     }
 
     public static void reset()
@@ -28,6 +40,8 @@ public class SaveGame : MonoBehaviour
 
         data.level = 0;
         data.xp = 0;
+        data.neededxp = 100;
+        data.gold = 0;
     }
 
 }

@@ -1,0 +1,22 @@
+   
+
+   deze 2 staan in room om ze te gebruiken do room.die en room.runStartTime
+   
+   public static bool die;kills the player
+        public static float runStartTime = 0f;    use this to make the timer if u want it as ui
+     
+
+     en in gamestat staat do gameState.gold om goud te verhoogen of verlagen doe gameState.AddXP(10); om xp toe te voegen 10 is de hoeveelheid
+ 
+
+         public static int level = 0;
+    public static int xp = 0;
+    public static int neededxp = 100;
+    public static int gold = 0;
+
+
+
+    saves and load game and reset u should be able to call them from a butten
+        SaveGame.Load();
+       SaveGame.Save():
+       SaveGame.reset();

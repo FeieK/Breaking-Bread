@@ -2,26 +2,32 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 
 
 public class enemy : MonoBehaviour
 {
-    public Transform Player;
-    private float speed = 5f;
+    private Transform Player;
+    public float speed = 5f;
 
-    public Pathfinding pathfinding;
-    public PathGrid grid;
+    private Pathfinding pathfinding;
+    private PathGrid grid;
 
     private List<Node> path;
     private int targetIndex;
 
-    private bool hitobj;
+    private bool hitplayer;
 
     public LayerMask obstacleLayer;
-    private float obstacleCheckRadius = 1.5f;
+    public LayerMask PlayerleLayer;
 
-    [System.Obsolete]
+    public float playerCheckRadius = 1.5f;
+
+    //gun
+    private ProjectileGun enemyGun;
+
+
     private void OnEnable()
     {
         Player = GameObject.Find("Player(Clone)")?.transform;
@@ -32,6 +38,9 @@ public class enemy : MonoBehaviour
 
         //updates path every 0.5f
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
+
+        enemyGun = GetComponentInChildren<ProjectileGun>();
+
     }
 
 
@@ -45,31 +54,64 @@ public class enemy : MonoBehaviour
 
     private void Update()
     {
-        hitobj = Physics2D.OverlapCircle(transform.position, obstacleCheckRadius, obstacleLayer);
+        if (Player == null) return;
 
-        //if we wanne use a worse but raycastusing way
-        //if (path == null || path.Count == 0 || !hitobj)
-        if (path == null || path.Count == 0)
+        //checks the range
+        bool playerInRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius;
+
+        //checks if theres a object
+        Vector2 direction = (Player.position - transform.position).normalized;
+        float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distanceToPlayer, obstacleLayer);
+         //bcs why not
+        Debug.DrawRay(transform.position, direction * distanceToPlayer, Color.red);
+
+        //if it doesnt hit or is inrange ove to player
+        if (!playerInRange || hit.collider != null)
         {
-            Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
+            enemyGun.shooting = false;
+
+            // Move directly or using path
+            if (path == null || path.Count == 0)
+            {
+                Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
+                transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
+            }
+            else
+            {
+                Vector2 currentWaypoint = path[targetIndex].worldPosition;
+                if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
+                {
+                    targetIndex++;
+                    if (targetIndex >= path.Count)
+                    {
+                        path = null;
+                        return;
+                    }
+                }
+
+                Vector2 wpdirection = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
+                transform.position += (Vector3)(wpdirection * speed * Time.deltaTime);
+            }
         }
+        //shoot
         else
         {
-            Vector2 currentWaypoint = path[targetIndex].worldPosition;
-            if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
-            {
-                targetIndex++;
-                if (targetIndex >= path.Count)
-                {
-                    path = null;
-                    return;
-                }
-            }
+            enemyGun.shooting = true;
+            //someday ill fix it
+            //flip();
+            //maybe
 
-            Vector2 direction = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(direction * speed * Time.deltaTime);
         }
+    }
+
+    public void flip()
+    {
+        Vector2 direction = Player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // bad fix ik but it works
+        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,9 +128,8 @@ public class enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //someone really wanted a raycast gizmo so here u go :D
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, obstacleCheckRadius);
+        Gizmos.DrawWireSphere(transform.position, playerCheckRadius);
     }
 
 }
