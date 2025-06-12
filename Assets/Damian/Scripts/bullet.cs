@@ -19,7 +19,7 @@ public class bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
-        {
+        { 
             HP enemyHP = collision.gameObject.GetComponent<HP>();
             if (enemyHP != null)
             {

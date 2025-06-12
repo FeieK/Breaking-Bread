@@ -11,6 +11,7 @@ public class SaveGame : MonoBehaviour
         data.xp = gameState.xp;
         data.neededxp = gameState.neededxp;
         data.gold = gameState.gold;
+        data.unlockedWeapons = gameState.unlockedWeapons;
 
         SaveManager.Save(data);
     }
@@ -31,7 +32,12 @@ public class SaveGame : MonoBehaviour
 
         gameState.xp = data.xp;
         gameState.level = data.level;
-        gameState.gold = data.gold;
+
+       
+        gameState.gold = 10000;
+        //gameState.gold = data.gold;
+        gameState.unlockedWeapons = data.unlockedWeapons; 
+
     }
 
     public static void reset()
@@ -42,7 +48,10 @@ public class SaveGame : MonoBehaviour
         data.xp = 0;
         data.neededxp = 100;
         data.gold = 0;
+        data.unlockedWeapons.Clear();
 
+
+        gameState.unlockedWeapons.Clear();
         gameState.level = 0;
         gameState.gold = 0;
         gameState.xp = 0;

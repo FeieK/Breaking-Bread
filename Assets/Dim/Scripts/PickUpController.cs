@@ -11,11 +11,12 @@ public class PickUpController : MonoBehaviour
 
     public bool equipped;
     public static bool slotFull;
-
-    private void Start()
+    private GameObject map;
+    private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        map = GameObject.Find("Map");
         Transform rotatePoint = player.GetChild(0);
         gunContainer = rotatePoint.GetChild(0);
 
@@ -75,7 +76,7 @@ public class PickUpController : MonoBehaviour
         gunScript.enabled = false;
 
         //set parent to null
-        transform.SetParent(null);
+        transform.SetParent(map.transform);
 
         //Make RigidBody not kinematic and BoxCollider normal
         rb.bodyType = RigidbodyType2D.Dynamic;

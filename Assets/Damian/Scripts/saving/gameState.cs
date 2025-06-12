@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class gameState 
@@ -7,13 +8,24 @@ public static class gameState
     public static int xp;
     public static int neededxp;
     public static int gold;
+    public static List<string> unlockedWeapons = new List<string>();
+
 
 
     //hard to gues whats this for
     public static Difficulty difficulty = Difficulty.Medium;
 
 
-    //dont need this for saving just to lazy to make a new scripteble script so ignore this
+    //dont need this for saving just to lazy to make a new scripteble script so ignore this and handy to place it here
+
+    public static void UnlockWeapon(string weaponName)
+    {
+        if (!unlockedWeapons.Contains(weaponName))
+        {
+            unlockedWeapons.Add(weaponName);
+        }
+    }
+
     public static void AddXP(int amount)
     {
         xp += amount;

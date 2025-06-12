@@ -59,6 +59,8 @@ public class enemy : MonoBehaviour
         //checks the range
         bool playerInRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius;
 
+        bool playerInshootwalkRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius + 2;
+
         //checks if theres a object
         Vector2 direction = (Player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
@@ -66,10 +68,35 @@ public class enemy : MonoBehaviour
          //bcs why not
         Debug.DrawRay(transform.position, direction * distanceToPlayer, Color.red);
 
-        //if it doesnt hit or is inrange ove to player
+        //if it doesnt hit or is inrange of to player
+
+        //it never does the else ill fix later
+
+        //if (playerInshootwalkRange && playerInRange)
+        //{
+        //    walk();
+        //    shoot();
+        //}
+        //else
         if (!playerInRange || hit.collider != null)
         {
+            walk();
             enemyGun.shooting = false;
+        }
+        //shoot
+        else
+        {
+            shoot();
+        }
+    }
+
+    private void shoot()
+    {
+            enemyGun.shooting = true;
+    }
+
+    private void walk()
+    {
 
             // Move directly or using path
             if (path == null || path.Count == 0)
@@ -93,25 +120,9 @@ public class enemy : MonoBehaviour
                 Vector2 wpdirection = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
                 transform.position += (Vector3)(wpdirection * speed * Time.deltaTime);
             }
-        }
-        //shoot
-        else
-        {
-            enemyGun.shooting = true;
-            //someday ill fix it
-            //flip();
-            //maybe
 
-        }
     }
 
-    public void flip()
-    {
-        Vector2 direction = Player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -129,6 +140,10 @@ public class enemy : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, playerCheckRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, playerCheckRadius + 2);
+
     }
 
 }
