@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: deadc76911177744ba6ef83f31ed5ae6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 202faf2cfa1ba6645a6c7ebf3f3b9f4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,8 +187,10 @@ MonoBehaviour:
   bulletsPerInput: 1
   allowButtonHold: 1
   shouldFlip: 1
+  shooting: 0
   attackPoint: {fileID: 7158244716896211605}
   allowInvoke: 1
+  ai: 0
 --- !u!114 &3657898514960274487
 MonoBehaviour:
   m_ObjectHideFlags: 0

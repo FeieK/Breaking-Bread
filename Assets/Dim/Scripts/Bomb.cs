@@ -6,6 +6,7 @@ public class Bomb : MonoBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(Explosion, this.transform);
+        GameObject explosion = Instantiate(Explosion, this.transform);
+        explosion.transform.parent = null;
     }
 }
