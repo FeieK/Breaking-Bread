@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  startlvl: 0
   goldgain: 0
   hpSlider: {fileID: 0}
 --- !u!1 &2194040345146848622
@@ -179,7 +180,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2741109136510311375}
@@ -449,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  startlvl: 0
   goldgain: 0
   hpSlider: {fileID: 0}
 --- !u!1 &6757743315434895549
@@ -599,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  startlvl: 0
   goldgain: 0
   hpSlider: {fileID: 0}
 --- !u!1 &7170623412086783935
@@ -749,5 +752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  startlvl: 0
   goldgain: 0
   hpSlider: {fileID: 0}

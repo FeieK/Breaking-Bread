@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3955054738964590096}
@@ -105,14 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0fc57eb2501e345a747c4a0d233521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 1.5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
   PlayerleLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerCheckRadius: 10
+  playerCheckRadius: 5
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0

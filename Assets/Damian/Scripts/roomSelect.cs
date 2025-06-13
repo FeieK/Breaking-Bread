@@ -248,8 +248,8 @@ public class roomSelect : MonoBehaviour
         roomNum = 1;
 
 
-        room.minsize = 30;
-        room.maxsize = 35;
+        room.minsize = 15;
+        room.maxsize = 20;
 
         changemap();
     }
@@ -283,8 +283,8 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // just incase i dumb
             }
         }
-        room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
-        room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         room.placNumObj = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff );
         changemap();
@@ -313,8 +313,8 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
-        room.minsize = Mathf.RoundToInt(45 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         room.placNumObj = Mathf.RoundToInt(4 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
@@ -345,8 +345,8 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = Mathf.RoundToInt(45 * Mathf.Pow(1.1f, gameState.level) * diff);
-        room.minsize = Mathf.RoundToInt(50 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         room.placNumObj = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
@@ -377,8 +377,8 @@ public class roomSelect : MonoBehaviour
             }
         }
 
-        room.minsize = Mathf.RoundToInt(50 * Mathf.Pow(1.1f, gameState.level) * diff);
-        room.minsize = Mathf.RoundToInt(60 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
 
         room.placNumObj = Mathf.RoundToInt(6 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
