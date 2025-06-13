@@ -166,9 +166,9 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
-  nodeRadius: 1
+  nodeRadius: 0.5
   minimap: {fileID: 2086158316}
-  showGrid: 0
+  showGrid: 1
   wall:
   - prefab: {fileID: 2194040345146848622, guid: e6bc9e2d917157e45b7348687699f270, type: 3}
     size: {x: 1, y: 1}
@@ -179,23 +179,20 @@ MonoBehaviour:
     canRotate: 0
   objects:
   - prefab: {fileID: 2194040345146848622, guid: 874a2b41fab2dd647bad3cb8d94da62e, type: 3}
-    size: {x: 2, y: 2}
+    size: {x: 1, y: 1}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 087949ad9dff1504c8537a6a8528e63e, type: 3}
-    size: {x: 2, y: 2}
+    size: {x: 1, y: 1}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: 54a5e47ddd58b8147ab4e028ae3eb1b9, type: 3}
-    size: {x: 2, y: 2}
-    canRotate: 1
-  - prefab: {fileID: 874564226498853548, guid: d2cd062b0e0208943a19b728d8b32b43, type: 3}
     size: {x: 1, y: 1}
-    canRotate: 0
+    canRotate: 1
   hubobjects:
   - prefab: {fileID: 2194040345146848622, guid: 3632f4ab3089c5e4dbef4aecda175914, type: 3}
-    size: {x: 2, y: 2}
+    size: {x: 1, y: 1}
     canRotate: 1
   - prefab: {fileID: 2194040345146848622, guid: d653f25799a04f142add708b37dfeeba, type: 3}
-    size: {x: 2, y: 2}
+    size: {x: 1, y: 1}
     canRotate: 1
   Enemy:
   - prefab: {fileID: 291307673017065930, guid: 3f3afc4e48ab5384997a3008346df9f4, type: 3}
