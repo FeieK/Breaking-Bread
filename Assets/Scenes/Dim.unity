@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundIsActive: 1
+  paused: 0
   playerLives: 1
 --- !u!4 &453130348
 Transform:
@@ -318,6 +319,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 455929159222782244, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455929159222782244, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455929159222782244, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -407,7 +416,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2de4d22b3fa6c504994618e0c81781a4, type: 2}
+  - {fileID: 2100000, guid: d08df91cefd40ac4aba584fc63f3ea4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
