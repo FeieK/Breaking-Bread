@@ -128,7 +128,7 @@ public class ProjectileGun : MonoBehaviour
         float x = Random.Range(-spread, spread);
 
         //instantiate bullet
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity, this.transform);
 
         //add forces to bullet
         currentBullet.transform.rotation = rotatePoint.rotation;

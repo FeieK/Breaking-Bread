@@ -5,6 +5,8 @@ public class HP : MonoBehaviour
 {
     public float hp;
 
+    public int startlvl;
+
     public int goldgain;
 
     public Scrollbar hpSlider;
@@ -12,8 +14,14 @@ public class HP : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         float diff = gameState.GetDifficultyMultiplier();
-        float reducedDmg = dmg * Mathf.Pow(0.9f, gameState.level); //a curved dmg reduction so lvl 1 10% lvl 2 19  lvl 3 27 might change values but not this maath bcs just no
-         reducedDmg *= diff;
+        
+        int scaling = gameState.level - startlvl;
+        if (scaling <= 1) scaling = 0;
+
+
+        float reducedDmg = dmg * Mathf.Pow(0.9f, scaling); //a curved dmg reduction so lvl 1 10% lvl 2 19  lvl 3 27 might change values but not this maath bcs just no
+        
+        reducedDmg *= diff;
 
         hpSlider.gameObject.SetActive(true);
         hpSlider.size -= reducedDmg / 100;

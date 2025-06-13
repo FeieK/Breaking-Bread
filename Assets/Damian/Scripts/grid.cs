@@ -36,6 +36,8 @@ public class PathGrid : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private Vector3 playerSpawnPosition;
     private List<Vector3> enemySpawnPositions = new List<Vector3>();
+    private List<int> spawnedEnemyTypes = new List<int>();
+
 
 
     //when it enebles it makes a random map
@@ -79,6 +81,7 @@ public class PathGrid : MonoBehaviour
         //unlocks room is all enemys are ded
         room.unlock = allEnemiesDead;
 
+        //u die u respawn
         if (room.die)
         {
             room.die = false;
@@ -311,10 +314,16 @@ public class PathGrid : MonoBehaviour
         int[] enemyCounts = {
         Mathf.RoundToInt(room.enemy1),
         Mathf.RoundToInt(room.enemy2),
-        Mathf.RoundToInt(room.enemy3)
+        Mathf.RoundToInt(room.enemy3),
+        Mathf.RoundToInt(room.enemy4),
+        Mathf.RoundToInt(room.enemy5),
+        Mathf.RoundToInt(room.enemy6),
+        Mathf.RoundToInt(room.enemy7),
+        Mathf.RoundToInt(room.enemy8),
+        Mathf.RoundToInt(room.enemy9)
         };
 
-        for (int type = 0; type < 3; type++)
+        for (int type = 0; type < 9; type++)
         {
             for (int i = 0; i < enemyCounts[type] && distantNodes.Count > 0; i++)
             {
@@ -322,6 +331,8 @@ public class PathGrid : MonoBehaviour
                 Node node = distantNodes[index];
                 distantNodes.RemoveAt(index);
                 freespawnloc.Remove(node);
+
+                spawnedEnemyTypes.Add(type);
 
                 enemySpawnPositions.Add(node.worldPosition);
                 GameObject enemyPrefab = Enemy[type].prefab;
@@ -462,7 +473,8 @@ public class PathGrid : MonoBehaviour
             }
             else
             {
-                GameObject enemyPrefab = Enemy[0].prefab;
+                int type = spawnedEnemyTypes[i];
+                GameObject enemyPrefab = Enemy[type].prefab;
                 GameObject enemy = Instantiate(enemyPrefab, enemySpawnPositions[i], Quaternion.identity, transform);
                 spawnedEnemies[i] = enemy;
             }

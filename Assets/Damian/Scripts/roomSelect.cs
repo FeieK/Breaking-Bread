@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.Serialization;
 
 public class roomSelect : MonoBehaviour
 {
@@ -17,7 +18,13 @@ public class roomSelect : MonoBehaviour
     private int minimumE;
     private int EnemyCost1 = 1;
     private int EnemyCost2 = 2;
-    private int EnemyCost3 = 3;
+    private int EnemyCost3 = 3;    
+    private int EnemyCost4 = 4;
+    private int EnemyCost5 = 5;
+    private int EnemyCost6 = 6;   
+    private int EnemyCost7 = 7;
+    private int EnemyCost8 = 8;
+    private int EnemyCost9 = 9;
 
     //the ui
     public GameObject enemyui;
@@ -35,16 +42,33 @@ public class roomSelect : MonoBehaviour
     //the amount of enemys enemies
     public TMP_Dropdown dropdownEnemy1;
     public TMP_Dropdown dropdownEnemy2;
-    public TMP_Dropdown dropdownEnemy3;
+    public TMP_Dropdown dropdownEnemy3;   
+    public TMP_Dropdown dropdownEnemy4;
+    public TMP_Dropdown dropdownEnemy5;
+    public TMP_Dropdown dropdownEnemy6;    
+    public TMP_Dropdown dropdownEnemy7;
+    public TMP_Dropdown dropdownEnemy8;
+    public TMP_Dropdown dropdownEnemy9;
+
 
     private int enemy1;
     private int enemy2;
-    private int enemy3;
+    private int enemy3;    
+    private int enemy4;
+    private int enemy5;
+    private int enemy6;   
+    private int enemy7;
+    private int enemy8;
+    private int enemy9;
+
+    //temporery
+    public TextMeshProUGUI lvlshow;
+    //!!!!!!!!!!!!!!!!!
 
     private void Awake()
     {
         //loads the game autosave after 5 min every 5 min
-        //SaveGame.Load();
+        SaveGame.Load();
         //InvokeRepeating(nameof(SaveGame.Save), 300f, 300f);
         
         //goes to hubworld
@@ -54,9 +78,13 @@ public class roomSelect : MonoBehaviour
     {
 
         //find smt better for this to place add
+        lvlshow.text = $" {gameState.level}";
         diff = gameState.GetDifficultyMultiplier();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveGame.reset();
+        }
         showui();
 
 
@@ -69,31 +97,45 @@ public class roomSelect : MonoBehaviour
     //its a suprise
     public void randomEnemies()
     {
-        int enemy1 = 0, enemy2 = 0, enemy3 = 0;
+        int enemy1 = 0, enemy2 = 0, enemy3 = 0, enemy4 = 0, enemy5 = 0, enemy6 = 0, enemy7 = 0, enemy8 = 0, enemy9 = 0;
         int totalPoints = 0;
+
+        int level = Mathf.FloorToInt(gameState.level);
+
+        int minEnemy, maxEnemy;
+
+        if (level >= 15)
+        {
+            //all enemy spawn
+            minEnemy = 1;
+            maxEnemy = 9;
+        }
+        else
+        {
+            //only 3 close to ur lvl
+            minEnemy = Mathf.Clamp(level - 1, 1, 9);
+            maxEnemy = Mathf.Clamp(minEnemy + 2, 1, 9);
+        }
 
         while (totalPoints < minimumE)
         {
-            int choice = Random.Range(1, 4);
+            int choice = Random.Range(minEnemy, maxEnemy + 1);
 
             switch (choice)
             {
-                case 1:
-                    enemy1++;
-                    totalPoints += EnemyCost1;
-                    break;
-                case 2:
-                    enemy2++;
-                    totalPoints += EnemyCost2;
-                    break;
-                case 3:
-                    enemy3++;
-                    totalPoints += EnemyCost3;
-                    break;
+                case 1: enemy1++; totalPoints += EnemyCost1; break;
+                case 2: enemy2++; totalPoints += EnemyCost2; break;
+                case 3: enemy3++; totalPoints += EnemyCost3; break;
+                case 4: enemy4++; totalPoints += EnemyCost4; break;
+                case 5: enemy5++; totalPoints += EnemyCost5; break;
+                case 6: enemy6++; totalPoints += EnemyCost6; break;
+                case 7: enemy7++; totalPoints += EnemyCost7; break;
+                case 8: enemy8++; totalPoints += EnemyCost8; break;
+                case 9: enemy9++; totalPoints += EnemyCost9; break;
             }
         }
 
-        SetEnemies(enemy1, enemy2, enemy3);
+        SetEnemies(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8, enemy9);
     }
 
     private void showui()
@@ -112,8 +154,14 @@ public class roomSelect : MonoBehaviour
         enemy1 = dropdownEnemy1.value;
         enemy2 = dropdownEnemy2.value;
         enemy3 = dropdownEnemy3.value;
+        enemy4 = dropdownEnemy4.value;
+        enemy5 = dropdownEnemy5.value;
+        enemy6 = dropdownEnemy6.value;
+        enemy7 = dropdownEnemy7.value;
+        enemy8 = dropdownEnemy8.value;
+        enemy9 = dropdownEnemy9.value;
 
-        totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3;
+        totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3 + enemy4 * EnemyCost4 + enemy5 * EnemyCost5 + enemy6 * EnemyCost6 + enemy7 * EnemyCost7 + enemy8 * EnemyCost8 + enemy9 * EnemyCost9;
 
         roomnum.text = $"Room Number: {roomNum}";
         totaleEnScore.text = $"Total Score: {totalCost}";
@@ -123,8 +171,6 @@ public class roomSelect : MonoBehaviour
     //needs to choose a enemy for each room or it will be random
     public void choosenemys()
     {
-
-
 
         if (totalCost < minimumE)
         {
@@ -145,16 +191,22 @@ public class roomSelect : MonoBehaviour
                 roomNum++;
             }
 
-            EnemysEachRoom.AddConfig(enemy1, enemy2, enemy3);
+            EnemysEachRoom.AddConfig(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8, enemy9);
         }
     }
 
     //sets the enemys to room where it gets ussed to spawn them in grid
-    public bool SetEnemies(int enemy1, int enemy2, int enemy3)
+    public bool SetEnemies(int enemy1, int enemy2, int enemy3, int enemy4, int enemy5, int enemy6, int enemy7, int enemy8, int enemy9)
     {
         room.enemy1 = enemy1;
         room.enemy2 = enemy2;
         room.enemy3 = enemy3;
+        room.enemy4 = enemy4;
+        room.enemy5 = enemy5;
+        room.enemy6 = enemy6;
+        room.enemy7 = enemy7;
+        room.enemy8 = enemy8;
+        room.enemy9 = enemy9;
 
         return true;
     }
@@ -222,7 +274,7 @@ public class roomSelect : MonoBehaviour
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
@@ -251,7 +303,7 @@ public class roomSelect : MonoBehaviour
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
@@ -283,7 +335,7 @@ public class roomSelect : MonoBehaviour
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
@@ -315,7 +367,7 @@ public class roomSelect : MonoBehaviour
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
@@ -347,7 +399,7 @@ public class roomSelect : MonoBehaviour
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3);
+                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
