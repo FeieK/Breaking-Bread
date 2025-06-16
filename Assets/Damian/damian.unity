@@ -168,7 +168,7 @@ MonoBehaviour:
     m_Bits: 64
   nodeRadius: 0.5
   minimap: {fileID: 2086158316}
-  showGrid: 1
+  showGrid: 0
   wall:
   - prefab: {fileID: 2194040345146848622, guid: e6bc9e2d917157e45b7348687699f270, type: 3}
     size: {x: 1, y: 1}
@@ -5002,7 +5002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 7559861}
   grid: {fileID: 7559863}
-  random: 0
+  random: 1
   enemyui: {fileID: 1524472074}
   minEnScore: {fileID: 1672839741}
   totaleEnScore: {fileID: 1555766565}

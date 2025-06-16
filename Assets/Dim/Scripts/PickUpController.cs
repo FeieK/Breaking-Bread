@@ -9,6 +9,8 @@ public class PickUpController : MonoBehaviour
 
     public float pickUpRange;
 
+    public int wep;
+
     public bool equipped;
     public static bool slotFull;
     private GameObject map;
@@ -51,6 +53,7 @@ public class PickUpController : MonoBehaviour
 
     private void PickUp()
     {
+        gameState.eqwep = wep;
         equipped = true;
         slotFull = true;
 

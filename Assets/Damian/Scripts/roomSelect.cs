@@ -16,15 +16,10 @@ public class roomSelect : MonoBehaviour
 
     //min enemies and the enemy cost
     private int minimumE;
-    private int EnemyCost1 = 1;
-    private int EnemyCost2 = 2;
-    private int EnemyCost3 = 3;    
-    private int EnemyCost4 = 4;
-    private int EnemyCost5 = 5;
-    private int EnemyCost6 = 6;   
-    private int EnemyCost7 = 7;
-    private int EnemyCost8 = 8;
-    private int EnemyCost9 = 9;
+    private int EnemyCost123 = 1;
+    private int EnemyCost456 = 2;
+    private int EnemyCost789 = 3;    
+
 
     //the ui
     public GameObject enemyui;
@@ -123,15 +118,15 @@ public class roomSelect : MonoBehaviour
 
             switch (choice)
             {
-                case 1: enemy1++; totalPoints += EnemyCost1; break;
-                case 2: enemy2++; totalPoints += EnemyCost2; break;
-                case 3: enemy3++; totalPoints += EnemyCost3; break;
-                case 4: enemy4++; totalPoints += EnemyCost4; break;
-                case 5: enemy5++; totalPoints += EnemyCost5; break;
-                case 6: enemy6++; totalPoints += EnemyCost6; break;
-                case 7: enemy7++; totalPoints += EnemyCost7; break;
-                case 8: enemy8++; totalPoints += EnemyCost8; break;
-                case 9: enemy9++; totalPoints += EnemyCost9; break;
+                case 1: enemy1++; totalPoints += EnemyCost123; break;
+                case 2: enemy2++; totalPoints += EnemyCost123; break;
+                case 3: enemy3++; totalPoints += EnemyCost123; break;
+                case 4: enemy4++; totalPoints += EnemyCost456; break;
+                case 5: enemy5++; totalPoints += EnemyCost456; break;
+                case 6: enemy6++; totalPoints += EnemyCost456; break;
+                case 7: enemy7++; totalPoints += EnemyCost789; break;
+                case 8: enemy8++; totalPoints += EnemyCost789; break;
+                case 9: enemy9++; totalPoints += EnemyCost789; break;
             }
         }
 
@@ -161,7 +156,7 @@ public class roomSelect : MonoBehaviour
         enemy8 = dropdownEnemy8.value;
         enemy9 = dropdownEnemy9.value;
 
-        totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3 + enemy4 * EnemyCost4 + enemy5 * EnemyCost5 + enemy6 * EnemyCost6 + enemy7 * EnemyCost7 + enemy8 * EnemyCost8 + enemy9 * EnemyCost9;
+        totalCost = enemy1 * EnemyCost123 + enemy2 * EnemyCost123 + enemy3 * EnemyCost123 + enemy4 * EnemyCost456 + enemy5 * EnemyCost456 + enemy6 * EnemyCost456 + enemy7 * EnemyCost456 + enemy8 * EnemyCost456 + enemy9 * EnemyCost789;
 
         roomnum.text = $"Room Number: {roomNum}";
         totaleEnScore.text = $"Total Score: {totalCost}";

@@ -8,6 +8,7 @@ public static class gameState
     public static int xp;
     public static int neededxp;
     public static int gold;
+    public static int eqwep;
     public static List<string> unlockedWeapons = new List<string>();
 
 
