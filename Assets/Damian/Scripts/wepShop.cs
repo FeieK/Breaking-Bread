@@ -24,6 +24,7 @@ public class wepShop : MonoBehaviour
         ShopUI();
     }
 
+    //same logic as upgradeShop see those coments
     private void Update()
     {
         if (room.placehubworldobj)

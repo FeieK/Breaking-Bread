@@ -38,9 +38,10 @@ public class PickUpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Check if player is in range and "E" is pressed
+        //Check if player is in range and "Q" is pressed
+        //changed this bcs its a pain to have ui and this on 1 key xdd
         Vector3 distanceToPlayer = player.position - transform.position;
-        if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull)
+        if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.Q) && !slotFull)
         {
             PickUp();
         }

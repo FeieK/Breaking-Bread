@@ -10,6 +10,7 @@ public static class gameState
     public static int gold;
     public static int eqwep;
     public static List<string> unlockedWeapons = new List<string>();
+    public static List<string> unlockedUpgrades = new List<string>();
 
 
 
@@ -20,6 +21,14 @@ public static class gameState
     //dont need this for saving just to lazy to make a new scripteble script so ignore this and handy to place it here
 
     public static void UnlockWeapon(string weaponName)
+    {
+        if (!unlockedWeapons.Contains(weaponName))
+        {
+            unlockedWeapons.Add(weaponName);
+        }
+    }
+
+    public static void UnlockUpgrade(string weaponName)
     {
         if (!unlockedWeapons.Contains(weaponName))
         {
