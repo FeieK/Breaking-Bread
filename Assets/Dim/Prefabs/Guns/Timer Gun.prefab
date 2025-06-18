@@ -205,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunScript: {fileID: 4855006519140100090}
   pickUpRange: 2
+  wep: 10
   equipped: 0
 --- !u!1 &7536745688852835930
 GameObject:

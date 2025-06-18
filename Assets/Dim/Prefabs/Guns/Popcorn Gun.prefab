@@ -187,8 +187,10 @@ MonoBehaviour:
   bulletsPerInput: 1
   allowButtonHold: 1
   shouldFlip: 0
+  shooting: 0
   attackPoint: {fileID: 1886216009266153714}
   allowInvoke: 1
+  ai: 0
 --- !u!114 &8207586804466156644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunScript: {fileID: 4631373026461440592}
   pickUpRange: 2
+  wep: 2
   equipped: 0
 --- !u!1 &7512137854255362833
 GameObject:

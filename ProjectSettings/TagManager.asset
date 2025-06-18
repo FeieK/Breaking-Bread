@@ -8,6 +8,7 @@ TagManager:
   - GameOverUI
   - Walls
   - wepSpawnLocation
+  - Shield
   layers:
   - Default
   - TransparentFX

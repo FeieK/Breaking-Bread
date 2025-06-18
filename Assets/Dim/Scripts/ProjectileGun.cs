@@ -32,6 +32,9 @@ public class ProjectileGun : MonoBehaviour
     //Reference
     public Transform attackPoint;
     private Transform rotatePoint;
+    private Transform parent;
+    private Transform player;
+    private Transform map;
 
     //Bug fixing
     public bool allowInvoke;
@@ -46,6 +49,12 @@ public class ProjectileGun : MonoBehaviour
     {
         bulletsLeft = magSize;
         readyToShoot = true;
+
+        parent = this.transform.parent;
+        rotatePoint = parent.parent;
+        player = rotatePoint.transform.parent;
+        map = player.transform.parent;
+
     }
 
     private void Update()
@@ -127,8 +136,10 @@ public class ProjectileGun : MonoBehaviour
         //calc spread
         float x = Random.Range(-spread, spread);
 
+
+
         //instantiate bullet
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity, this.transform);
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity, map.transform);
 
         //add forces to bullet
         currentBullet.transform.rotation = rotatePoint.rotation;
@@ -171,8 +182,6 @@ public class ProjectileGun : MonoBehaviour
 
     private void Flip()
     {
-        Transform parent = this.transform.parent;
-        rotatePoint = parent.parent;
 
         if (shouldFlip)
         {

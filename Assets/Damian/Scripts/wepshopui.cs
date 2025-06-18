@@ -8,6 +8,7 @@ public class wepshopui : MonoBehaviour
 
     private void OnEnable()
     {
+        //u in the triger earia u can pres e to oppen ui
         GameObject canvas = GameObject.Find("Canvas");
         if (canvas != null)
         {

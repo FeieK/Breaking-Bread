@@ -19,11 +19,19 @@ public class wepShop : MonoBehaviour
     public Transform buttonParent;
     public GameObject buttonPrefab;
     private Transform wepspawnloc;
+
+    //dont use u dont need this!!!
+    private bool lazy = true;
     void OnEnable()
     {
-        ShopUI();
+        if (lazy) 
+        { 
+            ShopUI();
+            lazy = false;
+        }
     }
 
+    //same logic as upgradeShop see those coments
     private void Update()
     {
         if (room.placehubworldobj)
