@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 8194496530137923582}
   - component: {fileID: 6181867264204787891}
   m_Layer: 0
-  m_Name: enemy 8
+  m_Name: Dough Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

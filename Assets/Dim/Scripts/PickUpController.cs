@@ -75,7 +75,7 @@ public class PickUpController : MonoBehaviour
         //disable script
         gunScript.enabled = false;
 
-        //set parent to null
+        //set parent to map to allow despawn
         transform.SetParent(map.transform);
 
         //Make RigidBody not kinematic and BoxCollider normal

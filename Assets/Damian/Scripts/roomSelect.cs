@@ -163,9 +163,9 @@ public class roomSelect : MonoBehaviour
 
         totalCost = enemy1 * EnemyCost1 + enemy2 * EnemyCost2 + enemy3 * EnemyCost3 + enemy4 * EnemyCost4 + enemy5 * EnemyCost5 + enemy6 * EnemyCost6 + enemy7 * EnemyCost7 + enemy8 * EnemyCost8 + enemy9 * EnemyCost9;
 
-        roomnum.text = $"Room Number: {roomNum}";
-        totaleEnScore.text = $"Total Score: {totalCost}";
-        minEnScore.text = $"Min Score {minimumE}";
+        roomnum.text = $"Order: {roomNum}";
+        totaleEnScore.text = $"Total Points: {totalCost}";
+        minEnScore.text = $"Minimum Point Needed: {minimumE}";
     }
 
     //needs to choose a enemy for each room or it will be random
