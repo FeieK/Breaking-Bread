@@ -28,6 +28,9 @@ public class PlayerSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log(gameState.pHp);
+        Debug.Log(gameState.maxhp);
+        Debug.Log(gameState.hpRecovery);
         //if (canMove && gameController.roundIsActive == true)
         if (canMove)
         {

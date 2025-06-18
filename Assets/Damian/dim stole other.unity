@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 7559862}
   - component: {fileID: 7559865}
   - component: {fileID: 7559866}
+  - component: {fileID: 7559867}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -309,6 +310,30 @@ MonoBehaviour:
   - UpgradesName: powerShot
     price: 400
   buttonParent: {fileID: 12270673}
+  buttonPrefab: {fileID: 8637514446108053824, guid: b7f07e7c5e3022147a729a6355335fe7, type: 3}
+--- !u!114 &7559867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7559861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebf4a539c78e944b83d9615d5320209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - bufName: pHp
+    increase: 5
+    price: 5
+  - bufName: maxhp
+    increase: 5
+    price: 5
+  - bufName: hpRecovery
+    increase: 5
+    price: 5
+  buttonParent: {fileID: 330211036}
   buttonPrefab: {fileID: 8637514446108053824, guid: b7f07e7c5e3022147a729a6355335fe7, type: 3}
 --- !u!1 &12270672
 GameObject:
@@ -1058,7 +1083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: stats
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7703,7 +7728,7 @@ GameObject:
   - component: {fileID: 1006623700}
   - component: {fileID: 1006623699}
   m_Layer: 5
-  m_Name: bufs
+  m_Name: stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

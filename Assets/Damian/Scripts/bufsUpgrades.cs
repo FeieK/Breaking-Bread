@@ -7,14 +7,15 @@ using System.Linq;
 public class bufsUpgrades : MonoBehaviour
 {
     [System.Serializable]
-    public class UnlockEntry
+    public class statEntry
     {
         public string bufName;
+        public int increase;
         public int price;
     }
 
     private GameObject player;
-    public List<UnlockEntry> Upgradess = new List<UnlockEntry>();
+    public List<statEntry> stats = new List<statEntry>();
     public Transform buttonParent;
     public GameObject buttonPrefab;
 
@@ -29,55 +30,50 @@ public class bufsUpgrades : MonoBehaviour
 
             lazy = false;
         }
-
-        //acivates the unlocked upgrades
-        foreach (string upgrade in gameState.unlockedUpgrades)
-        {
-            ActivateUpgradeScript(upgrade);
-        }
     }
-
- 
 
     void upgradeui()
     {
-        //the ui makes buttens in a grid 
-        foreach (var Upgrades in Upgradess)
+        foreach (var stat in stats)
         {
             GameObject btnObj = Instantiate(buttonPrefab, buttonParent);
             TMP_Text btnText = btnObj.GetComponentInChildren<TMP_Text>();
             Button btn = btnObj.GetComponent<Button>();
 
-            string typeupgrade = Upgrades.UpgradesName;
-            int price = Upgrades.price;
+            string localType = stat.bufName;
+            int localPrice = stat.price;
+            int localIncrease = stat.increase;
 
-            if (gameState.unlockedUpgrades.Contains(typeupgrade))
-            {
-                btnText.text = $"{typeupgrade} sold";
-            }
-            else
-            {
-                btnText.text = $"{typeupgrade} - {price}g";
-                // copie = smaller change it bugs
-                string localType = typeupgrade;
-                int localPrice = price;
-                btn.onClick.AddListener(() => Buyupg(localPrice, localType, btn, btnText));
-            }
+            btnText.text = $"{localType} - {localPrice}g";
+
+            btn.onClick.AddListener(() => Buyupg(localPrice, localIncrease, localType, btn, btnText));
         }
     }
 
-    public void Buyupg(int goldCost, string UpgradesName, Button button, TMP_Text btnText)
+    public void Buyupg(int goldCost, int increase, string statName, Button button, TMP_Text btnText)
     {
-        //gold byebye welcome upgrade
         if (goldCost <= gameState.gold)
         {
             gameState.gold -= goldCost;
-            gameState.UnlockUpgrade(UpgradesName);
-            btnText.text = $"{UpgradesName}";
+
+            // Use reflection to find and modify the stat
+            var field = typeof(gameState).GetField(statName);
+            if (field != null && field.FieldType == typeof(int))
+            {
+                int currentValue = (int)field.GetValue(null); // static field, so use null
+                field.SetValue(null, currentValue + increase);
+
+                btnText.text = $"{statName} upgraded!";
+            }
+            else
+            {
+                Debug.LogError($"Stat '{statName}' not found or not an int on gameState.");
+            }
         }
         else
         {
-            // to poor can do smt w ui here
+            Debug.Log("Not enough gold.");
         }
     }
+
 }
