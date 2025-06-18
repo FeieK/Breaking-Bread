@@ -18,10 +18,17 @@ public class UpgradeShop : MonoBehaviour
     public Transform buttonParent;
     public GameObject buttonPrefab;
 
+    private bool lazy = true;
+
     void OnEnable()
     {
-        upgradeui();
-        player = GameObject.Find("Player(Clone)");
+        if (lazy)
+        {
+            upgradeui();
+            player = GameObject.Find("Player(Clone)");
+
+            lazy = false;
+        }
 
         //acivates the unlocked upgrades
         foreach (string upgrade in gameState.unlockedUpgrades)
@@ -32,6 +39,12 @@ public class UpgradeShop : MonoBehaviour
 
     void ActivateUpgradeScript(string upgradeName)
     {
+
+        if (player == null)
+        {
+            player = GameObject.Find("Player(Clone)");
+        }
+
         //looks for the name then searches that script on player
 
         UnlockEntry entry = Upgradess.Find(u => u.UpgradesName == upgradeName);

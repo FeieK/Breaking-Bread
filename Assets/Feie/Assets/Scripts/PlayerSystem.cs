@@ -7,7 +7,6 @@ public class PlayerSystem : MonoBehaviour
     public bool canMove;
     public float speed = 5f;
     public float knockbackStrength;
-    public int health;
     public bool canGetHurt;
     public float damageReduction;
     
@@ -16,12 +15,14 @@ public class PlayerSystem : MonoBehaviour
     private GameController gameController;
     private bool stopKnockback;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        health = 100;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+
+        InvokeRepeating(nameof(hpRecovery), 0f, 1f);
+
     }
 
     // Update is called once per frame
@@ -46,10 +47,10 @@ public class PlayerSystem : MonoBehaviour
         {
             rb.linearVelocity *= 0.9f;
         }
-        if (health <= 0)
+        if (gameState.pHp <= 0)
         {
             gameController.Die();
-            health = 100;
+            gameState.pHp = 100;
         }
     }
 
@@ -65,6 +66,11 @@ public class PlayerSystem : MonoBehaviour
 
         }
     }
+    public void hpRecovery()
+    {
+        gameState.pHp = Mathf.Min(gameState.pHp + gameState.hpRecovery, gameState.maxhp);
+    }
+
 
     IEnumerator Stun(int maxTimes)
     {
@@ -98,14 +104,14 @@ public class PlayerSystem : MonoBehaviour
             reducedDmg *= diff;
 
             float damage = reducedDmg - (deltaHp * damageReduction);
-            health += (int)Math.Round(damage);
+            gameState.pHp += (int)Math.Round(damage);
             room.points = Mathf.Max(0, room.points - 10);
         }
         else
         {
-            health += deltaHp;
+            gameState.pHp += deltaHp;
         }
-        if (health <= 0)
+        if (gameState.pHp <= 0)
         {
             room.die =true;
             //gameController.Die();

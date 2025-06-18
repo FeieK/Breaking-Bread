@@ -45,8 +45,7 @@ public class PickUpController : MonoBehaviour
         {
             PickUp();
         }
-
-        if (equipped && Input.GetKeyDown(KeyCode.Q))
+        else if (equipped && Input.GetKeyDown(KeyCode.Q))
         {
             Drop();
         }

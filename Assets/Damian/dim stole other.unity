@@ -302,16 +302,12 @@ MonoBehaviour:
   Upgradess:
   - UpgradesName: dash
     price: 100
-    script: {fileID: 2308332839249018432, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
   - UpgradesName: hpRegen
     price: 200
-    script: {fileID: 2308332839249018432, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
   - UpgradesName: shield
     price: 300
-    script: {fileID: 2308332839249018432, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
   - UpgradesName: powerShot
     price: 400
-    script: {fileID: 2308332839249018432, guid: 89b3a8cbe60513b46b49d764be7c9d60, type: 3}
   buttonParent: {fileID: 12270673}
   buttonPrefab: {fileID: 8637514446108053824, guid: b7f07e7c5e3022147a729a6355335fe7, type: 3}
 --- !u!1 &12270672

@@ -11,6 +11,11 @@ public static class gameState
     public static int eqwep;
     public static List<string> unlockedWeapons = new List<string>();
     public static List<string> unlockedUpgrades = new List<string>();
+    //player
+    public static int pHp;
+    public static int maxhp;
+    public static int hpRecovery;
+
 
 
 
