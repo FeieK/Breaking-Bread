@@ -11,14 +11,12 @@ public class roomSelect : MonoBehaviour
     public PathGrid grid;
 
     //see if its random and keep track of roomnum
-    public bool random = true;
     int roomNum = 1;
 
     //min enemies and the enemy cost
     private int minimumE;
-    private int EnemyCost123 = 1;
-    private int EnemyCost456 = 2;
-    private int EnemyCost789 = 3;    
+    private int[] enemyCosts = new int[9] { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
+
 
 
     //the ui
@@ -35,26 +33,10 @@ public class roomSelect : MonoBehaviour
 
 
     //the amount of enemys enemies
-    public TMP_Dropdown dropdownEnemy1;
-    public TMP_Dropdown dropdownEnemy2;
-    public TMP_Dropdown dropdownEnemy3;   
-    public TMP_Dropdown dropdownEnemy4;
-    public TMP_Dropdown dropdownEnemy5;
-    public TMP_Dropdown dropdownEnemy6;    
-    public TMP_Dropdown dropdownEnemy7;
-    public TMP_Dropdown dropdownEnemy8;
-    public TMP_Dropdown dropdownEnemy9;
+    public TMP_Dropdown[] dropdownEnemies = new TMP_Dropdown[9];
 
+    private int[] enemies = new int[9];
 
-    private int enemy1;
-    private int enemy2;
-    private int enemy3;    
-    private int enemy4;
-    private int enemy5;
-    private int enemy6;   
-    private int enemy7;
-    private int enemy8;
-    private int enemy9;
 
     //temporery
     public TextMeshProUGUI lvlshow;
@@ -92,7 +74,6 @@ public class roomSelect : MonoBehaviour
     //its a suprise
     public void randomEnemies()
     {
-        int enemy1 = 0, enemy2 = 0, enemy3 = 0, enemy4 = 0, enemy5 = 0, enemy6 = 0, enemy7 = 0, enemy8 = 0, enemy9 = 0;
         int totalPoints = 0;
 
         int level = Mathf.FloorToInt(gameState.level);
@@ -112,25 +93,18 @@ public class roomSelect : MonoBehaviour
             maxEnemy = Mathf.Clamp(minEnemy + 2, 1, 9);
         }
 
+
+        int[] enemies = new int[9];
+
         while (totalPoints < minimumE)
         {
-            int choice = Random.Range(minEnemy, maxEnemy + 1);
-
-            switch (choice)
-            {
-                case 1: enemy1++; totalPoints += EnemyCost123; break;
-                case 2: enemy2++; totalPoints += EnemyCost123; break;
-                case 3: enemy3++; totalPoints += EnemyCost123; break;
-                case 4: enemy4++; totalPoints += EnemyCost456; break;
-                case 5: enemy5++; totalPoints += EnemyCost456; break;
-                case 6: enemy6++; totalPoints += EnemyCost456; break;
-                case 7: enemy7++; totalPoints += EnemyCost789; break;
-                case 8: enemy8++; totalPoints += EnemyCost789; break;
-                case 9: enemy9++; totalPoints += EnemyCost789; break;
-            }
+            int choice = Random.Range(minEnemy - 1, maxEnemy); // choice is now index 0–8
+            enemies[choice]++;
+            totalPoints += enemyCosts[choice];
         }
 
-        SetEnemies(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8, enemy9);
+        SetEnemies(enemies);
+        EnemysEachRoom.AddConfig(enemies);
     }
 
     private void showui()
@@ -145,18 +119,15 @@ public class roomSelect : MonoBehaviour
             default: minimumE = Mathf.RoundToInt(0 * Mathf.Pow(1.1f, gameState.level) * diff); break;
         }
 
+        int[] enemies = new int[9];
+        totalCost = 0;
 
-        enemy1 = dropdownEnemy1.value;
-        enemy2 = dropdownEnemy2.value;
-        enemy3 = dropdownEnemy3.value;
-        enemy4 = dropdownEnemy4.value;
-        enemy5 = dropdownEnemy5.value;
-        enemy6 = dropdownEnemy6.value;
-        enemy7 = dropdownEnemy7.value;
-        enemy8 = dropdownEnemy8.value;
-        enemy9 = dropdownEnemy9.value;
+        for (int i = 0; i < 9; i++)
+        {
+            enemies[i] = dropdownEnemies[i].value;
+            totalCost += enemies[i] * enemyCosts[i];
+        }
 
-        totalCost = enemy1 * EnemyCost123 + enemy2 * EnemyCost123 + enemy3 * EnemyCost123 + enemy4 * EnemyCost456 + enemy5 * EnemyCost456 + enemy6 * EnemyCost456 + enemy7 * EnemyCost456 + enemy8 * EnemyCost456 + enemy9 * EnemyCost789;
 
         roomnum.text = $"Order: {roomNum}";
         totaleEnScore.text = $"Total Points: {totalCost}";
@@ -179,32 +150,26 @@ public class roomSelect : MonoBehaviour
             {
                 enemyui.SetActive(false);
                 roomNum = 1;
-                random = true;
             }
             else
             {
                 roomNum++;
             }
 
-            EnemysEachRoom.AddConfig(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8, enemy9);
+            EnemysEachRoom.AddConfig(enemies);
         }
     }
 
     //sets the enemys to room where it gets ussed to spawn them in grid
-    public bool SetEnemies(int enemy1, int enemy2, int enemy3, int enemy4, int enemy5, int enemy6, int enemy7, int enemy8, int enemy9)
+    public bool SetEnemies(int[] enemies)
     {
-        room.enemy1 = enemy1;
-        room.enemy2 = enemy2;
-        room.enemy3 = enemy3;
-        room.enemy4 = enemy4;
-        room.enemy5 = enemy5;
-        room.enemy6 = enemy6;
-        room.enemy7 = enemy7;
-        room.enemy8 = enemy8;
-        room.enemy9 = enemy9;
-
+        for (int i = 0; i < 9; i++)
+        {
+            room.enemies[i] = enemies[i];
+        }
         return true;
     }
+
 
     //if u dont have enought enemys
     private IEnumerator FlashUI()
@@ -236,7 +201,6 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = true;
         minimumE = 0;
 
-        random = true;
 
         randomEnemies();
 
@@ -259,25 +223,20 @@ public class roomSelect : MonoBehaviour
         room.placehubworldobj = false;
 
         minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff);
-        //if u make them random
-        if (random)
-        {
-            randomEnemies();
-        }
-        else
-        {
+
+
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
+                SetEnemies(config);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
             {
                 Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
+                randomEnemies(); //random enemys
             }
-        }
+
         room.minsize = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
 
@@ -289,24 +248,19 @@ public class roomSelect : MonoBehaviour
     {
 
         minimumE = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
-        if (random)
-        {
-            randomEnemies();
-        }
-        else
-        {
+
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
+                SetEnemies(config);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
             {
                 Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
+                randomEnemies(); // random enemys
             }
-        }
+        
 
         room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
@@ -321,24 +275,18 @@ public class roomSelect : MonoBehaviour
 
         minimumE = Mathf.RoundToInt(10 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        if (random)
-        {
-            randomEnemies();
-        }
-        else
-        {
+
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
+                SetEnemies(config);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
             {
                 Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
+                randomEnemies(); // randome enemys
             }
-        }
 
         room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
@@ -353,24 +301,17 @@ public class roomSelect : MonoBehaviour
 
         minimumE = Mathf.RoundToInt(15 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        if (random)
-        {
-            randomEnemies();
-        }
-        else
-        {
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
+                SetEnemies(config);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
             {
                 Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
+                randomEnemies(); // random enemys
             }
-        }
 
         room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
@@ -385,24 +326,19 @@ public class roomSelect : MonoBehaviour
         //or 1 bos
         minimumE = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        if (random)
-        {
-            randomEnemies();
-        }
-        else
-        {
+
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
-                SetEnemies(config.enemy1, config.enemy2, config.enemy3, config.enemy4, config.enemy5, config.enemy6, config.enemy7, config.enemy8, config.enemy9);
+                SetEnemies(config);
                 EnemysEachRoom.roomConfigs.RemoveAt(0);
             }
             else
             {
                 Debug.LogWarning("No enemy configuration left in the list!");
-                randomEnemies(); // just incase i dumb
+                randomEnemies(); // random enemys
             }
-        }
+        
         room.minsize =  Mathf.RoundToInt(100 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.maxsize = Mathf.RoundToInt(120 * Mathf.Pow(1.1f, gameState.level) * diff  );
 

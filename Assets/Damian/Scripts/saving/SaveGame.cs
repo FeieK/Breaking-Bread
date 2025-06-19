@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveGame : MonoBehaviour
@@ -12,6 +13,10 @@ public class SaveGame : MonoBehaviour
         data.neededxp = gameState.neededxp;
         data.gold = gameState.gold;
         data.unlockedWeapons = gameState.unlockedWeapons;
+        data.unlockedUpgrades = gameState.unlockedUpgrades;
+        data.pHp = gameState.pHp;
+        data.maxhp = gameState.maxhp;
+        data.hpRecovery = gameState.hpRecovery;
 
         SaveManager.Save(data);
     }
@@ -36,7 +41,14 @@ public class SaveGame : MonoBehaviour
        
         gameState.gold = 10000;
         //gameState.gold = data.gold;
-        gameState.unlockedWeapons = data.unlockedWeapons; 
+        gameState.unlockedWeapons = data.unlockedWeapons;
+
+        gameState.unlockedWeapons = data.unlockedWeapons;
+
+        gameState.unlockedUpgrades = data.unlockedUpgrades;
+        gameState.pHp = data.pHp;
+        gameState.maxhp = data.maxhp;
+        gameState.hpRecovery =data.hpRecovery;
 
     }
 
@@ -49,13 +61,17 @@ public class SaveGame : MonoBehaviour
         data.neededxp = 100;
         data.gold = 0;
         data.unlockedWeapons.Clear();
+        data.unlockedUpgrades.Clear();
 
 
+        gameState.unlockedUpgrades.Clear();
         gameState.unlockedWeapons.Clear();
         gameState.level = 0;
         gameState.gold = 0;
         gameState.xp = 0;
         gameState.neededxp = 100;
+
+
     }
 
 }

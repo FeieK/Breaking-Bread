@@ -67,12 +67,12 @@ public class bufsUpgrades : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Stat '{statName}' not found or not an int on gameState.");
+                Debug.LogError($"failed '{statName}'.");
             }
         }
         else
         {
-            Debug.Log("Not enough gold.");
+            //broke ass
         }
     }
 

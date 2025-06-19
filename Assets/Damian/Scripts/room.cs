@@ -4,16 +4,7 @@ using UnityEngine;
 public static class room
 {
     //enemy count
-    public static float enemy1;
-    public static float enemy2;
-    public static float enemy3;
-    public static float enemy4;
-    public static float enemy5;
-    public static float enemy6;
-    public static float enemy7;
-    public static float enemy8;
-    public static float enemy9;
-
+    public static float[] enemies = new float[9];
 
     //the random size bounds
     public static int minsize;

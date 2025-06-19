@@ -135,9 +135,21 @@ public class PathGrid : MonoBehaviour
                 if (x == 0 || y == 0 || x == gridSizeX - 1 || y == gridSizeY - 1)
                 {
                     if (x == doorPosition.x && y == doorPosition.y)
-                    {//why do i do random range here
-                        obj doorObj = door[Random.Range(0, door.Count)];
-                        Instantiate(doorObj.prefab, node.worldPosition, Quaternion.identity, transform);
+                    {
+                        obj doorObj = door[0];
+                        Quaternion rotation = Quaternion.identity;
+
+
+                        if (x == 0)
+                            rotation = Quaternion.Euler(0, 90, 0);
+                        else if (x == gridSizeX - 1)
+                            rotation = Quaternion.Euler(0, -90, 0);
+                        else if (y == 0)
+                            rotation = Quaternion.Euler(0, 0, 0);
+                        else if (y == gridSizeY - 1)
+                            rotation = Quaternion.Euler(0, 180, 0);
+
+                        Instantiate(doorObj.prefab, node.worldPosition, rotation, transform);
                     }
                     else
                     {
@@ -311,17 +323,13 @@ public class PathGrid : MonoBehaviour
 
         if (Enemy.Count < 3) return;
 
-        int[] enemyCounts = {
-        Mathf.RoundToInt(room.enemy1),
-        Mathf.RoundToInt(room.enemy2),
-        Mathf.RoundToInt(room.enemy3),
-        Mathf.RoundToInt(room.enemy4),
-        Mathf.RoundToInt(room.enemy5),
-        Mathf.RoundToInt(room.enemy6),
-        Mathf.RoundToInt(room.enemy7),
-        Mathf.RoundToInt(room.enemy8),
-        Mathf.RoundToInt(room.enemy9)
-        };
+        int[] enemyCounts = new int[9];
+
+        for (int i = 0; i < 9; i++)
+        {
+            enemyCounts[i] = Mathf.RoundToInt(room.enemies[i]);
+        }
+
 
         for (int type = 0; type < 9; type++)
         {
