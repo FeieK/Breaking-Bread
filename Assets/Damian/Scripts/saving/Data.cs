@@ -11,5 +11,11 @@ public class Data
     public int gold;
     public List<string> unlockedWeapons = new List<string>();
 
+    public  List<string> unlockedUpgrades = new List<string>();
+    //player
+    public int pHp;
+    public int maxhp;
+    public int hpRecovery;
+
     //do anything that needs saving like this
 }

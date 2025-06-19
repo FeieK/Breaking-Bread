@@ -5008,15 +5008,16 @@ MonoBehaviour:
   totaleEnScore: {fileID: 1555766565}
   roomnum: {fileID: 2117665455}
   button: {fileID: 471662178}
-  dropdownEnemy1: {fileID: 937895816}
-  dropdownEnemy2: {fileID: 1250446115}
-  dropdownEnemy3: {fileID: 1082595626}
-  dropdownEnemy4: {fileID: 1329734850}
-  dropdownEnemy5: {fileID: 1154719960}
-  dropdownEnemy6: {fileID: 1436314501}
-  dropdownEnemy7: {fileID: 1007161964}
-  dropdownEnemy8: {fileID: 1548871678}
-  dropdownEnemy9: {fileID: 1877109833}
+  dropdownEnemies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lvlshow: {fileID: 145445097}
 --- !u!114 &759160975
 MonoBehaviour:

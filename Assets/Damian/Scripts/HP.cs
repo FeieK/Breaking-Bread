@@ -9,7 +9,14 @@ public class HP : MonoBehaviour
 
     public int goldgain;
 
-    public Scrollbar hpSlider;
+    public Slider hpSlider;
+    public Image fillImage;
+
+    private void OnEnable()
+    {
+        hpSlider.maxValue = hp;
+        hpSlider.value = hp;
+    }
 
     public void TakeDamage(float dmg)
     {
@@ -24,7 +31,8 @@ public class HP : MonoBehaviour
         reducedDmg *= diff;
 
         hpSlider.gameObject.SetActive(true);
-        hpSlider.size -= reducedDmg / 100;
+        hpSlider.value -= reducedDmg / 100;
+        UpdateFillColor();
 
         hp -= Mathf.RoundToInt(reducedDmg);
         if (hp < 1)
@@ -32,5 +40,11 @@ public class HP : MonoBehaviour
             Destroy(gameObject);
             gameState.gold += Mathf.RoundToInt(goldgain * diff);
         }
+    }
+
+    private void UpdateFillColor()
+    {
+        float t = hpSlider.normalizedValue;
+        fillImage.color = Color.Lerp(Color.red, Color.green, t);
     }
 }
