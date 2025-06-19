@@ -129,9 +129,9 @@ public class roomSelect : MonoBehaviour
         }
 
 
-        roomnum.text = $"Room Number: {roomNum}";
-        totaleEnScore.text = $"Total Score: {totalCost}";
-        minEnScore.text = $"Min Score {minimumE}";
+        roomnum.text = $"Order: {roomNum}";
+        totaleEnScore.text = $"Total Points: {totalCost}";
+        minEnScore.text = $"Minimum Point Needed: {minimumE}";
     }
 
     //needs to choose a enemy for each room or it will be random

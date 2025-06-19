@@ -197,5 +197,4 @@ public class ProjectileGun : MonoBehaviour
             }
         }
     }
-    //
 }

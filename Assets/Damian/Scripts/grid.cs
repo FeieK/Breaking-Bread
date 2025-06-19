@@ -50,7 +50,7 @@ public class PathGrid : MonoBehaviour
 
 
 
-        StartCoroutine(miniMap());
+        //StartCoroutine(miniMap());
 
         CreateGrid();
         PlaceObjects();
@@ -418,33 +418,33 @@ public class PathGrid : MonoBehaviour
         return neighbors;
     }
 
-    private IEnumerator miniMap()
-    {
-        //waits a frame to get gridsize
-        yield return null;
-        GameObject cameraObj = new GameObject("MinimapCamera");
-        cameraObj.transform.SetParent(transform);
+    //private IEnumerator miniMap()
+    //{
+    //    //waits a frame to get gridsize
+    //    yield return null;
+    //    GameObject cameraObj = new GameObject("MinimapCamera");
+    //    cameraObj.transform.SetParent(transform);
 
-        Camera minimapCamera = cameraObj.AddComponent<Camera>();
+    //    Camera minimapCamera = cameraObj.AddComponent<Camera>();
 
-        minimapCamera.orthographic = true;
-        minimapCamera.orthographicSize = gridWorldSize.y / 2f;
+    //    minimapCamera.orthographic = true;
+    //    minimapCamera.orthographicSize = gridWorldSize.y / 2f;
 
-       minimapCamera.transform.position = new Vector3(0, 0, -10);
+    //   minimapCamera.transform.position = new Vector3(0, 0, -10);
 
-        //maybe later
-        //minimapCamera.cullingMask = LayerMask.GetMask("minimap");
+    //    //maybe later
+    //    //minimapCamera.cullingMask = LayerMask.GetMask("minimap");
 
-        RenderTexture minimapTexture = new RenderTexture((int)gridWorldSize.x * 10, (int)gridWorldSize.y * 10, 16);
-        minimapTexture.name = "MinimapTexture";
-        minimapTexture.Create();
-        minimapCamera.targetTexture = minimapTexture;
+    //    RenderTexture minimapTexture = new RenderTexture((int)gridWorldSize.x * 10, (int)gridWorldSize.y * 10, 16);
+    //    minimapTexture.name = "MinimapTexture";
+    //    minimapTexture.Create();
+    //    minimapCamera.targetTexture = minimapTexture;
 
-        if (minimap != null)
-        {
-            minimap.texture = minimapTexture;
-        }
-    }
+    //    if (minimap != null)
+    //    {
+    //        minimap.texture = minimapTexture;
+    //    }
+    //}
 
     //if wanne see the grid
     private void OnDrawGizmos()
