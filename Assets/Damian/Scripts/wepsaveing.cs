@@ -8,7 +8,7 @@ public class wepsaveing : MonoBehaviour
     public List<GameObject> eqwep;
 
     private void OnEnable()
-    { 
+    {
         if (gameState.eqwep >= 1 && gameState.eqwep <= eqwep.Count)
         {
             for (int i = 0; i < eqwep.Count; i++)

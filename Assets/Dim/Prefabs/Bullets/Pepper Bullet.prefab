@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cffdf553ae075b4ba52a634ebfd4084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 6
+  dmg: 10
   Time: 1
   Piercing: 0
   RandomRotation: 1
