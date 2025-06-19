@@ -226,8 +226,13 @@ public class roomSelect : MonoBehaviour
 
         minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff);
 
+        //cleanest way to fix
+        if (random)
+        {
+            EnemysEachRoom.roomConfigs.RemoveAt(0);
+        }
 
-            if (EnemysEachRoom.roomConfigs.Count > 0 && !random)
+        if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
                 SetEnemies(config);

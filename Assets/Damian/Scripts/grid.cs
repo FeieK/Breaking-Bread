@@ -477,15 +477,14 @@ public class PathGrid : MonoBehaviour
         {
             if (spawnedEnemies[i] != null)
             {
-                spawnedEnemies[i].transform.position = enemySpawnPositions[i];
+                Destroy(spawnedEnemies[i]);
             }
-            else
-            {
-                int type = spawnedEnemyTypes[i];
-                GameObject enemyPrefab = Enemy[type].prefab;
-                GameObject enemy = Instantiate(enemyPrefab, enemySpawnPositions[i], Quaternion.identity, transform);
-                spawnedEnemies[i] = enemy;
-            }
+
+            int type = spawnedEnemyTypes[i];
+            GameObject enemyPrefab = Enemy[type].prefab;
+            GameObject enemy = Instantiate(enemyPrefab, enemySpawnPositions[i], Quaternion.identity, transform);
+            spawnedEnemies[i] = enemy;
+
         }
     }
 }
