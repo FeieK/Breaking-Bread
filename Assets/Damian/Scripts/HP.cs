@@ -31,7 +31,7 @@ public class HP : MonoBehaviour
         reducedDmg *= diff;
 
         hpSlider.gameObject.SetActive(true);
-        hpSlider.value -= reducedDmg / 100;
+        hpSlider.value -= reducedDmg;
         UpdateFillColor();
 
         hp -= Mathf.RoundToInt(reducedDmg);

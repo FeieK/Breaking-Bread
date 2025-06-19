@@ -10,8 +10,9 @@ public class Data
     public int neededxp;
     public int gold;
     public List<string> unlockedWeapons = new List<string>();
-
     public  List<string> unlockedUpgrades = new List<string>();
+    public int eqwep;
+
     //player
     public int pHp;
     public int maxhp;
