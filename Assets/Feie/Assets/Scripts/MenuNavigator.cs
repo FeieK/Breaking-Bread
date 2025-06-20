@@ -1,8 +1,11 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuButtons : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI[] settingsTexts;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject settingsMenu;
@@ -27,7 +30,11 @@ public class MainMenuButtons : MonoBehaviour
                 Debug.Log("escape");
                 if (gameController.roundIsActive)
                 {
-                    if (!gameController.paused)
+                    if (settingsMenu.activeSelf)
+                    {
+                        CloseSettings();
+                    }
+                    else if (!gameController.paused)
                     {
                         gameController.paused = true;
                         PauseGame();
@@ -37,6 +44,7 @@ public class MainMenuButtons : MonoBehaviour
                         gameController.paused = false;
                         PauseGame();
                     }
+
                 }
                 else
                 {
@@ -65,9 +73,14 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OpenSettings()
     {
+        Debug.Log(settingsTexts[0].color);
         if (gameController.roundIsActive)
         {
             pausedButtons.SetActive(false);
+            foreach (TextMeshProUGUI text in settingsTexts)
+            {
+                text.color = Color.white;
+            }
         }
         else
         {
@@ -81,6 +94,10 @@ public class MainMenuButtons : MonoBehaviour
         if (gameController.roundIsActive)
         {
             pausedButtons.SetActive(true);
+            foreach (TextMeshProUGUI text in settingsTexts)
+            {
+                text.color = new Color(0.1960784f, 0.1960784f, 0.1960784f);
+            }
         }
         else
         {
