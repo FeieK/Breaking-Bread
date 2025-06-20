@@ -70,12 +70,12 @@ public class enemy : MonoBehaviour
 
         //if it doesnt hit or is inrange of to player
 
-        if (playerInshootwalkRange && !playerInRange && hit.collider != null)
+        if (playerInshootwalkRange && !playerInRange && hit == false)
         {
             walk();
             shoot();
         }
-        else if (!playerInRange && hit.collider != null)
+        else if (!playerInRange || hit == false)
         {
             walk();
             enemyGun.shooting = false;

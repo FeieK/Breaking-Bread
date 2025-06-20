@@ -32,7 +32,7 @@ public class bullet : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Walls"))
+        if (collision.gameObject.CompareTag("Walls") && !Piercing)
         {
             Destroy(gameObject);
         }
