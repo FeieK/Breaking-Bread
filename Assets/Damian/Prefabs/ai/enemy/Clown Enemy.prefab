@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   startlvl: 2
-  goldgain: 2
+  goldgain: 10
   hpSlider: {fileID: 3810928523638341983}
   fillImage: {fileID: 2966509111317188292}
 --- !u!1 &706369563385990782

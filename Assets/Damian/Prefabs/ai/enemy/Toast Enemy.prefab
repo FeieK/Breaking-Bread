@@ -113,7 +113,7 @@ MonoBehaviour:
   PlayerleLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerCheckRadius: 3
+  playerCheckRadius: 4
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   startlvl: 5
-  goldgain: 5
+  goldgain: 25
   hpSlider: {fileID: 8337435122816623449}
   fillImage: {fileID: 5467117181046056660}
 --- !u!1 &635920237817382119

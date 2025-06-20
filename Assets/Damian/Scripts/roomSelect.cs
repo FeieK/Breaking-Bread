@@ -57,7 +57,7 @@ public class roomSelect : MonoBehaviour
     {
 
         //find smt better for this to place add
-        lvlshow.text = $" {gameState.level}";
+        lvlshow.text = $" {gameState.gold}";
         diff = gameState.GetDifficultyMultiplier();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         if (Input.GetKeyDown(KeyCode.O))
