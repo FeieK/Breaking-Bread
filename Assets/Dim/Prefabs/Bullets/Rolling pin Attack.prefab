@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cffdf553ae075b4ba52a634ebfd4084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 50
-  Time: 2.1
+  dmg: 75
+  Time: 3
   Piercing: 1
   RandomRotation: 0
 --- !u!50 &3130794763966040333

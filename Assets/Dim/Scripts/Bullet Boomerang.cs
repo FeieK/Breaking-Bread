@@ -16,7 +16,7 @@ public class BulletBoomerang : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            rb.AddForce(transform.right * -5);
+            rb.AddForce(transform.right * -8);
         }
     }
 }
