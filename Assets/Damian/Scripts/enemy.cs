@@ -70,12 +70,12 @@ public class enemy : MonoBehaviour
 
         //if it doesnt hit or is inrange of to player
 
-        if (playerInshootwalkRange && !playerInRange || hit.collider != null)
+        if (playerInshootwalkRange && !playerInRange && hit == false)
         {
             walk();
             shoot();
         }
-        else if (!playerInRange || hit.collider != null)
+        else if (!playerInRange || hit == false)
         {
             walk();
             enemyGun.shooting = false;
@@ -104,7 +104,7 @@ public class enemy : MonoBehaviour
             else
             {
                 Vector2 currentWaypoint = path[targetIndex].worldPosition;
-                if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
+                if (Vector2.Distance(transform.position, currentWaypoint) < 1f)
                 {
                     targetIndex++;
                     if (targetIndex >= path.Count)
