@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 0
-  Time: 3.5
+  Time: 2
   Piercing: 1
   RandomRotation: 0
 --- !u!61 &1992589919738266346

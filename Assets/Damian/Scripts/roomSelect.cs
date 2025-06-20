@@ -38,10 +38,6 @@ public class roomSelect : MonoBehaviour
     private int[] enemies = new int[9];
 
     private bool random = true;
-
-
-    //temporery
-    public TextMeshProUGUI lvlshow;
     //!!!!!!!!!!!!!!!!!
 
     private void Awake()
@@ -55,9 +51,6 @@ public class roomSelect : MonoBehaviour
     }
     private void Update()
     {
-
-        //find smt better for this to place add
-        lvlshow.text = $" {gameState.gold}";
         diff = gameState.GetDifficultyMultiplier();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         if (Input.GetKeyDown(KeyCode.O))
@@ -100,7 +93,7 @@ public class roomSelect : MonoBehaviour
 
         while (totalPoints < minimumE)
         {
-            int choice = Random.Range(minEnemy - 1, maxEnemy); // choice is now index 0–8
+            int choice = Random.Range(minEnemy - 1, maxEnemy); // choice is now index 0ï¿½8
             enemies[choice]++;
             totalPoints += enemyCosts[choice];
         }
