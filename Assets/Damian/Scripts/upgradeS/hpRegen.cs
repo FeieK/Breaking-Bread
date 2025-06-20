@@ -2,5 +2,56 @@ using UnityEngine;
 
 public class hpRegen : MonoBehaviour
 {
-    //gotte wait till hp gets done
+    //dash such a lifesaver
+    public float hpincrease = 20f;
+    public float duration = 5f;
+    public float dashCooldown = 10f;
+
+    private bool isDashing = false;
+    private float timeLeft = 0f;
+    private float cooldownTimer = 0f;
+    private Vector2 dashDirection;
+
+    void Update()
+    {
+        if (cooldownTimer > 0)
+            cooldownTimer -= Time.deltaTime;
+
+        if (!isDashing && cooldownTimer <= 0 && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Startheal();
+        }
+
+        if (isDashing)
+        {
+            healing();
+        }
+    }
+
+
+    void Startheal()
+    {
+        isDashing = true;
+        timeLeft = duration;
+        cooldownTimer = dashCooldown;
+
+        dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        if (dashDirection == Vector2.zero)
+            dashDirection = Vector2.right;
+    }
+
+    void healing()
+    {
+        if (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            gameState.hpRecovery = 20;
+        }
+        else
+        {
+            isDashing = false;
+        }
+    }
+
 }

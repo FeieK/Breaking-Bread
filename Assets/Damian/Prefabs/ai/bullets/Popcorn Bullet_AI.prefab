@@ -170,7 +170,7 @@ MonoBehaviour:
   Time: 5
   Piercing: 0
   meele: 0
-  RandomRotation: 0
+  RandomRotation: 1
 --- !u!1 &4116793010513270212
 GameObject:
   m_ObjectHideFlags: 0

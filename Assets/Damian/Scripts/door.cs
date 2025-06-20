@@ -3,7 +3,7 @@ using UnityEngine;
 //idk defently not for the door thp
 public class door : MonoBehaviour
 {
-    public roomSelect roomSelect;
+    private roomSelect roomSelect;
 
     private float diff;
 
@@ -47,6 +47,7 @@ public class door : MonoBehaviour
                     gameState.AddXP(Mathf.RoundToInt(55 * diff));
                     room.roomNum = 0;
                     roomSelect.hubworld();
+                    SaveGame.Save();
                     break;
             }
         }
