@@ -64,6 +64,7 @@ public class bufsUpgrades : MonoBehaviour
                 field.SetValue(null, currentValue + increase);
 
                 btnText.text = $"{statName} upgraded!";
+                SaveGame.Save();
             }
             else
             {

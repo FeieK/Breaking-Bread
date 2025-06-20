@@ -14,6 +14,8 @@ public class wepsaveing : MonoBehaviour
             for (int i = 0; i < eqwep.Count; i++)
             {
                 eqwep[i].SetActive(i == gameState.eqwep - 1);
+                SaveGame.Save();
+
             }
         }
     }

@@ -39,6 +39,7 @@ public class SaveGame : MonoBehaviour
              gameState.pHp = 100;
              gameState.maxhp = 100;
              gameState.eqwep = 1;
+            gameState.hpRecovery = 5;
 
 }
         else
@@ -47,21 +48,21 @@ public class SaveGame : MonoBehaviour
             gameState.maxhp = data.maxhp;
             gameState.neededxp = data.neededxp;
             gameState.eqwep = data.eqwep;
+            gameState.hpRecovery =data.hpRecovery;
         }
 
         gameState.xp = data.xp;
         gameState.level = data.level;
 
        
-        gameState.gold = 10000;
-        //gameState.gold = data.gold;
+        //gameState.gold = 10000;
+        gameState.gold = data.gold;
         gameState.unlockedWeapons = data.unlockedWeapons;
 
         gameState.unlockedWeapons = data.unlockedWeapons;
 
         gameState.unlockedUpgrades = data.unlockedUpgrades;
 
-        gameState.hpRecovery =data.hpRecovery;
 
     }
 

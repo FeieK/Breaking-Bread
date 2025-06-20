@@ -75,6 +75,7 @@ public class wepShop : MonoBehaviour
             gameState.UnlockWeapon(weaponName);
             btnText.text = $"{weaponName}";
             spawnwep(weaponName);
+            SaveGame.Save();
         }
         else
         {

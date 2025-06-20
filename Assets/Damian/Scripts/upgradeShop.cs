@@ -106,6 +106,7 @@ public class UpgradeShop : MonoBehaviour
             gameState.UnlockUpgrade(UpgradesName);
             btnText.text = $"{UpgradesName}";
             ActivateUpgradeScript(UpgradesName);
+            SaveGame.Save();
         }
         else
         {

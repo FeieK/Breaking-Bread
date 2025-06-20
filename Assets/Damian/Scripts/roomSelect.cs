@@ -219,9 +219,6 @@ public class roomSelect : MonoBehaviour
     //5 rooms yes i shoulda done it cleaner ut to late
     public void room1()
     {
-        //better to call it where needed but like u dont lose to much
-        SaveGame.Save();
-
         room.placehubworldobj = false;
 
         minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff);
@@ -338,8 +335,8 @@ public class roomSelect : MonoBehaviour
                 randomEnemies(); // random enemys
             }
         
-        room.minsize =  Mathf.RoundToInt(100 * Mathf.Pow(1.1f, gameState.level) * diff);
-        room.maxsize = Mathf.RoundToInt(120 * Mathf.Pow(1.1f, gameState.level) * diff  );
+        room.minsize =  Mathf.RoundToInt(50 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.maxsize = Mathf.RoundToInt(60 * Mathf.Pow(1.1f, gameState.level) * diff  );
 
         room.placNumObj = Mathf.RoundToInt(24 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();

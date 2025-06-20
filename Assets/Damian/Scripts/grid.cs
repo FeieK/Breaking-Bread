@@ -112,37 +112,42 @@ public class PathGrid : MonoBehaviour
     {
         Vector2Int doorPosition = GetDoorPosition(gridSizeX, gridSizeY);
 
+        Vector2Int secondDoorPosition;
+        //so cant spawn in the same location
+        do
+        {
+            secondDoorPosition = GetDoorPosition(gridSizeX, gridSizeY);
+        } while (secondDoorPosition == doorPosition);
+
         //so it doesnt spawn in the same place as another object
         List<Node> freespawnloc = new List<Node>();
-        PlaceWallsAndDoor(doorPosition, freespawnloc);
+        PlaceWallsAndDoor(doorPosition, secondDoorPosition, freespawnloc);
 
         if (freespawnloc.Count == 0) return;
 
-        Node playerNode = SpawnPlayer(freespawnloc);
+        Node playerNode = SpawnPlayer(secondDoorPosition, freespawnloc);
         SpawnEnemies(freespawnloc, playerNode);
         SpawnObjects(freespawnloc);
     }
 
     // gues
-    void PlaceWallsAndDoor(Vector2Int doorPosition, List<Node> freespawnloc)
+    void PlaceWallsAndDoor(Vector2Int door1, Vector2Int door2, List<Node> freespawnloc)
     {
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Node node = grid[x, y];
+                Vector2Int pos = new Vector2Int(x, y);
 
                 if (x == 0 || y == 0 || x == gridSizeX - 1 || y == gridSizeY - 1)
                 {
-                    if (x == doorPosition.x && y == doorPosition.y)
+                    if (pos == door1 || pos == door2)
                     {
-                        obj doorObj = door[0];
+                        obj doorObj = (pos == door1) ? door[0] : door[1];
                         Quaternion rotation = Quaternion.identity;
 
-
-                        if (x == 0)
-                            rotation = Quaternion.Euler(0, 0, 90);
-                        else if (x == gridSizeX - 1)
+                        if (x == 0 || x == gridSizeX - 1)
                             rotation = Quaternion.Euler(0, 0, 90);
                         else if (y == 0)
                             rotation = Quaternion.Euler(0, 0, -90);
@@ -173,16 +178,27 @@ public class PathGrid : MonoBehaviour
         }
     }
 
-    Node SpawnPlayer(List<Node> freespawnloc)
+    Node SpawnPlayer(Vector2Int doorPos, List<Node> freespawnloc)
     {
-        //it takes a random note of freespawnloc then spawns it there and removes the loc of the list
-        int index = Random.Range(0, freespawnloc.Count);
-        Node node = freespawnloc[index];
-        freespawnloc.RemoveAt(index);
+        Vector2Int insidePos = doorPos;
+
+        if (doorPos.x == 0)
+            insidePos += Vector2Int.right;
+        else if (doorPos.x == gridSizeX - 1)
+            insidePos += Vector2Int.left;
+        else if (doorPos.y == 0)
+            insidePos += Vector2Int.up;
+        else if (doorPos.y == gridSizeY - 1)
+            insidePos += Vector2Int.down;
+
+        Node node = grid[insidePos.x, insidePos.y];
+
+        freespawnloc.Remove(node);
         playerSpawnPosition = node.worldPosition;
         spawnedPlayer = Instantiate(Player[0].prefab, node.worldPosition, Quaternion.identity, transform);
         return node;
     }
+
 
 
 

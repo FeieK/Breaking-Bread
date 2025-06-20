@@ -104,7 +104,7 @@ public class enemy : MonoBehaviour
             else
             {
                 Vector2 currentWaypoint = path[targetIndex].worldPosition;
-                if (Vector2.Distance(transform.position, currentWaypoint) < 1.5f)
+                if (Vector2.Distance(transform.position, currentWaypoint) < 1f)
                 {
                     targetIndex++;
                     if (targetIndex >= path.Count)
