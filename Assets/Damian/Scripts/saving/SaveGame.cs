@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveGame : MonoBehaviour
 {
+    private static string savePath => Path.Combine(Application.persistentDataPath, "Data.json");
+
     public static void Save()
     {
         //cant simple call data for performence so do what u want to save in the
@@ -17,8 +22,10 @@ public class SaveGame : MonoBehaviour
         data.pHp = gameState.pHp;
         data.maxhp = gameState.maxhp;
         data.hpRecovery = gameState.hpRecovery;
+        data.eqwep = gameState.eqwep;
 
-        SaveManager.Save(data);
+
+    SaveManager.Save(data);
     }
 
 
@@ -28,11 +35,18 @@ public class SaveGame : MonoBehaviour
 
         if (data.neededxp < 100)
         {
-        gameState.neededxp = 100;
-        }
+             gameState.neededxp = 100;
+             gameState.pHp = 100;
+             gameState.maxhp = 100;
+             gameState.eqwep = 1;
+
+}
         else
         {
+            gameState.pHp = data.pHp;
+            gameState.maxhp = data.maxhp;
             gameState.neededxp = data.neededxp;
+            gameState.eqwep = data.eqwep;
         }
 
         gameState.xp = data.xp;
@@ -46,32 +60,20 @@ public class SaveGame : MonoBehaviour
         gameState.unlockedWeapons = data.unlockedWeapons;
 
         gameState.unlockedUpgrades = data.unlockedUpgrades;
-        gameState.pHp = data.pHp;
-        gameState.maxhp = data.maxhp;
+
         gameState.hpRecovery =data.hpRecovery;
 
     }
 
     public static void reset()
     {
-        Data data = SaveManager.Load();
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+            Debug.Log("Save file deleted.");
+        }
 
-        data.level = 0;
-        data.xp = 0;
-        data.neededxp = 100;
-        data.gold = 0;
-        data.unlockedWeapons.Clear();
-        data.unlockedUpgrades.Clear();
-
-
-        gameState.unlockedUpgrades.Clear();
-        gameState.unlockedWeapons.Clear();
-        gameState.level = 0;
-        gameState.gold = 0;
-        gameState.xp = 0;
-        gameState.neededxp = 100;
-
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

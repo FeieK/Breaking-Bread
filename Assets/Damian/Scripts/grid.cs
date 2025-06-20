@@ -140,14 +140,14 @@ public class PathGrid : MonoBehaviour
                         Quaternion rotation = Quaternion.identity;
 
 
-                        //if (x == 0)
-                        //    rotation = Quaternion.Euler(0, 90, 0);
-                        //else if (x == gridSizeX - 1)
-                        //    rotation = Quaternion.Euler(0, -90, 0);
-                        //else if (y == 0)
-                        //    rotation = Quaternion.Euler(0, 0, 0);
-                        //else if (y == gridSizeY - 1)
-                        //    rotation = Quaternion.Euler(0, 180, 0);
+                        if (x == 0)
+                            rotation = Quaternion.Euler(0, 0, 90);
+                        else if (x == gridSizeX - 1)
+                            rotation = Quaternion.Euler(0, 0, 90);
+                        else if (y == 0)
+                            rotation = Quaternion.Euler(0, 0, -90);
+                        else if (y == gridSizeY - 1)
+                            rotation = Quaternion.Euler(0, 0, 180);
 
                         Instantiate(doorObj.prefab, node.worldPosition, rotation, transform);
                     }
@@ -477,15 +477,14 @@ public class PathGrid : MonoBehaviour
         {
             if (spawnedEnemies[i] != null)
             {
-                spawnedEnemies[i].transform.position = enemySpawnPositions[i];
+                Destroy(spawnedEnemies[i]);
             }
-            else
-            {
-                int type = spawnedEnemyTypes[i];
-                GameObject enemyPrefab = Enemy[type].prefab;
-                GameObject enemy = Instantiate(enemyPrefab, enemySpawnPositions[i], Quaternion.identity, transform);
-                spawnedEnemies[i] = enemy;
-            }
+
+            int type = spawnedEnemyTypes[i];
+            GameObject enemyPrefab = Enemy[type].prefab;
+            GameObject enemy = Instantiate(enemyPrefab, enemySpawnPositions[i], Quaternion.identity, transform);
+            spawnedEnemies[i] = enemy;
+
         }
     }
 }

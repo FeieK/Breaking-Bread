@@ -37,6 +37,8 @@ public class roomSelect : MonoBehaviour
 
     private int[] enemies = new int[9];
 
+    private bool random = true;
+
 
     //temporery
     public TextMeshProUGUI lvlshow;
@@ -155,7 +157,7 @@ public class roomSelect : MonoBehaviour
             {
                 roomNum++;
             }
-
+            random = false;
             EnemysEachRoom.AddConfig(enemies);
         }
     }
@@ -224,8 +226,13 @@ public class roomSelect : MonoBehaviour
 
         minimumE = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff);
 
+        //cleanest way to fix
+        if (random)
+        {
+            EnemysEachRoom.roomConfigs.RemoveAt(0);
+        }
 
-            if (EnemysEachRoom.roomConfigs.Count > 0)
+        if (EnemysEachRoom.roomConfigs.Count > 0)
             {
                 var config = EnemysEachRoom.roomConfigs[0];
                 SetEnemies(config);
@@ -240,14 +247,12 @@ public class roomSelect : MonoBehaviour
         room.minsize = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = Mathf.RoundToInt(3 * Mathf.Pow(1.1f, gameState.level) * diff );
+        room.placNumObj = Mathf.RoundToInt(6 * Mathf.Pow(1.1f, gameState.level) * diff );
         changemap();
     }
 
     public void room2()
     {
-
-        minimumE = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
 
             if (EnemysEachRoom.roomConfigs.Count > 0)
             {
@@ -265,14 +270,12 @@ public class roomSelect : MonoBehaviour
         room.minsize = Mathf.RoundToInt(25 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = Mathf.RoundToInt(4 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.placNumObj = Mathf.RoundToInt(8 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 
     public void room3()
     {
-        room.placehubworldobj = false;
-
         minimumE = Mathf.RoundToInt(10 * Mathf.Pow(1.1f, gameState.level) * diff);
 
 
@@ -291,14 +294,12 @@ public class roomSelect : MonoBehaviour
         room.minsize = Mathf.RoundToInt(30 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = Mathf.RoundToInt(5 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.placNumObj = Mathf.RoundToInt(10 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 
     public void room4()
     {
-        room.placehubworldobj = false;
-
         minimumE = Mathf.RoundToInt(15 * Mathf.Pow(1.1f, gameState.level) * diff);
 
             if (EnemysEachRoom.roomConfigs.Count > 0)
@@ -316,13 +317,11 @@ public class roomSelect : MonoBehaviour
         room.minsize = Mathf.RoundToInt(35 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.minsize = Mathf.RoundToInt(40 * Mathf.Pow(1.1f, gameState.level) * diff);
 
-        room.placNumObj = Mathf.RoundToInt(6 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.placNumObj = Mathf.RoundToInt(12 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
     public void bosroom()
     {
-        room.placehubworldobj = false;
-
         //or 1 bos
         minimumE = Mathf.RoundToInt(20 * Mathf.Pow(1.1f, gameState.level) * diff);
 
@@ -342,7 +341,7 @@ public class roomSelect : MonoBehaviour
         room.minsize =  Mathf.RoundToInt(100 * Mathf.Pow(1.1f, gameState.level) * diff);
         room.maxsize = Mathf.RoundToInt(120 * Mathf.Pow(1.1f, gameState.level) * diff  );
 
-        room.placNumObj = Mathf.RoundToInt(12 * Mathf.Pow(1.1f, gameState.level) * diff);
+        room.placNumObj = Mathf.RoundToInt(24 * Mathf.Pow(1.1f, gameState.level) * diff);
         changemap();
     }
 
