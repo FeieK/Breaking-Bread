@@ -267,7 +267,7 @@ public class PathGrid : MonoBehaviour
         }
 
         Vector2Int basePos = new Vector2Int(baseNode.gridX, baseNode.gridY);
-        if (!IsPlacementValid(basePos, size, 2)) return false;
+        if (!IsPlacementValid(basePos, size, 3)) return false;
         //if its valid proceede
         for (int dx = 0; dx < size.x; dx++)
         {
