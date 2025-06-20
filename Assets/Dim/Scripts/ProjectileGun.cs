@@ -71,10 +71,9 @@ public class ProjectileGun : MonoBehaviour
         else
         { 
             MyInput();
+            AmmoUI();
         }
         Flip();
-
-        AmmoUI();
     }
     private void EnemyAIInput()
     {
