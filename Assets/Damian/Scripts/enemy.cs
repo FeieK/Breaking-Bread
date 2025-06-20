@@ -75,7 +75,7 @@ public class enemy : MonoBehaviour
             walk();
             shoot();
         }
-        else if (!playerInRange && hit == false)
+        else if (!playerInRange || hit == false)
         {
             walk();
             enemyGun.shooting = false;

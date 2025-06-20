@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aaab2696c6661459370746e79a2edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 3
+  dmg: 20
   Time: 1
   Piercing: 0
   meele: 0
