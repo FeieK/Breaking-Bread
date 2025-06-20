@@ -27,6 +27,7 @@ public class enemychooser : MonoBehaviour
         if (yh && Input.GetKeyDown(KeyCode.E))
         {
             enemyui.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

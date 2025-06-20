@@ -110,5 +110,9 @@ public class GameController : MonoBehaviour
         yield break;
     }
 
+    public void Timescale()
+    {
+        Time.timeScale = 1.0f;
+    }
 
 }
