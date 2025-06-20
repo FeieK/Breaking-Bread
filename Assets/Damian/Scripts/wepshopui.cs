@@ -10,9 +10,10 @@ public class wepshopui : MonoBehaviour
     {
         //u in the triger earia u can pres e to oppen ui
         GameObject canvas = GameObject.Find("Canvas");
+        Transform shops = canvas.transform.GetChild(0);
         if (canvas != null)
         {
-            wepui = canvas.transform.Find("wepShop")?.gameObject;
+            wepui = shops.Find("wepShop")?.gameObject;
             if (wepui == null)
                 Debug.LogWarning("wepui not found inside Canvas!");
         }

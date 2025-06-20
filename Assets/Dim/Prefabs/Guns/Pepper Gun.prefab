@@ -178,14 +178,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4b4900d0453434ba4e24f82d382728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 230953377080402937, guid: c9af136084e6b9f47b67e7d1fbd88fe4, type: 3}
+  bullet: {fileID: 230953377080402937, guid: f7f7433399078a0418f64dced8a35549, type: 3}
   shootForce: 20
-  timeBetweenShooting: 0
+  timeBetweenShooting: 0.3
   spread: 30
-  reloadTime: 1
+  reloadTime: 2
   timeBetweenShots: 0
-  magSize: 5
-  bulletsPerInput: 5
+  magSize: 30
+  bulletsPerInput: 10
   allowButtonHold: 1
   shouldFlip: 0
   shooting: 0

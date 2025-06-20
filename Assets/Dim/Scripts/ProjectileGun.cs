@@ -1,6 +1,8 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -45,6 +47,9 @@ public class ProjectileGun : MonoBehaviour
     //ai
     public bool ai = false;
 
+    //UI
+    private TextMeshProUGUI ammo;
+
     private void Awake()
     {
         bulletsLeft = magSize;
@@ -68,6 +73,8 @@ public class ProjectileGun : MonoBehaviour
             MyInput();
         }
         Flip();
+
+        AmmoUI();
     }
     private void EnemyAIInput()
     {
@@ -195,6 +202,18 @@ public class ProjectileGun : MonoBehaviour
             {
                 spriteRend.flipY = false;
             }
+        }
+    }
+
+    private void AmmoUI()
+    {
+        if (ammo != null)
+        {
+            ammo.text = (bulletsLeft / bulletsPerInput).ToString() + " / " + (magSize / bulletsPerInput).ToString();
+        }
+        else
+        {
+            ammo = GameObject.FindWithTag("AmmoUI").GetComponent<TextMeshProUGUI>();
         }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Walls
   - wepSpawnLocation
   - Shield
+  - AmmoUI
   layers:
   - Default
   - TransparentFX

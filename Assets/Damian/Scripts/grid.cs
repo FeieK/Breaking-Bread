@@ -140,14 +140,14 @@ public class PathGrid : MonoBehaviour
                         Quaternion rotation = Quaternion.identity;
 
 
-                        if (x == 0)
-                            rotation = Quaternion.Euler(0, 90, 0);
-                        else if (x == gridSizeX - 1)
-                            rotation = Quaternion.Euler(0, -90, 0);
-                        else if (y == 0)
-                            rotation = Quaternion.Euler(0, 0, 0);
-                        else if (y == gridSizeY - 1)
-                            rotation = Quaternion.Euler(0, 180, 0);
+                        //if (x == 0)
+                        //    rotation = Quaternion.Euler(0, 90, 0);
+                        //else if (x == gridSizeX - 1)
+                        //    rotation = Quaternion.Euler(0, -90, 0);
+                        //else if (y == 0)
+                        //    rotation = Quaternion.Euler(0, 0, 0);
+                        //else if (y == gridSizeY - 1)
+                        //    rotation = Quaternion.Euler(0, 180, 0);
 
                         Instantiate(doorObj.prefab, node.worldPosition, rotation, transform);
                     }

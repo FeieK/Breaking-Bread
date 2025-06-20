@@ -9,9 +9,10 @@ public class enemychooser : MonoBehaviour
     private void OnEnable()
     {
         GameObject canvas = GameObject.Find("Canvas");
+        Transform shops = canvas.transform.GetChild(0);
         if (canvas != null)
         {
-            enemyui = canvas.transform.Find("enemyui")?.gameObject;
+            enemyui = shops.Find("enemyui")?.gameObject;
             if (enemyui == null)
                 Debug.LogWarning("enemyui not found inside Canvas!");
         }
