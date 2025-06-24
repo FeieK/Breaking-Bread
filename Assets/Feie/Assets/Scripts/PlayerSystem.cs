@@ -27,7 +27,7 @@ public class PlayerSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove && gameController.roundIsActive == true)
+        if (canMove && gameController.roundIsActive == true && gameController.paused == false)
         {
             float speedHorizontal = Input.GetAxisRaw("Horizontal") * speed;
             float speedVertical = Input.GetAxisRaw("Vertical") * speed;

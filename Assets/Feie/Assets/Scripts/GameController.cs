@@ -10,27 +10,42 @@ public class GameController : MonoBehaviour
     public bool roundIsActive;
     public bool paused;
     public int playerLives;
+    [HideInInspector] public int sceneIndex;
 
-    private GameOverAnimation gameOverAnimation;
     private CanvasGroup canvasGroup;
-    private Image darkenScreenImage;
     private GameObject player;
+    private PlayerSystem playerScript;
     private GameObject spawn;   // The spawn variable
+
+    [SerializeField] private GameObject[] scoreObj;
+    [SerializeField] private GameObject darkenScreenObj;
+    private Image darkenScreenImage;
+    private Score scoreScript;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameOverAnimation = GameObject.Find("Game Over (FakeUI)").GetComponent<GameOverAnimation>();
         canvasGroup = GameObject.Find("Death Message Group").GetComponent<CanvasGroup>();
-        darkenScreenImage = GameObject.Find("DarkenScreen").GetComponent<Image>();
 
         player = GameObject.FindGameObjectWithTag("Player");
         spawn = GameObject.FindGameObjectWithTag("Respawn");    // Setting the spawn variable
 
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (sceneIndex == 2)
+        {
+            playerScript = player.GetComponent<PlayerSystem>();
+            scoreScript = scoreObj[1].GetComponent<Score>();
+            darkenScreenImage = darkenScreenObj.GetComponent<Image>();
+        }
+
     }
 
-
+    public void DEBUGDIE()
+    {
+        playerLives = 1;
+        playerScript.health = 0;
+    }
     public void Die()
     {
         roundIsActive = false;
@@ -48,7 +63,7 @@ public class GameController : MonoBehaviour
     IEnumerator YouDied()
     {
         bool transition = true;
-
+        darkenScreenObj.SetActive(true);
         while (transition)
         {
             if (canvasGroup.alpha < 1)
@@ -91,22 +106,43 @@ public class GameController : MonoBehaviour
                 transition = false;
             }
         }
+        darkenScreenObj.SetActive(false);
         roundIsActive = true;
         yield break;
     }
     IEnumerator GameOver()
     {
-        foreach (SpriteRenderer sr in gameOverAnimation.srs)
+        int transition = 0;
+        darkenScreenObj.SetActive(true);
+        while (transition == 0)
         {
-            sr.enabled = true;
+            if (darkenScreenImage.color.a < 1)
+            {
+                darkenScreenImage.color = new Color(darkenScreenImage.color.r, darkenScreenImage.color.g, darkenScreenImage.color.b, darkenScreenImage.color.a + 1f * Time.deltaTime);
+                yield return null;
+            }
+            else
+            {
+                transition = 1;
+            }
         }
-        gameOverAnimation.gameOver = true;
-        yield return new WaitForSeconds(7);
-        gameOverAnimation.stage = 1;
-        yield return new WaitForSeconds(2.2f);
-        gameOverAnimation.stage = 2;
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
+        scoreObj[0].SetActive(true);
+        yield return new WaitForSeconds(1);
+        while (transition == 1)
+        {
+            if (darkenScreenImage.color.a > 0)
+            {
+                darkenScreenImage.color = new Color(darkenScreenImage.color.r, darkenScreenImage.color.g, darkenScreenImage.color.b, darkenScreenImage.color.a - 1.5f * Time.deltaTime);
+                yield return null;
+            }
+            else
+            {
+                transition = 2;
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+        darkenScreenObj.SetActive(false);
+        scoreScript.FunctionUpdateScore();
         yield break;
     }
 

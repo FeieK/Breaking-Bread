@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuButtons : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI[] settingsTexts;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject settingsMenu;
@@ -27,8 +26,7 @@ public class MainMenuButtons : MonoBehaviour
         {
             if (Input.GetKeyDown("escape"))
             {
-                Debug.Log("escape");
-                if (gameController.roundIsActive)
+                if (gameController.roundIsActive && gameController.sceneIndex == 2)
                 {
                     if (settingsMenu.activeSelf)
                     {
@@ -46,7 +44,7 @@ public class MainMenuButtons : MonoBehaviour
                     }
 
                 }
-                else
+                else if (gameController.sceneIndex == 1)
                 {
                     if (openMenu == 0)
                     {
@@ -67,20 +65,14 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void StartGame()
     {
-        mainMenu.SetActive(false);
-        gameController.roundIsActive = true;
+        SceneManager.LoadScene(0);
     }
 
     public void OpenSettings()
     {
-        Debug.Log(settingsTexts[0].color);
         if (gameController.roundIsActive)
         {
             pausedButtons.SetActive(false);
-            foreach (TextMeshProUGUI text in settingsTexts)
-            {
-                text.color = Color.white;
-            }
         }
         else
         {
@@ -94,10 +86,6 @@ public class MainMenuButtons : MonoBehaviour
         if (gameController.roundIsActive)
         {
             pausedButtons.SetActive(true);
-            foreach (TextMeshProUGUI text in settingsTexts)
-            {
-                text.color = new Color(0.1960784f, 0.1960784f, 0.1960784f);
-            }
         }
         else
         {
@@ -113,7 +101,7 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void StopGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void Resume()
     {
