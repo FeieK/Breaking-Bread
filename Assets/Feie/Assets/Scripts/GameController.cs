@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
     public void DEBUGDIE()
     {
         playerLives = 1;
-        playerScript.health = 0;
+        gameState.pHp = 0;
     }
     public void Die()
     {
