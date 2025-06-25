@@ -179,6 +179,9 @@ MonoBehaviour:
   - prefab: {fileID: 2194040345146848622, guid: 161bd36a09c108648b22af0cbc6ce8c0, type: 3}
     size: {x: 1, y: 1}
     canRotate: 0
+  - prefab: {fileID: 2194040345146848622, guid: 7c093563af8e75945b7149a19cdb1850, type: 3}
+    size: {x: 1, y: 1}
+    canRotate: 0
   objects:
   - prefab: {fileID: 2194040345146848622, guid: 874a2b41fab2dd647bad3cb8d94da62e, type: 3}
     size: {x: 1, y: 1}
@@ -11740,7 +11743,7 @@ MonoBehaviour:
   fillImage: {fileID: 1485637620}
   healthText: {fileID: 895571975}
   GoldText: {fileID: 499263651}
-  LevelText: {fileID: 0}
+  LevelText: {fileID: 145445097}
 --- !u!1 &1300823923
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,10 +27,10 @@ public class wepshopui : MonoBehaviour
         if (yh && Input.GetKeyDown(KeyCode.E))
         {
             wepui.SetActive(true);
-            //Time.timeScale = 0f;
+            Time.timeScale = 0f;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
