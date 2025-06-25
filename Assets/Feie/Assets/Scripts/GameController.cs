@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -146,5 +147,18 @@ public class GameController : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator Wait(float seconds, IEnumerator ienumerator = null, Action<object> action = null, object argument = null)
+    {
+        yield return new WaitForSeconds(seconds);
 
+        if (ienumerator != null)
+        {
+            yield return StartCoroutine(ienumerator);
+        }
+
+        if (action != null)
+        {
+            action(argument);
+        }
+    }
 }

@@ -10,11 +10,13 @@ public class PlayerSystem : MonoBehaviour
     public int health;
     public bool canGetHurt;
     public float damageReduction;
-    
+
     private Rigidbody2D rb;
     private SpriteRenderer sp;
     private GameController gameController;
     private bool stopKnockback;
+
+    [SerializeField] private HeartUiElement heartUiElement;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,10 @@ public class PlayerSystem : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
     }
 
+    void Update()
+    {
+        health = Mathf.Clamp(health, 0, 200);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -58,6 +64,7 @@ public class PlayerSystem : MonoBehaviour
         {
             canGetHurt = false;
             canMove = false;
+            ChangeHp(-5); //DEBUG
             StartCoroutine(Stun(5));
             Vector2 knockbackDirection = (transform.position - collision.transform.position);
             rb.AddForce(knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
@@ -91,6 +98,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (deltaHp < 0)
         {
+            StartCoroutine(heartUiElement.HitEffectHeart());
             float damage = deltaHp - (deltaHp * damageReduction);
             health += (int)Math.Round(damage);
         }
@@ -103,5 +111,6 @@ public class PlayerSystem : MonoBehaviour
             gameController.Die();
         }
     }
+    
 
 }
