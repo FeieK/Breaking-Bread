@@ -56,6 +56,11 @@ public class roomSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             SaveGame.reset();
+        }      
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            gameState.gold += 100;
         }
         showui();
 
