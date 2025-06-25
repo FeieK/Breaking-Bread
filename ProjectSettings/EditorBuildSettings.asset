@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Feie/Scenes/Main Scene.unity
     guid: ed71e5def243c5b48859abe7bb089244
   - enabled: 1
+    path: Assets/main-scene.unity
+    guid: 580e79d19f390c649855b69180a68b4e
+  - enabled: 1
     path: Assets/Feie/Scenes/Game Scene.unity
     guid: 9aaa9443213f75b4aa8914a0b7cf4004
   m_configObjects:
