@@ -49,6 +49,7 @@ public class ProjectileGun : MonoBehaviour
 
     //UI
     private TextMeshProUGUI ammo;
+    private Slider ReloadBar;
 
     private void Awake()
     {
@@ -201,6 +202,28 @@ public class ProjectileGun : MonoBehaviour
             {
                 spriteRend.flipY = false;
             }
+        }
+    }
+
+    private void ReloadUI()
+    {
+        if (ReloadBar != null)
+        {
+            if (reloading)
+            {
+                ReloadBar.gameObject.SetActive(true);
+                ReloadBar.maxValue = reloadTime;
+                ReloadBar.value += Time.deltaTime;
+            }
+            else
+            {
+                ReloadBar.value = 0;
+                ReloadBar.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            ReloadBar = GameObject.FindWithTag("ReloadUI").GetComponent<Slider>();
         }
     }
 
