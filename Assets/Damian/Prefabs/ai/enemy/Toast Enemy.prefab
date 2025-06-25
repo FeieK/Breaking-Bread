@@ -113,7 +113,7 @@ MonoBehaviour:
   PlayerleLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerCheckRadius: 3
+  playerCheckRadius: 4
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0

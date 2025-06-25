@@ -17,7 +17,7 @@ public class hpRegen : MonoBehaviour
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
 
-        if (!isDashing && cooldownTimer <= 0 && Input.GetKeyDown(KeyCode.LeftShift))
+        if (!isDashing && cooldownTimer <= 0 && Input.GetKeyDown(KeyCode.H))
         {
             Startheal();
         }

@@ -56,6 +56,11 @@ public class roomSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             SaveGame.reset();
+        }      
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            gameState.gold += 100;
         }
         showui();
 
@@ -93,7 +98,7 @@ public class roomSelect : MonoBehaviour
 
         while (totalPoints < minimumE)
         {
-            int choice = Random.Range(minEnemy - 1, maxEnemy); // choice is now index 0–8
+            int choice = Random.Range(minEnemy - 1, maxEnemy); // choice is now index 0ï¿½8
             enemies[choice]++;
             totalPoints += enemyCosts[choice];
         }

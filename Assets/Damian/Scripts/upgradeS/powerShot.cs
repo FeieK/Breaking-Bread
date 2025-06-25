@@ -7,7 +7,6 @@ public class powerShot : MonoBehaviour
 
     public float chargeTimeRequired = 2f;
     private float chargeTimer = 0f;
-    private bool isCharging = true;
 
     public Transform firePoint;
 

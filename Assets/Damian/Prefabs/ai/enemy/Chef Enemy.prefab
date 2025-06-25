@@ -106,14 +106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0fc57eb2501e345a747c4a0d233521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
   PlayerleLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerCheckRadius: 3
+  playerCheckRadius: 2
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b530212585a58b4097424fefeda7c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 150
   startlvl: 6
   goldgain: 6
   hpSlider: {fileID: 5895262672327148221}
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1505546570014329007, guid: 33d8b7bf8f7672a4bafcb4314db511a7, type: 3}
-  shootForce: 4
+  shootForce: 0
   timeBetweenShooting: 0
   spread: 0
   reloadTime: 1

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PathGrid : MonoBehaviour
@@ -37,6 +38,8 @@ public class PathGrid : MonoBehaviour
     private Vector3 playerSpawnPosition;
     private List<Vector3> enemySpawnPositions = new List<Vector3>();
     private List<int> spawnedEnemyTypes = new List<int>();
+
+    private int lives = 5;
 
 
 
@@ -267,7 +270,7 @@ public class PathGrid : MonoBehaviour
         }
 
         Vector2Int basePos = new Vector2Int(baseNode.gridX, baseNode.gridY);
-        if (!IsPlacementValid(basePos, size, 2)) return false;
+        if (!IsPlacementValid(basePos, size, 3)) return false;
         //if its valid proceede
         for (int dx = 0; dx < size.x; dx++)
         {
@@ -434,33 +437,6 @@ public class PathGrid : MonoBehaviour
         return neighbors;
     }
 
-    //private IEnumerator miniMap()
-    //{
-    //    //waits a frame to get gridsize
-    //    yield return null;
-    //    GameObject cameraObj = new GameObject("MinimapCamera");
-    //    cameraObj.transform.SetParent(transform);
-
-    //    Camera minimapCamera = cameraObj.AddComponent<Camera>();
-
-    //    minimapCamera.orthographic = true;
-    //    minimapCamera.orthographicSize = gridWorldSize.y / 2f;
-
-    //   minimapCamera.transform.position = new Vector3(0, 0, -10);
-
-    //    //maybe later
-    //    //minimapCamera.cullingMask = LayerMask.GetMask("minimap");
-
-    //    RenderTexture minimapTexture = new RenderTexture((int)gridWorldSize.x * 10, (int)gridWorldSize.y * 10, 16);
-    //    minimapTexture.name = "MinimapTexture";
-    //    minimapTexture.Create();
-    //    minimapCamera.targetTexture = minimapTexture;
-
-    //    if (minimap != null)
-    //    {
-    //        minimap.texture = minimapTexture;
-    //    }
-    //}
 
     //if wanne see the grid
     private void OnDrawGizmos()
@@ -483,6 +459,13 @@ public class PathGrid : MonoBehaviour
     public void Respawn()
     {
         room.points = Mathf.Max(0, room.points - 50);//nub;
+
+        if (lives <= 0)
+        {
+            SaveGame.Save();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+            lives -= 1;
 
         if (spawnedPlayer != null)
         {
