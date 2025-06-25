@@ -16,19 +16,25 @@ public class PlayerSystem : MonoBehaviour
     private GameController gameController;
     private bool stopKnockback;
 
-    [SerializeField] private HeartUiElement heartUiElement;
+    private HeartUiElement heartUiElement;
     // Start is called before the first frame update
     void Start()
     {
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
         health = 100;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+    }
+    void Awake()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        heartUiElement = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HeartUiElement>();
     }
 
     void Update()
     {
         health = Mathf.Clamp(health, 0, 200);
+        gameState.pHp = health;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -96,21 +102,24 @@ public class PlayerSystem : MonoBehaviour
 
     public void ChangeHp(int deltaHp)
     {
-        if (deltaHp < 0)
+        if (canGetHurt)
         {
-            StartCoroutine(heartUiElement.HitEffectHeart());
-            float damage = deltaHp - (deltaHp * damageReduction);
-            health += (int)Math.Round(damage);
-        }
-        else
-        {
-            health += deltaHp;
-        }
-        if (health <= 0)
-        {
-            gameController.Die();
+            if (deltaHp < 0)
+            {
+                StartCoroutine(heartUiElement.HitEffectHeart());
+                float damage = deltaHp - (deltaHp * damageReduction);
+                health += (int)Math.Round(damage);
+            }
+            else
+            {
+                health += deltaHp;
+            }
+            if (health <= 0)
+            {
+                gameController.Die();
+            }
         }
     }
-    
+
 
 }

@@ -19,9 +19,9 @@ public class GameController : MonoBehaviour
     private GameObject spawn;   // The spawn variable
 
     [SerializeField] private GameObject[] scoreObj;
+    [SerializeField] private Score scoreScript;
     [SerializeField] private GameObject darkenScreenObj;
-    private Image darkenScreenImage;
-    private Score scoreScript;
+    [SerializeField] private Image darkenScreenImage;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,8 +36,6 @@ public class GameController : MonoBehaviour
         if (sceneIndex == 2)
         {
             playerScript = player.GetComponent<PlayerSystem>();
-            scoreScript = scoreObj[1].GetComponent<Score>();
-            darkenScreenImage = darkenScreenObj.GetComponent<Image>();
         }
 
     }
@@ -92,7 +90,7 @@ public class GameController : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2);
-        player.transform.position = spawn.transform.position;   // Setting the player position to the spawn position (Remove when merging)
+        room.die = true;
         canvasGroup.alpha = 0;
         transition = true;
         while (transition)

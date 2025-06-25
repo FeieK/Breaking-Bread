@@ -10,6 +10,8 @@ TagManager:
   - wepSpawnLocation
   - Shield
   - AmmoUI
+  - ReloadUI
+  - HealthUI
   layers:
   - Default
   - TransparentFX

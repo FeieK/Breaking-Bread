@@ -26,8 +26,10 @@ public class MainMenuButtons : MonoBehaviour
         {
             if (Input.GetKeyDown("escape"))
             {
-                if (gameController.roundIsActive && gameController.sceneIndex == 2)
+                Debug.Log("esc");
+                if (gameController.roundIsActive && SceneManager.GetActiveScene().buildIndex == 2)
                 {
+                    Debug.Log("Scene");
                     if (settingsMenu.activeSelf)
                     {
                         CloseSettings();

@@ -15,7 +15,6 @@ public class HeartUiElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField] private Sprite[] sprites;
 
-    [SerializeField] private PlayerSystem playerSystem;
     private GameController gameController;
     public bool hover;
 
@@ -26,9 +25,9 @@ public class HeartUiElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Update is called once per frame
     void Update()
     {
-        uiHpFill_100.fillAmount = (float)playerSystem.health / 100;
-        uiHpFill_200.fillAmount = ((float)playerSystem.health - 100) / 100;
-        text.text = playerSystem.health.ToString();
+        uiHpFill_100.fillAmount = (float)gameState.pHp / 100;
+        uiHpFill_200.fillAmount = ((float)gameState.pHp - 100) / 100;
+        text.text = gameState.pHp.ToString();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

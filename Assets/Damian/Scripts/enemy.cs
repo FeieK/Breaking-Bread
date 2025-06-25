@@ -27,6 +27,9 @@ public class enemy : MonoBehaviour
     //gun
     private ProjectileGun enemyGun;
 
+    private GameController gameController;
+    public bool STOP;
+
 
     private void OnEnable()
     {
@@ -40,7 +43,7 @@ public class enemy : MonoBehaviour
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
 
         enemyGun = GetComponentInChildren<ProjectileGun>();
-
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
 
@@ -54,69 +57,77 @@ public class enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Player == null) return;
-
-        //checks the range
-        bool playerInRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius;
-
-        bool playerInshootwalkRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius + 2;
-
-        //checks if theres a object
-        Vector2 direction = (Player.position - transform.position).normalized;
-        float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distanceToPlayer, obstacleLayer);
-         //bcs why not
-        Debug.DrawRay(transform.position, direction * distanceToPlayer, Color.red);
-
-        //if it doesnt hit or is inrange of to player
-
-        if (playerInshootwalkRange && !playerInRange && hit == false)
+        STOP = gameController.roundIsActive;
+        if (STOP)
         {
-            walk();
-            shoot();
+            if (Player == null) return;
+
+            //checks the range
+            bool playerInRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius;
+
+            bool playerInshootwalkRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius + 2;
+
+            //checks if theres a object
+            Vector2 direction = (Player.position - transform.position).normalized;
+            float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distanceToPlayer, obstacleLayer);
+            //bcs why not
+            Debug.DrawRay(transform.position, direction * distanceToPlayer, Color.red);
+
+            //if it doesnt hit or is inrange of to player
+
+            if (playerInshootwalkRange && !playerInRange && hit == false)
+            {
+                walk();
+                shoot();
+            }
+            else if (!playerInRange || hit == false)
+            {
+                walk();
+                enemyGun.shooting = false;
+            }
+            //shoot
+            else
+            {
+                shoot();
+            }
         }
-        else if (!playerInRange || hit == false)
-        {
-            walk();
-            enemyGun.shooting = false;
-        }
-        //shoot
         else
         {
-            shoot();
+            enemyGun.shooting = false;
         }
     }
 
     private void shoot()
     {
-            enemyGun.shooting = true;
+        enemyGun.shooting = true;
     }
 
     private void walk()
     {
 
-            // Move directly or using path
-            if (path == null || path.Count == 0)
+        // Move directly or using path
+        if (path == null || path.Count == 0)
+        {
+            Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
+            transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
+        }
+        else
+        {
+            Vector2 currentWaypoint = path[targetIndex].worldPosition;
+            if (Vector2.Distance(transform.position, currentWaypoint) < 1f)
             {
-                Vector2 moveTo = ((Vector2)Player.position - (Vector2)transform.position).normalized;
-                transform.position += (Vector3)(moveTo * speed * Time.deltaTime);
-            }
-            else
-            {
-                Vector2 currentWaypoint = path[targetIndex].worldPosition;
-                if (Vector2.Distance(transform.position, currentWaypoint) < 1f)
+                targetIndex++;
+                if (targetIndex >= path.Count)
                 {
-                    targetIndex++;
-                    if (targetIndex >= path.Count)
-                    {
-                        path = null;
-                        return;
-                    }
+                    path = null;
+                    return;
                 }
-
-                Vector2 wpdirection = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
-                transform.position += (Vector3)(wpdirection * speed * Time.deltaTime);
             }
+
+            Vector2 wpdirection = ((Vector2)currentWaypoint - (Vector2)transform.position).normalized;
+            transform.position += (Vector3)(wpdirection * speed * Time.deltaTime);
+        }
 
     }
 
