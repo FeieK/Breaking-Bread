@@ -7,24 +7,29 @@ public class PlayerSystem : MonoBehaviour
     public bool canMove;
     public float speed = 5f;
     public float knockbackStrength;
+    public int health;
     public bool canGetHurt;
     public float damageReduction;
-    
+
     private Rigidbody2D rb;
     private SpriteRenderer sp;
     private GameController gameController;
     private bool stopKnockback;
+
+    [SerializeField] private HeartUiElement heartUiElement;
     // Start is called before the first frame update
-    void OnEnable()
+    void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        health = 100;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
-
-        InvokeRepeating(nameof(hpRecovery), 0f, 1f);
-
     }
 
+    void Update()
+    {
+        health = Mathf.Clamp(health, 0, 200);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -46,10 +51,10 @@ public class PlayerSystem : MonoBehaviour
         {
             rb.linearVelocity *= 0.9f;
         }
-        if (gameState.pHp <= 0)
+        if (health <= 0)
         {
             gameController.Die();
-            gameState.pHp = 100;
+            health = 100;
         }
     }
 
@@ -59,17 +64,13 @@ public class PlayerSystem : MonoBehaviour
         {
             canGetHurt = false;
             canMove = false;
+            ChangeHp(-5); //DEBUG
             StartCoroutine(Stun(5));
             Vector2 knockbackDirection = (transform.position - collision.transform.position);
             rb.AddForce(knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
 
         }
     }
-    public void hpRecovery()
-    {
-        gameState.pHp = Mathf.Min(gameState.pHp + gameState.hpRecovery, gameState.maxhp);
-    }
-
 
     IEnumerator Stun(int maxTimes)
     {
@@ -97,24 +98,19 @@ public class PlayerSystem : MonoBehaviour
     {
         if (deltaHp < 0)
         {
-            //so it gets harder bassed on lvl and difficulty
-            float diff = gameState.GetDifficultyMultiplier();
-            float reducedDmg = deltaHp * Mathf.Pow(1.1f, gameState.level); //a curved dmg increase so lvl 1 10% lvl 2 19%  lvl 3 27% might change values but not this maath bcs just no
-            reducedDmg *= diff;
-
-            float damage = reducedDmg - (deltaHp * damageReduction);
-            gameState.pHp += (int)Math.Round(damage);
-            room.points = Mathf.Max(0, room.points - 10);
+            StartCoroutine(heartUiElement.HitEffectHeart());
+            float damage = deltaHp - (deltaHp * damageReduction);
+            health += (int)Math.Round(damage);
         }
         else
         {
-            gameState.pHp += deltaHp;
+            health += deltaHp;
         }
-        if (gameState.pHp <= 0)
+        if (health <= 0)
         {
-            room.die =true;
-            //gameController.Die();
+            gameController.Die();
         }
     }
+    
 
 }

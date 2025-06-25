@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,7 +45,7 @@ public class GameController : MonoBehaviour
     public void DEBUGDIE()
     {
         playerLives = 1;
-        gameState.pHp = 0;
+        playerScript.health = 0;
     }
     public void Die()
     {
@@ -146,9 +147,18 @@ public class GameController : MonoBehaviour
         yield break;
     }
 
-    public void Timescale()
+    public IEnumerator Wait(float seconds, IEnumerator ienumerator = null, Action<object> action = null, object argument = null)
     {
-        Time.timeScale = 1.0f;
-    }
+        yield return new WaitForSeconds(seconds);
 
+        if (ienumerator != null)
+        {
+            yield return StartCoroutine(ienumerator);
+        }
+
+        if (action != null)
+        {
+            action(argument);
+        }
+    }
 }
