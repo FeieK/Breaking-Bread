@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,10 +26,13 @@ public class MainMenuButtons : MonoBehaviour
         {
             if (Input.GetKeyDown("escape"))
             {
-                Debug.Log("escape");
-                if (gameController.roundIsActive)
+                if (gameController.roundIsActive && gameController.sceneIndex == 2)
                 {
-                    if (!gameController.paused)
+                    if (settingsMenu.activeSelf)
+                    {
+                        CloseSettings();
+                    }
+                    else if (!gameController.paused)
                     {
                         gameController.paused = true;
                         PauseGame();
@@ -37,8 +42,9 @@ public class MainMenuButtons : MonoBehaviour
                         gameController.paused = false;
                         PauseGame();
                     }
+
                 }
-                else
+                else if (gameController.sceneIndex == 1)
                 {
                     if (openMenu == 0)
                     {
@@ -59,8 +65,7 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void StartGame()
     {
-        mainMenu.SetActive(false);
-        gameController.roundIsActive = true;
+        SceneManager.LoadScene(0);
     }
 
     public void OpenSettings()
@@ -96,7 +101,7 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void StopGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void Resume()
     {

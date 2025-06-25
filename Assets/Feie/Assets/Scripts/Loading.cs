@@ -8,20 +8,14 @@ public class Loading : MonoBehaviour
     public GameObject loadingScreen;
     public Image loadingBarFill;
     public TextMeshProUGUI loadingText;
-    public int sceneId;
     
     private bool isLoading;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (sceneId == 0)
-        {
-            sceneId = 1;
-        }
-        StartCoroutine(LoadSceneAsync(sceneId));
+        StartCoroutine(LoadSceneAsync(2));
         StartCoroutine(LoadingTextChange());
     }
-
     IEnumerator LoadSceneAsync(int sceneId)
     {
         isLoading = true;
