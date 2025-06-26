@@ -7,7 +7,7 @@ public class PlayerSystem : MonoBehaviour
     public bool canMove;
     public float speed = 5f;
     public float knockbackStrength;
-    public int health;
+
     public bool canGetHurt;
     public float damageReduction;
 
@@ -21,20 +21,19 @@ public class PlayerSystem : MonoBehaviour
     void Start()
     {
 
-        health = 100;
+        gameState.pHp = 100;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
     }
     void Awake()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        heartUiElement = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HeartUiElement>();
+        heartUiElement = GameObject.FindGameObjectWithTag("gameState.pHpUI").GetComponent<HeartUiElement>();
     }
 
     void Update()
     {
-        health = Mathf.Clamp(health, 0, 200);
-        gameState.pHp = health;
+        gameState.pHp = Mathf.Clamp(gameState.pHp, 0, 200);
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -57,10 +56,9 @@ public class PlayerSystem : MonoBehaviour
         {
             rb.linearVelocity *= 0.9f;
         }
-        if (health <= 0)
+        if (gameState.pHp <= 0)
         {
             gameController.Die();
-            health = 100;
         }
     }
 
@@ -69,8 +67,8 @@ public class PlayerSystem : MonoBehaviour
         if (collision.collider.tag == "Enemy")
         {
             canGetHurt = false;
-            canMove = false;
-            ChangeHp(-5); //DEBUG
+            //canMove = false;
+            //ChangeHp(-5); //DEBUG
             StartCoroutine(Stun(5));
             Vector2 knockbackDirection = (transform.position - collision.transform.position);
             rb.AddForce(knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
@@ -108,13 +106,13 @@ public class PlayerSystem : MonoBehaviour
             {
                 StartCoroutine(heartUiElement.HitEffectHeart());
                 float damage = deltaHp - (deltaHp * damageReduction);
-                health += (int)Math.Round(damage);
+                gameState.pHp += (int)Math.Round(damage);
             }
             else
             {
-                health += deltaHp;
+                gameState.pHp += deltaHp;
             }
-            if (health <= 0)
+            if (gameState.pHp <= 0)
             {
                 gameController.Die();
             }
