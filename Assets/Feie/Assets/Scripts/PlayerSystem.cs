@@ -20,15 +20,14 @@ public class PlayerSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        gameState.pHp = 100;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
     }
     void Awake()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        heartUiElement = GameObject.FindGameObjectWithTag("gameState.pHpUI").GetComponent<HeartUiElement>();
+        heartUiElement = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HeartUiElement>();
+        canGetHurt = true;
     }
 
     void Update()
@@ -56,17 +55,12 @@ public class PlayerSystem : MonoBehaviour
         {
             rb.linearVelocity *= 0.9f;
         }
-        if (gameState.pHp <= 0)
-        {
-            gameController.Die();
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Enemy")
         {
-            canGetHurt = false;
             //canMove = false;
             //ChangeHp(-5); //DEBUG
             StartCoroutine(Stun(5));
@@ -86,6 +80,7 @@ public class PlayerSystem : MonoBehaviour
                 canMove = true;
                 stopKnockback = false;
             }
+            canGetHurt = false;
             stopKnockback = true;
             sp.color = Color.red;
             sp.enabled = false;
