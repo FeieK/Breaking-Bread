@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
     public void Die()
     {
         roundIsActive = false;
+        gameState.pHp = gameState.maxhp;
         if (playerLives > 1)
         {
             playerLives -= 1;
