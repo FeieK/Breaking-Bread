@@ -43,7 +43,6 @@ public class GameController : MonoBehaviour
     public void Die()
     {
         roundIsActive = false;
-        gameState.pHp = gameState.maxhp;
         if (playerLives > 1)
         {
             playerLives -= 1;
@@ -88,6 +87,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(2);
         room.die = true;
         canvasGroup.alpha = 0;
+        gameState.pHp = gameState.maxhp;
         transition = true;
         while (transition)
         {
@@ -154,5 +154,10 @@ public class GameController : MonoBehaviour
         {
             action(argument);
         }
+    }
+
+    public void Time1()
+    {
+        Time.timeScale = 1f;
     }
 }

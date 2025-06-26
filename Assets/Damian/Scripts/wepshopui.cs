@@ -30,6 +30,7 @@ public class wepshopui : MonoBehaviour
             Time.timeScale = 0f;
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

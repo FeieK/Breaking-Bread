@@ -63,39 +63,65 @@ public class enemy : MonoBehaviour
             if (Player == null) return;
 
             //checks the range
-            bool playerInRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius;
-
-            bool playerInshootwalkRange = Vector2.Distance(transform.position, Player.position) <= playerCheckRadius + 2;
-
-            //checks if theres a object
-            Vector2 direction = (Player.position - transform.position).normalized;
             float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distanceToPlayer, obstacleLayer);
-            //bcs why not
+
+            bool playerInRange = distanceToPlayer <= playerCheckRadius;
+            bool playerInShootWalkRange = distanceToPlayer <= playerCheckRadius + 2;
+
+            Vector2 direction = (Player.position - transform.position).normalized;
+            RaycastHit2D obstacleHit = Physics2D.Raycast(transform.position, direction, distanceToPlayer, obstacleLayer);
+
             Debug.DrawRay(transform.position, direction * distanceToPlayer, Color.red);
 
-            //if it doesnt hit or is inrange of to player
+            bool obstacleBetween = obstacleHit.collider != null;
 
-            if (playerInshootwalkRange && !playerInRange && hit == false)
+            if (obstacleBetween)
             {
-                walk();
-                shoot();
-            }
-            else if (!playerInRange || hit == false)
-            {
+                // Obstacle in the way, can't see the player — just walk
                 walk();
                 enemyGun.shooting = false;
             }
-            //shoot
-            else
+            else if (playerInRange)
             {
+                // Player is in close range and no obstacle — just shoot
                 shoot();
             }
+            else if (playerInShootWalkRange)
+            {
+                // Player is in mid-range and visible — walk and shoot
+                walk();
+                shoot();
+            }
+            else
+            {
+                // Player is out of range — just walk
+                walk();
+                enemyGun.shooting = false;
+            }
+
+
+            //if (playerInshootwalkRange && !playerInRange && obstacleHit == false)
+            //{
+            //    //inside range
+            //    walk();
+            //    shoot();
+            //}
+            //else if (!playerInRange || obstacleHit == false)
+            //{
+            //    //outside range
+            //    walk();
+            //    enemyGun.shooting = false;
+            //}
+            ////shoot
+            //else
+            //{
+            //    shoot();
+            //}
         }
-        else
-        {
-            enemyGun.shooting = false;
-        }
+        //else
+        //{
+        //    enemyGun.shooting = false;
+        //}
     }
 
     private void shoot()

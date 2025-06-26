@@ -73,6 +73,7 @@ public class ProjectileGun : MonoBehaviour
         { 
             MyInput();
             AmmoUI();
+            ReloadUI();
         }
         Flip();
     }

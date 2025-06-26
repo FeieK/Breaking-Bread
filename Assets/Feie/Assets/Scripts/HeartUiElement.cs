@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.DedicatedServer;
-public class HeartUiElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HeartUiElement : MonoBehaviour
+    //, IPointerEnterHandler, IPointerExitHandler
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private Image uiHpFill_border;
@@ -30,41 +31,41 @@ public class HeartUiElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         text.text = gameState.pHp.ToString();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        StopAllCoroutines();
-        hover = true;
-        StartCoroutine(gameController.Wait(0.2f, AlphaEnter()));
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    StopAllCoroutines();
+    //    hover = true;
+    //    StartCoroutine(gameController.Wait(0.2f, AlphaEnter()));
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        StopAllCoroutines();
-        hover = false;
-        StartCoroutine(AlphaExit());
-    }
-    IEnumerator AlphaEnter()
-    {
-        if (!hover)
-        {
-            yield break;
-        }
-        while (text.color != new Color(1, 1, 1, 1))
-        {
-            text.color = new Color(1, 1, 1, text.color.a + 0.02f);
-            yield return new WaitForEndOfFrame();
-        }
-        yield break;
-    }
-    IEnumerator AlphaExit()
-    {
-        while (text.color != new Color(1, 1, 1, 0))
-        {
-            text.color = new Color(1, 1, 1, text.color.a - 0.02f);
-            yield return new WaitForEndOfFrame();
-        }
-        yield break;
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    StopAllCoroutines();
+    //    hover = false;
+    //    StartCoroutine(AlphaExit());
+    //}
+    //IEnumerator AlphaEnter()
+    //{
+    //    if (!hover)
+    //    {
+    //        yield break;
+    //    }
+    //    while (text.color != new Color(1, 1, 1, 1))
+    //    {
+    //        text.color = new Color(1, 1, 1, text.color.a + 0.02f);
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    yield break;
+    //}
+    //IEnumerator AlphaExit()
+    //{
+    //    while (text.color != new Color(1, 1, 1, 0))
+    //    {
+    //        text.color = new Color(1, 1, 1, text.color.a - 0.02f);
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    yield break;
+    //}
     public IEnumerator HitEffectHeart(int maxTimes = 5)
     {
         int times = 0;

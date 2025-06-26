@@ -114,6 +114,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   playerCheckRadius: 3
+  STOP: 0
 --- !u!58 &3641019408301290981
 CircleCollider2D:
   m_ObjectHideFlags: 0

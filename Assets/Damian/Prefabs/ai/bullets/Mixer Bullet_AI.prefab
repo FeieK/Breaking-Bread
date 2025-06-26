@@ -167,9 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 75
-  Time: 0
+  Time: 10
   Piercing: 1
-  meele: 0
+  meele: 1
   RandomRotation: 0
 --- !u!1 &6063168525084180107
 GameObject:

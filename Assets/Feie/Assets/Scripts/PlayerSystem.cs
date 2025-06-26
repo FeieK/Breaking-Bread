@@ -17,22 +17,21 @@ public class PlayerSystem : MonoBehaviour
     private bool stopKnockback;
 
     private HeartUiElement heartUiElement;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
-    }
-    void Awake()
-    {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         heartUiElement = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HeartUiElement>();
         canGetHurt = true;
+
+        InvokeRepeating(nameof(hpRecovery), 0f, 1f);
     }
 
     void Update()
     {
-        gameState.pHp = Mathf.Clamp(gameState.pHp, 0, 200);
+        gameState.pHp = Mathf.Clamp(gameState.pHp, 0, gameState.maxhp);
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -111,6 +110,14 @@ public class PlayerSystem : MonoBehaviour
             {
                 gameController.Die();
             }
+        }
+    }
+
+    public void hpRecovery()
+    {
+        if (gameState.pHp < gameState.maxhp)
+        {
+            gameState.pHp = Mathf.Min(gameState.pHp + gameState.hpRecovery, gameState.maxhp);
         }
     }
 

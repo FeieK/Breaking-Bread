@@ -10,7 +10,6 @@ public class hpRegen : MonoBehaviour
     private bool isDashing = false;
     private float timeLeft = 0f;
     private float cooldownTimer = 0f;
-    private Vector2 dashDirection;
 
     void Update()
     {
@@ -34,11 +33,6 @@ public class hpRegen : MonoBehaviour
         isDashing = true;
         timeLeft = duration;
         cooldownTimer = dashCooldown;
-
-        dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-        if (dashDirection == Vector2.zero)
-            dashDirection = Vector2.right;
     }
 
     void healing()
