@@ -1,6 +1,6 @@
 # Breaking-Bread
 
-Game
+Unity Project
 
 ## Getting Started
 
